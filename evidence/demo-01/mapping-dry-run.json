@@ -1,0 +1,134 @@
+{
+  "mode": "DRY_RUN",
+  "site_capabilities_verified": false,
+  "changes": [
+    {
+      "change_id": "eb85ff6c67f28fd5023e369bf558712f287658ff737ca0b05a0be4253727ac1c",
+      "binding": "00000000-0000-4000-8000-000000000001:alarm",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 1 renovated east lobby detector / alarm",
+        "instance": 100,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000001"
+    },
+    {
+      "change_id": "5a3dd703eca7411c67268fd042ccbb2a863edd60a14e598a3c37d2b17ab5bf55",
+      "binding": "00000000-0000-4000-8000-000000000001:trouble",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 1 renovated east lobby detector / trouble",
+        "instance": 101,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000001"
+    },
+    {
+      "change_id": "a65ccdf82e433551161280755ff8355f3879b21023176a784e156d10bd087c7a",
+      "binding": "00000000-0000-4000-8000-000000000001:data_valid",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 1 renovated east lobby detector / data_valid",
+        "instance": 104,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000001"
+    },
+    {
+      "change_id": "cd86c19d75c09d0455c877c402b0b7fa82cbb561972bcd317cdea147d6943164",
+      "binding": "00000000-0000-4000-8000-000000000002:alarm",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 1 stair pull station / alarm",
+        "instance": 105,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000002"
+    },
+    {
+      "change_id": "f4403111ba9e04d5de3ee4728a0dd1f0add33ef24fb39e53ac0cee6127c1f306",
+      "binding": "00000000-0000-4000-8000-000000000002:trouble",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 1 stair pull station / trouble",
+        "instance": 106,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000002"
+    },
+    {
+      "change_id": "0bbdcb53ccadf99612eadab111a198f4112bf71605306d548fe88e81824d20c4",
+      "binding": "00000000-0000-4000-8000-000000000002:data_valid",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 1 stair pull station / data_valid",
+        "instance": 109,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000002"
+    },
+    {
+      "change_id": "50a04209cce862086bafaf300df4bb1e91a0dc0c4c3c156f233debb1254e7c94",
+      "binding": "00000000-0000-4000-8000-000000000003:alarm",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 2 new west detector / alarm",
+        "instance": 110,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000003"
+    },
+    {
+      "change_id": "a9d813f9eac91bc591a8d25df4f955bf30f7665cac3cd19e8352d5c6e7bffe8c",
+      "binding": "00000000-0000-4000-8000-000000000003:trouble",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 2 new west detector / trouble",
+        "instance": 111,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000003"
+    },
+    {
+      "change_id": "ee9100dddff1379323065809f08afc9957bfea1fb0bf73e2899a82d881bdc2f7",
+      "binding": "00000000-0000-4000-8000-000000000003:data_valid",
+      "action": "create_mapper_if_supported",
+      "desired": {
+        "name": "SIMULATED Level 2 new west detector / data_valid",
+        "instance": 114,
+        "object_type": "binary-input",
+        "retired": false
+      },
+      "placement_status": "unplaced",
+      "device_url": "/devices/00000000-0000-4000-8000-000000000003"
+    }
+  ],
+  "capability_checklist": [
+    "Server/API release and license",
+    "Engine capacity including alarm/quality objects",
+    "supportedChildTypes under designated integration",
+    "Actual mapper schema and role scope",
+    "Quality/alarm behavior",
+    "Equipment and floor-plan placement",
+    "External device-page navigation"
+  ],
+  "unmanaged_relationships": "preserve",
+  "deletions": []
+}

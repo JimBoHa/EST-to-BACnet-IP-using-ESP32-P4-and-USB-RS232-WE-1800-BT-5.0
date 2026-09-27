@@ -1,0 +1,22 @@
+{
+  "version": "0.1.2",
+  "built_utc": "2026-09-27T17:55:41.941930+00:00",
+  "status": "BUILT; consult STATUS.md for installation/test state",
+  "idf": "v5.5.5",
+  "idf_commit": "b774170ff46c393eeb5e495ea37936038d3f4f4f",
+  "target": "esp32p4",
+  "chip_range": "1.0-1.99",
+  "board_chip": "1.3",
+  "elf_sha256": "cf4356aff96eaee428197b716c5912fbbf54754942f4e156fc5af1ceff2aa700",
+  "application_size_bytes": 932160,
+  "release_files_sha256": {
+    "est3_gateway_rxonly.bin": "54984565a80c69ab45ba2e5d1d8ec477e6400e5b78ea380390c59c62f53dcabb",
+    "bootloader.bin": "312b80d56be7ddd1c5438c78e6bb449a9d5e0a09f714c6dff641418e79848767",
+    "partition-table.bin": "46de5683b232b373d6b0f65ca5dbba7420aa291279c76b96955d9a2605b551b8",
+    "ota_data_initial.bin": "7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f"
+  },
+  "production_symbol_audit": {
+    "simulation_observer_absent": true,
+    "original_payload_tx_absent": true
+  }
+}

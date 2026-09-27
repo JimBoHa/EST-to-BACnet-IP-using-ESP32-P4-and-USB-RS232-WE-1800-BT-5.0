@@ -1,0 +1,92 @@
+ESP-ROM:esp32p4-eco2-20240710
+Build:Jul 10 2024
+rst:0x1 (POWERON),boot:0x30f (SPI_FAST_FLASH_BOOT)
+SPI mode:DIO, clock div:1
+load:0x4ff33ce0,len:0x5c8
+load:0x4ff29ed0,len:0xc14
+load:0x4ff2cbd0,len:0x2cbc
+entry 0x4ff29ed0
+I (728) hex_psram: vendor id    : 0x0d (AP)
+I (728) hex_psram: Latency      : 0x01 (Fixed)
+I (729) hex_psram: DriveStr.    : 0x00 (25 Ohm)
+I (729) hex_psram: dev id       : 0x03 (generation 4)
+I (734) hex_psram: density      : 0x07 (256 Mbit)
+I (738) hex_psram: good-die     : 0x06 (Pass)
+I (742) hex_psram: SRF          : 0x02 (Slow Refresh)
+I (747) hex_psram: BurstType    : 0x00 ( Wrap)
+I (751) hex_psram: BurstLen     : 0x03 (2048 Byte)
+I (756) hex_psram: BitMode      : 0x01 (X16 Mode)
+I (760) hex_psram: Readlatency  : 0x04 (14 cycles@Fixed)
+I (765) hex_psram: DriveStrength: 0x00 (1/1)
+I (769) MSPI Timing: Enter psram timing tuning
+I esp_psram: Found 32MB PSRAM device
+I esp_psram: Speed: 200MHz
+I (1087) mmu_psram: .rodata xip on psram
+I (1164) mmu_psram: .text xip on psram
+I (1164) hex_psram: psram CS IO is dedicated
+I (1164) cpu_start: Multicore app
+I (1574) esp_psram: SPI SRAM memory test OK
+I (1583) cpu_start: GPIO 38 and 37 are used as console UART I/O pins
+I (1584) cpu_start: Pro cpu start user code
+I (1584) cpu_start: cpu freq: 360000000 Hz
+I (1586) app_init: Application information:
+I (1590) app_init: Project name:     phone_p4_function_ev_board
+I (1596) app_init: App version:      v0.4.2-113-ge0e613f-dirty
+I (1601) app_init: Compile time:     Apr 13 2026 17:59:59
+I (1606) app_init: ELF file SHA256:  8d0bbcb1e...
+I (1611) app_init: ESP-IDF:          v5.5.2
+I (1615) efuse_init: Min chip rev:     v0.1
+I (1618) efuse_init: Max chip rev:     v1.99 
+I (1623) efuse_init: Chip rev:         v1.3
+I (1626) heap_init: Initializing. RAM available for dynamic allocation:
+I (1633) heap_init: At 4FF21B90 len 00019430 (101 KiB): RETENT_RAM
+I (1639) heap_init: At 4FF3AFC0 len 00004BF0 (18 KiB): RAM
+I (1644) heap_init: At 4FF40000 len 00040000 (256 KiB): RAM
+I (1649) heap_init: At 50108080 len 00007F80 (31 KiB): RTCRAM
+I (1655) heap_init: At 30100068 len 00001F98 (7 KiB): TCM
+I (1660) esp_psram: Adding pool of 28160K of PSRAM memory to heap allocator
+I (1666) esp_psram: Adding pool of 54K of PSRAM memory gap generated due to end address alignment of irom to the heap allocator
+I (1678) esp_psram: Adding pool of 48K of PSRAM memory gap generated due to end address alignment of drom to the heap allocator
+I (1689) spi_flash: detected chip: gd
+I (1692) spi_flash: flash io: qio
+W (1695) spi_flash: Detected size(32768k) larger than the size in the binary image header(16384k). Using the size in the binary image header.
+I (1708) host_init: ESP Hosted : Host chip_ip[18]
+I (1712) H_API: ESP-Hosted starting. Hosted_Tasks: prio:23, stack: 5120 RPC_task_stack: 5120
+sdio_mempool_create free:29069872 min-free:29069872 lfb-def:28311552 lfb-8bit:28311552
+
+I (1728) H_API: ** add_esp_wifi_remote_channels **
+I (1733) transport: Add ESP-Hosted channel IF[1]: S[0] Tx[0x48011b00] Rx[0x4802128a]
+I (1740) transport: Add ESP-Hosted channel IF[2]: S[0] Tx[0x48011a46] Rx[0x4802128a]
+I (1748) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+I (1754) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+I (1761) main_task: Started on CPU0
+I (1765) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (1772) main_task: Calling app_main()
+I (1776) Main: Switch to partition factory
+I (1779) esp_image: segment 0: paddr=00110020 vaddr=48190020 size=2e3d68h (3030376) map
+I (1947) esp_image: segment 1: paddr=003f3d90 vaddr=30100000 size=00068h (   104) 
+I (1948) esp_image: segment 2: paddr=003f3e00 vaddr=4ff00000 size=0c218h ( 49688) 
+I (1954) esp_image: segment 3: paddr=00400020 vaddr=48000020 size=1827e0h (1583072) map
+I (2043) esp_image: segment 4: paddr=00582808 vaddr=4ff0c218 size=0be44h ( 48708) 
+I (2045) esp_image: segment 5: paddr=0058e654 vaddr=4ff18080 size=04cd4h ( 19668) 
+I (2398) ESP32_P4_PLATFORM: Partition size: total: 4811921, used: 3129468
+I (2398) Main: SPIFFS mount successfully
+W (2398) i2c.master: Please check pull-up resistances whether be connected properly. Otherwise unexpected behavior would happen. For more detailed information, please read docs
+W (2413) i2s_common: dma frame num is adjusted to 256 to align the dma buffer with 64, bufsize = 512
+W (2422) i2s_common: dma frame num is adjusted to 256 to align the dma buffer with 64, bufsize = 512
+I (2436) ES8311: Work in Slave mode
+I (2444) ES8311: Work in Slave mode
+I (2448) I2S_IF: STD mode, dir: TX, data_bit: 16, slot_bit: 16 active_channel: 2, slot_mask: 0x3
+I (2448) I2S_IF: STD mode, dir: RX, data_bit: 16, slot_bit: 16 active_channel: 2, slot_mask: 0x3
+I (2469) Adev_Codec: Open codec device OK
+I (2469) I2S_IF: Current mode(record) and peer mode have same sample_rate 16000, channel 2, bits_per_sample 16
+I (2472) I2S_IF: STD mode, dir: RX, data_bit: 16, slot_bit: 16 active_channel: 2, slot_mask: 0x3
+I (2495) Adev_Codec: Open codec device OK
+I (2495) bsp_extra_board: Setting volume: 80
+I (2495) Main: [main.cpp:0065](app_main): Display ESP-Brookesia phone demo
+I (2498) esp_lvgl:adapter: LVGL adapter initialized successfully
+I (2504) ESP32_P4_PLATFORM: MIPI DSI PHY Powered on
+I (2509) ESP32_P4_PLATFORM: Install MIPI DSI LCD control panel
+I (2514) ESP32_P4_PLATFORM: Install Waveshare LCD control panel
+I (2519) jd9365: version: 1.0.6
+I (2522) i2c_bus: I2C Bus V2 uses the externally initialized bus handle

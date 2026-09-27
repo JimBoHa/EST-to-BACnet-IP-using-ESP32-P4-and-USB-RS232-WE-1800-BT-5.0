@@ -1,0 +1,17 @@
+Checking "python3" ...
+Python 3.14.6
+"python3" has been detected
+Activating ESP-IDF 5.5
+Setting IDF_PATH to '/Users/jimcochran-miller/esp-idf-v5.5.5'.
+* Checking python version ... 3.14.6
+* Checking python dependencies ... OK
+* Deactivating the current ESP-IDF environment (if any) ... OK
+* Establishing a new ESP-IDF environment ... OK
+* Identifying shell ... zsh
+* Detecting outdated tools in system ... OK - no outdated tools found
+* Shell completion ... Autocompletion code generated
+
+Done! You can now compile ESP-IDF projects.
+Go to the project directory and run:
+
+  idf.py build

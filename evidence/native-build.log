@@ -1,0 +1,159 @@
+-- The C compiler identification is AppleClang 21.0.0.21000334
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (2.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/jimcochran-miller/est3-metasys-gateway/build-tests
+[1/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/abort.c.o
+[2/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/alarm_ack.c.o
+[3/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/assigned_access_rights.c.o
+[4/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/authentication_factor.c.o
+[5/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/authentication_factor_format.c.o
+[6/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/access_rule.c.o
+[7/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/awf.c.o
+[8/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/arf.c.o
+[9/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacaction.c.o
+[10/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacprop.c.o
+[11/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacerror.c.o
+[12/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacint.c.o
+[13/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacreal.c.o
+[14/95] Building C object CMakeFiles/gateway_core.dir/Users/jimcochran-miller/est3-metasys-gateway/firmware/components/gateway_core/gateway.c.o
+[15/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacaudit.c.o
+[16/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacdevobjpropref.c.o
+[17/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/baclog.c.o
+[18/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacaddr.c.o
+[19/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacpropstates.c.o
+[20/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/calendar_entry.c.o
+[21/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bactimevalue.c.o
+[22/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bactext.c.o
+[23/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/channel_value.c.o
+[24/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/credential_authentication_factor.c.o
+[25/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/dailyschedule.c.o
+[26/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/dcc.c.o
+[27/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/delete_object.c.o
+[28/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/get_alarm_sum.c.o
+[29/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/create_object.c.o
+[30/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/iam.c.o
+[31/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/getevent.c.o
+[32/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/cov.c.o
+[33/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacdest.c.o
+[34/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/ihave.c.o
+[35/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/indtext.c.o
+[36/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacstr.c.o
+[37/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/memcopy.c.o
+[38/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/lso.c.o
+[39/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/list_element.c.o
+[40/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/property.c.o
+[41/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/datetime.c.o
+[42/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/rd.c.o
+[43/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/proplist.c.o
+[44/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/ptransfer.c.o
+[45/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/npdu.c.o
+[46/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/reject.c.o
+[47/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/segmentack.c.o
+[48/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/rp.c.o
+[49/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/readrange.c.o
+[50/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/shed_level.c.o
+[51/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacdcode.c.o
+[52/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/lighting.c.o
+[53/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/rpm.c.o
+[54/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/special_event.c.o
+[55/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/timesync.c.o
+[56/95] Building C object CMakeFiles/gateway_core.dir/Users/jimcochran-miller/esp-idf-v5.5.5/components/json/cJSON/cJSON.c.o
+/Users/jimcochran-miller/esp-idf-v5.5.5/components/json/cJSON/cJSON.c:127:5: warning: 'sprintf' is deprecated: This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead. [-Wdeprecated-declarations]
+  127 |     sprintf(version, "%i.%i.%i", CJSON_VERSION_MAJOR, CJSON_VERSION_MINOR, CJSON_VERSION_PATCH);
+      |     ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:278:1: note: 'sprintf' has been explicitly marked deprecated here
+  278 | __deprecated_msg("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.")
+      | ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:227:48: note: expanded from macro '__deprecated_msg'
+  227 |         #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))
+      |                                                       ^
+/Users/jimcochran-miller/esp-idf-v5.5.5/components/json/cJSON/cJSON.c:614:18: warning: 'sprintf' is deprecated: This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead. [-Wdeprecated-declarations]
+  614 |         length = sprintf((char*)number_buffer, "null");
+      |                  ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:278:1: note: 'sprintf' has been explicitly marked deprecated here
+  278 | __deprecated_msg("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.")
+      | ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:227:48: note: expanded from macro '__deprecated_msg'
+  227 |         #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))
+      |                                                       ^
+/Users/jimcochran-miller/esp-idf-v5.5.5/components/json/cJSON/cJSON.c:618:18: warning: 'sprintf' is deprecated: This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead. [-Wdeprecated-declarations]
+  618 |         length = sprintf((char*)number_buffer, "%d", item->valueint);
+      |                  ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:278:1: note: 'sprintf' has been explicitly marked deprecated here
+  278 | __deprecated_msg("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.")
+      | ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:227:48: note: expanded from macro '__deprecated_msg'
+  227 |         #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))
+      |                                                       ^
+/Users/jimcochran-miller/esp-idf-v5.5.5/components/json/cJSON/cJSON.c:623:18: warning: 'sprintf' is deprecated: This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead. [-Wdeprecated-declarations]
+  623 |         length = sprintf((char*)number_buffer, "%1.15g", d);
+      |                  ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:278:1: note: 'sprintf' has been explicitly marked deprecated here
+  278 | __deprecated_msg("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.")
+      | ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:227:48: note: expanded from macro '__deprecated_msg'
+  227 |         #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))
+      |                                                       ^
+/Users/jimcochran-miller/esp-idf-v5.5.5/components/json/cJSON/cJSON.c:629:22: warning: 'sprintf' is deprecated: This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead. [-Wdeprecated-declarations]
+  629 |             length = sprintf((char*)number_buffer, "%1.17g", d);
+      |                      ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:278:1: note: 'sprintf' has been explicitly marked deprecated here
+  278 | __deprecated_msg("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.")
+      | ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:227:48: note: expanded from macro '__deprecated_msg'
+  227 |         #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))
+      |                                                       ^
+/Users/jimcochran-miller/esp-idf-v5.5.5/components/json/cJSON/cJSON.c:1063:21: warning: 'sprintf' is deprecated: This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead. [-Wdeprecated-declarations]
+ 1063 |                     sprintf((char*)output_pointer, "u%04x", *input_pointer);
+      |                     ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:278:1: note: 'sprintf' has been explicitly marked deprecated here
+  278 | __deprecated_msg("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.")
+      | ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:227:48: note: expanded from macro '__deprecated_msg'
+  227 |         #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))
+      |                                                       ^
+6 warnings generated.
+[57/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/whoami.c.o
+[58/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/secure_connect.c.o
+[59/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/whohas.c.o
+[60/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/timestamp.c.o
+[61/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/weeklyschedule.c.o
+[62/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/hostnport.c.o
+[63/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/whois.c.o
+[64/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/timer_value.c.o
+[65/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/youare.c.o
+[66/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/bacapp.c.o
+[67/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/service/h_noserv.c.o
+[68/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/npdu/h_npdu.c.o
+[69/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/write_group.c.o
+[70/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/wp.c.o
+[71/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/service/h_apdu.c.o
+[72/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/wpm.c.o
+[73/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/binding/address.c.o
+[74/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/object/bi.c.o
+[75/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/service/h_rp.c.o
+[76/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/service/h_whois.c.o
+[77/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/sys/datetime_mstimer.c.o
+[78/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/service/s_iam.c.o
+[79/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/sys/debug.c.o
+[80/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/tsm/tsm.c.o
+[81/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/sys/dst.c.o
+[82/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/sys/days.c.o
+[83/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/sys/mstimer.c.o
+[84/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/service/h_rpm.c.o
+[85/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/sys/keylist.c.o
+[86/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/firmware/components/bacnet_gateway/bacnet_port.c.o
+[87/95] Building C object CMakeFiles/test_core.dir/test_core.c.o
+[88/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/firmware/components/bacnet_gateway/bacnet_gateway.c.o
+[89/95] Building C object CMakeFiles/sim_bacnet.dir/Users/jimcochran-miller/est3-metasys-gateway/simulator/native_bacnet.c.o
+[90/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/event.c.o
+[91/95] Building C object CMakeFiles/bacnet_gateway.dir/Users/jimcochran-miller/est3-metasys-gateway/third_party/bacnet-stack/src/bacnet/basic/server/bacnet_device.c.o
+[92/95] Linking C static library libgateway_core.a
+[93/95] Linking C executable test_core
+[94/95] Linking C static library libbacnet_gateway.a
+[95/95] Linking C executable sim_bacnet

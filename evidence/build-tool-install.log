@@ -1,0 +1,13 @@
+Collecting cmake
+  Downloading cmake-4.4.3-py3-none-macosx_10_10_universal2.whl.metadata (7.0 kB)
+Collecting ninja
+  Downloading ninja-1.13.2-py3-none-macosx_10_9_universal2.whl.metadata (5.4 kB)
+Downloading cmake-4.4.3-py3-none-macosx_10_10_universal2.whl (54.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 54.4/54.4 MB 17.8 MB/s  0:00:03
+Downloading ninja-1.13.2-py3-none-macosx_10_9_universal2.whl (306 kB)
+Installing collected packages: ninja, cmake
+
+Successfully installed cmake-4.4.3 ninja-1.13.2
+
+[notice] A new release of pip is available: 26.1.2 -> 26.2.1
+[notice] To update, run: /Users/jimcochran-miller/est3-metasys-gateway/.venv/bin/python -m pip install --upgrade pip

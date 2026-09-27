@@ -1,0 +1,64 @@
+{
+  "template_only": true,
+  "schema_version": 2,
+  "hardware_profile": "proposed_esp32_p4_wifi6_poe_eth_usb_ftdi_VERIFY_BEFORE_USE",
+  "production_ecp_tx_enabled": false,
+  "protocol": {
+    "evidence_profile": null,
+    "panel_firmware": null,
+    "baud": null,
+    "data_bits": null,
+    "parity": null,
+    "stop_bits": null,
+    "flow_control": null,
+    "read_allowlist_profile": null,
+    "maximum_condition_age_seconds": null
+  },
+  "network": {
+    "gateway_id": null,
+    "unique_mac": null,
+    "bacnet_device_instance": null,
+    "bacnet_vendor_id": null,
+    "bacnet_udp_port": 47808,
+    "host_https_url": null,
+    "trust_store_reference": null
+  },
+  "catalog": {
+    "mode": null,
+    "source_revision": null,
+    "registry_hash": null,
+    "change_notification_source": null
+  },
+  "metasys": {
+    "enabled": false,
+    "api_base": null,
+    "credential_secret_reference": null,
+    "managed_parent_id": null,
+    "mapper_capability_verified": false,
+    "dry_run_default": true
+  },
+  "panel_commands_supported": false,
+  "raw_serial_network_tunnel_supported": false,
+  "build_profile": "production_protocol_disabled",
+  "usb_serial": {
+    "host_port": "USB-A_OTG",
+    "driver_candidate": "espressif/usb_host_ftdi_vcp",
+    "reference_driver_version": "2.1.1",
+    "verified_vid": null,
+    "verified_pid": null,
+    "verified_usb_serial": null,
+    "delivered_device_verified": false,
+    "wire_colors_verified": false,
+    "poe_only_vbus_verified": false,
+    "automatic_echo_supported": false,
+    "bench_pattern_generator_in_production": false
+  },
+  "panel_connection": {
+    "cpu_model": null,
+    "rs232_card_confirmed": false,
+    "port": null,
+    "gateway_mode": null,
+    "as_built_wiring_verified": false,
+    "contractor_attachment_ready": false
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "fixture_only": true,
+  "schema_version": 1,
+  "source_mode": "simulation",
+  "site_id": "SIM-SITE",
+  "inventory_revision": "SIM-REV-002",
+  "declared_complete": true,
+  "declared_count": 3,
+  "devices": [
+    {
+      "logical_device_id": "00000000-0000-4000-8000-000000000001",
+      "source_address": {
+        "network": "SIM-NET",
+        "node": "SIM-NODE-A",
+        "point": "SIM-POINT-001"
+      },
+      "source_type": "smoke_detector",
+      "source_label": "SIMULATED Level 1 renovated east lobby detector",
+      "lifecycle": "active",
+      "supported_conditions": [
+        "alarm",
+        "trouble"
+      ],
+      "bacnet_bindings": {
+        "alarm": {
+          "object_type": "binary-input",
+          "instance": 11
+        },
+        "trouble": {
+          "object_type": "binary-input",
+          "instance": 12
+        },
+        "data_valid": {
+          "object_type": "binary-input",
+          "instance": 15
+        }
+      },
+      "floorplan": {
+        "floor_id": null,
+        "x": null,
+        "y": null,
+        "placement_status": "unplaced"
+      }
+    },
+    {
+      "logical_device_id": "00000000-0000-4000-8000-000000000002",
+      "source_address": {
+        "network": "SIM-NET",
+        "node": "SIM-NODE-A",
+        "point": "SIM-POINT-002"
+      },
+      "source_type": "manual_pull_station",
+      "source_label": "SIMULATED Level 1 stair pull station",
+      "lifecycle": "active",
+      "supported_conditions": [
+        "alarm",
+        "trouble"
+      ],
+      "bacnet_bindings": {
+        "alarm": {
+          "object_type": "binary-input",
+          "instance": 21
+        },
+        "trouble": {
+          "object_type": "binary-input",
+          "instance": 22
+        },
+        "data_valid": {
+          "object_type": "binary-input",
+          "instance": 25
+        }
+      },
+      "floorplan": {
+        "floor_id": null,
+        "x": null,
+        "y": null,
+        "placement_status": "unplaced"
+      }
+    },
+    {
+      "logical_device_id": "00000000-0000-4000-8000-000000000003",
+      "source_address": {
+        "network": "SIM-NET",
+        "node": "SIM-NODE-A",
+        "point": "SIM-POINT-003"
+      },
+      "source_type": "smoke_detector",
+      "source_label": "SIMULATED Level 2 new west detector",
+      "lifecycle": "active",
+      "supported_conditions": [
+        "alarm",
+        "trouble"
+      ],
+      "bacnet_bindings": {
+        "alarm": {
+          "object_type": "binary-input",
+          "instance": 31
+        },
+        "trouble": {
+          "object_type": "binary-input",
+          "instance": 32
+        },
+        "data_valid": {
+          "object_type": "binary-input",
+          "instance": 35
+        }
+      },
+      "floorplan": {
+        "floor_id": null,
+        "x": null,
+        "y": null,
+        "placement_status": "unplaced"
+      }
+    }
+  ]
+}

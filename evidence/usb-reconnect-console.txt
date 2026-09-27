@@ -1,0 +1,158 @@
+ESP-ROM:esp32p4-eco2-20240710
+Build:Jul 10 2024
+rst:0x1 (POWERON),boot:0x30f (SPI_FAST_FLASH_BOOT)
+SPI mode:DIO, clock div:2
+load:0x4ff33ce0,len:0x15e4
+load:0x4ff29ed0,len:0xe64
+load:0x4ff2cbd0,len:0x35b8
+entry 0x4ff29eda
+I (27) boot: ESP-IDF v5.5.5 2nd stage bootloader
+I (28) boot: compile time Sep 27 2026 10:27:22
+I (28) boot: Multicore bootloader
+I (30) boot: chip revision: v1.3
+I (31) boot: efuse block revision: v0.3
+I (34) boot.esp32p4: SPI Speed      : 40MHz
+I (38) boot.esp32p4: SPI Mode       : DIO
+I (42) boot.esp32p4: SPI Flash Size : 32MB
+I (46) boot: Enabling RNG early entropy source...
+I (50) boot: Partition Table:
+I (53) boot: ## Label            Usage          Type ST Offset   Length
+I (59) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (66) boot:  1 otadata          OTA data         01 00 0000f000 00002000
+I (72) boot:  2 phy_init         RF data          01 01 00011000 00001000
+I (79) boot:  3 ota_0            OTA app          00 10 00020000 00500000
+I (85) boot:  4 ota_1            OTA app          00 11 00520000 00500000
+I (92) boot:  5 registry         WiFi data        01 02 00a20000 00200000
+I (98) boot:  6 journal          WiFi data        01 02 00c20000 00100000
+I (106) boot: End of partition table
+I (110) esp_image: segment 0: paddr=00020020 vaddr=400b0020 size=28a00h (166400) map
+I (152) esp_image: segment 1: paddr=00048a28 vaddr=30100000 size=00098h (   152) load
+I (154) esp_image: segment 2: paddr=00048ac8 vaddr=4ff00000 size=07550h ( 30032) load
+I (164) esp_image: segment 3: paddr=00050020 vaddr=40000020 size=a3ed0h (671440) map
+I (307) esp_image: segment 4: paddr=000f3ef8 vaddr=4ff07550 size=0c4e4h ( 50404) load
+I (321) esp_image: segment 5: paddr=001003e4 vaddr=4ff13a80 size=034fch ( 13564) load
+I (330) boot: Loaded app from partition at offset 0x20000
+I (330) boot: Disabling RNG early entropy source...
+I (342) hex_psram: vendor id    : 0x0d (AP)
+I (342) hex_psram: Latency      : 0x01 (Fixed)
+I (343) hex_psram: DriveStr.    : 0x00 (25 Ohm)
+I (343) hex_psram: dev id       : 0x03 (generation 4)
+I (348) hex_psram: density      : 0x07 (256 Mbit)
+I (352) hex_psram: good-die     : 0x06 (Pass)
+I (357) hex_psram: SRF          : 0x02 (Slow Refresh)
+I (361) hex_psram: BurstType    : 0x00 ( Wrap)
+I (365) hex_psram: BurstLen     : 0x03 (2048 Byte)
+I (370) hex_psram: BitMode      : 0x01 (X16 Mode)
+I (374) hex_psram: Readlatency  : 0x04 (14 cycles@Fixed)
+I (379) hex_psram: DriveStrength: 0x00 (1/1)
+I (383) MSPI Timing: Enter psram timing tuning
+I (561) esp_psram: Found 32MB PSRAM device
+I (561) esp_psram: Speed: 200MHz
+I (562) hex_psram: psram CS IO is dedicated
+I (562) cpu_start: Multicore app
+I (1515) esp_psram: SPI SRAM memory test OK
+I (1524) cpu_start: GPIO 38 and 37 are used as console UART I/O pins
+I (1525) cpu_start: Pro cpu start user code
+I (1525) cpu_start: cpu freq: 360000000 Hz
+I (1527) app_init: Application information:
+I (1531) app_init: Project name:     est3_gateway_rxonly
+I (1536) app_init: App version:      0.1.1
+I (1540) app_init: Compile time:     Sep 27 2026 10:42:09
+I (1545) app_init: ELF file SHA256:  58ab002a2...
+I (1549) app_init: ESP-IDF:          v5.5.5
+I (1553) efuse_init: Min chip rev:     v1.0
+I (1557) efuse_init: Max chip rev:     v1.99 
+I (1561) efuse_init: Chip rev:         v1.3
+I (1565) heap_init: Initializing. RAM available for dynamic allocation:
+I (1571) heap_init: At 4FF20380 len 0001AC40 (107 KiB): RETENT_RAM
+I (1577) heap_init: At 4FF3AFC0 len 00004BF0 (18 KiB): RAM
+I (1582) heap_init: At 4FF40000 len 00060000 (384 KiB): RAM
+I (1588) heap_init: At 50108080 len 00007F80 (31 KiB): RTCRAM
+I (1593) heap_init: At 30100098 len 00001F68 (7 KiB): SPM
+I (1599) esp_psram: Adding pool of 32768K of PSRAM memory to heap allocator
+I (1606) spi_flash: detected chip: gd
+I (1608) spi_flash: flash io: dio
+I (1612) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+I (1618) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+I (1625) main_task: Started on CPU0
+I (1649) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (1649) main_task: Calling app_main()
+I (1659) gateway: EST3 RX-only 0.1.1, revision 103, PSRAM 33554432, boot 5
+W (1659) gateway: REAL ECP DISABLED. SERIAL PAYLOAD TX COMPILED OUT. No verified panel state.
+W (2258) gateway: No registry provisioned; no detector states available
+I (2684) esp_eth.netif.netif_glue: e8:f6:0a:e4:1f:e8
+I (2685) esp_eth.netif.netif_glue: ethernet attached to netif
+I (2693) usb_rx: USB VID=0403 PID=6001 bcdDevice=0600 candidate FT232 (electrical identity unverified)
+FTDI
+USB-RS232-WE-1800-BT-5.0
+ABBAWJDO
+*** Device descriptor ***
+bLength 18
+bDescriptorType 1
+bcdUSB 2.00
+bDeviceClass 0x0
+bDeviceSubClass 0x0
+bDeviceProtocol 0x0
+bMaxPacketSize0 8
+idVendor 0x403
+idProduct 0x6001
+bcdDevice 6.00
+iManufacturer 1
+iProduct 2
+iSerialNumber 3
+bNumConfigurations 1
+*** Configuration descriptor ***
+bLength 9
+bDescriptorType 2
+wTotalLength 32
+bNumInterfaces 1
+bConfigurationValue 1
+iConfiguration 0
+bmAttributes 0xa0
+bMaxPower 90mA
+	*** Interface descriptor ***
+	bLength 9
+	bDescriptorType 4
+	bInterfaceNumber 0
+	bAlternateSetting 0
+	bNumEndpoints 2
+	bInterfaceClass 0xff
+	bInterfaceSubClass 0xff
+	bInterfaceProtocol 0xff
+	iInterface 2
+		*** Endpoint descriptor ***
+		bLength 7
+		bDescriptorType 5
+		bEndpointAddress 0x81	EP 1 IN
+		bmAttributes 0x2	BULK
+		wMaxPacketSize 64
+		bInterval 0
+		*** Endpoint descriptor ***
+		bLength 7
+		bDescriptorType 5
+		bEndpointAddress 0x2	EP 2 OUT
+		bmAttributes 0x2	BULK
+		wMaxPacketSize 64
+		bInterval 0
+I (2825) usb_rx: FT232 open: 19200 8N1, DTR/RTS deasserted, OUT buffer disabled, ECP disabled
+I (6686) gateway: health uptime=5 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33195372 ip=0.0.0.0 registry=1
+I (16688) gateway: health uptime=15 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33195332 ip=0.0.0.0 registry=1
+I (26689) gateway: health uptime=25 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33195332 ip=0.0.0.0 registry=1
+I (36690) gateway: health uptime=35 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33195332 ip=0.0.0.0 registry=1
+I (46691) gateway: health uptime=45 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33195332 ip=0.0.0.0 registry=1
+I (56692) gateway: health uptime=55 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33195332 ip=0.0.0.0 registry=1
+I (66693) gateway: health uptime=65 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33194728 ip=0.0.0.0 registry=1
+I (76694) gateway: health uptime=75 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33194728 ip=0.0.0.0 registry=1
+I (86695) gateway: health uptime=85 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33194728 ip=0.0.0.0 registry=1
+I (96696) gateway: health uptime=95 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33194728 ip=0.0.0.0 registry=1
+I (106697) gateway: health uptime=105 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33194728 ip=0.0.0.0 registry=1
+I (116698) gateway: health uptime=115 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33194728 ip=0.0.0.0 registry=1
+I (126699) gateway: health uptime=125 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33194728 ip=0.0.0.0 registry=1
+I (136700) gateway: health uptime=135 usb=1 connects=1 rx=0 drops=0 errors=0 line_errors=0 heap=33227547 min_heap=33194728 ip=0.0.0.0 registry=1
+Traceback (most recent call last):
+  File "/Users/jimcochran-miller/est3-metasys-gateway/tools/serial_capture.py", line 14, in <module>
+    data=s.read(4096)
+  File "/Users/jimcochran-miller/est3-metasys-gateway/.venv/lib/python3.13/site-packages/serial/serialposix.py", line 565, in read
+    ready, _, _ = select.select([self.fd, self.pipe_abort_read_r], [], [], timeout.time_left())
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "epoch": 2,
+  "source_mode": "simulation",
+  "devices": [
+    {
+      "uuid": "00000000-0000-4000-8000-000000000001",
+      "address": "{\"network\":\"SIM-NET\",\"node\":\"SIM-NODE-A\",\"point\":\"SIM-POINT-001\"}",
+      "type": "smoke_detector",
+      "label": "SIMULATED Level 1 renovated east lobby detector",
+      "label_truncated": false,
+      "binding_epoch": 1,
+      "instances": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "supported": 3,
+      "retired": false
+    },
+    {
+      "uuid": "00000000-0000-4000-8000-000000000002",
+      "address": "{\"network\":\"SIM-NET\",\"node\":\"SIM-NODE-A\",\"point\":\"SIM-POINT-002\"}",
+      "type": "manual_pull_station",
+      "label": "SIMULATED Level 1 stair pull station",
+      "label_truncated": false,
+      "binding_epoch": 1,
+      "instances": [
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "supported": 3,
+      "retired": false
+    },
+    {
+      "uuid": "00000000-0000-4000-8000-000000000003",
+      "address": "{\"network\":\"SIM-NET\",\"node\":\"SIM-NODE-A\",\"point\":\"SIM-POINT-003\"}",
+      "type": "smoke_detector",
+      "label": "SIMULATED Level 2 new west detector",
+      "label_truncated": false,
+      "binding_epoch": 2,
+      "instances": [
+        110,
+        111,
+        112,
+        113,
+        114
+      ],
+      "supported": 3,
+      "retired": false
+    }
+  ]
+}

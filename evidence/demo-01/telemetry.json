@@ -1,0 +1,67 @@
+{
+  "gateway_id": "SIM-GW",
+  "boot_id": "SIM-DEMO",
+  "source_mode": "simulation",
+  "records": [
+    {
+      "sequence": 1,
+      "record_type": "snapshot",
+      "logical_device_id": "00000000-0000-4000-8000-000000000001",
+      "binding_epoch": 1,
+      "values": {
+        "alarm": false,
+        "trouble": false
+      }
+    },
+    {
+      "sequence": 2,
+      "record_type": "snapshot",
+      "logical_device_id": "00000000-0000-4000-8000-000000000002",
+      "binding_epoch": 1,
+      "values": {
+        "alarm": false,
+        "trouble": false
+      }
+    },
+    {
+      "sequence": 3,
+      "record_type": "event",
+      "logical_device_id": "00000000-0000-4000-8000-000000000001",
+      "binding_epoch": 1,
+      "normalized_condition": "alarm",
+      "transition": "assert",
+      "raw_source_code": "SIM_ALARM",
+      "source_label_snapshot": "SIMULATED Level 1 east lobby detector"
+    },
+    {
+      "sequence": 4,
+      "record_type": "event",
+      "logical_device_id": "00000000-0000-4000-8000-000000000002",
+      "binding_epoch": 1,
+      "normalized_condition": "alarm",
+      "transition": "assert",
+      "raw_source_code": "SIM_ALARM",
+      "source_label_snapshot": "SIMULATED Level 1 stair pull station"
+    },
+    {
+      "sequence": 5,
+      "record_type": "event",
+      "logical_device_id": "00000000-0000-4000-8000-000000000001",
+      "binding_epoch": 1,
+      "normalized_condition": "trouble",
+      "transition": "assert",
+      "raw_source_code": "SIM_TROUBLE",
+      "source_label_snapshot": "SIMULATED Level 1 east lobby detector"
+    },
+    {
+      "sequence": 6,
+      "record_type": "event",
+      "logical_device_id": "00000000-0000-4000-8000-000000000001",
+      "binding_epoch": 1,
+      "normalized_condition": "alarm",
+      "transition": "restore",
+      "raw_source_code": "SIM_ALARM",
+      "source_label_snapshot": "SIMULATED Level 1 east lobby detector"
+    }
+  ]
+}

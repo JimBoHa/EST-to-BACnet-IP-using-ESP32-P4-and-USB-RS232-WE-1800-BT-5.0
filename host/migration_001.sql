@@ -1,0 +1,12 @@
+BEGIN IMMEDIATE;
+CREATE TABLE metadata (key TEXT PRIMARY KEY,value TEXT NOT NULL);
+CREATE TABLE devices (uuid TEXT PRIMARY KEY,address TEXT NOT NULL,type TEXT NOT NULL,label TEXT NOT NULL,supported TEXT NOT NULL,binding_epoch INTEGER NOT NULL,first_instance INTEGER NOT NULL UNIQUE CHECK(first_instance BETWEEN 100 AND 4194298),retired INTEGER NOT NULL DEFAULT 0,floor TEXT,x REAL,y REAL);
+CREATE TABLE conditions (uuid TEXT NOT NULL REFERENCES devices(uuid),kind TEXT NOT NULL,value INTEGER,observed REAL,synchronized INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(uuid,kind));
+CREATE TABLE streams (gateway TEXT NOT NULL,boot TEXT NOT NULL,ack INTEGER NOT NULL,PRIMARY KEY(gateway,boot));
+CREATE TABLE events (gateway TEXT NOT NULL,boot TEXT NOT NULL,sequence INTEGER NOT NULL,hash TEXT NOT NULL,body TEXT NOT NULL,uuid TEXT,label TEXT NOT NULL,condition TEXT NOT NULL,received REAL NOT NULL,PRIMARY KEY(gateway,boot,sequence));
+CREATE INDEX event_device ON events(uuid,received);
+CREATE TABLE gaps (gateway TEXT NOT NULL,boot TEXT NOT NULL,sequence INTEGER NOT NULL,start INTEGER NOT NULL,stop INTEGER NOT NULL,PRIMARY KEY(gateway,boot,sequence));
+CREATE TABLE journal (id INTEGER PRIMARY KEY,kind TEXT NOT NULL,source_hash TEXT NOT NULL,body TEXT NOT NULL,created REAL NOT NULL);
+CREATE TABLE mappings (binding TEXT PRIMARY KEY,metasys_id TEXT,managed TEXT NOT NULL,revision INTEGER NOT NULL DEFAULT 0);
+PRAGMA user_version=1;
+COMMIT;

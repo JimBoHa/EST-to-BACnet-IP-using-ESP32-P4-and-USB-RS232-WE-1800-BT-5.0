@@ -1,0 +1,338 @@
+{
+  "mode": "SIMULATION_ONLY",
+  "concurrent_state_before_gap": [
+    {
+      "uuid": "00000000-0000-4000-8000-000000000001",
+      "address": {
+        "network": "SIM-NET",
+        "node": "SIM-NODE-A",
+        "point": "SIM-POINT-001"
+      },
+      "type": "smoke_detector",
+      "label": "SIMULATED Level 1 east lobby detector",
+      "supported": [
+        "alarm",
+        "trouble"
+      ],
+      "binding_epoch": 1,
+      "first_instance": 100,
+      "retired": 0,
+      "floor": null,
+      "x": null,
+      "y": null,
+      "conditions": {
+        "alarm": {
+          "uuid": "00000000-0000-4000-8000-000000000001",
+          "kind": "alarm",
+          "value": false,
+          "observed": 1790530877.333864,
+          "synchronized": 1,
+          "quality": "valid"
+        },
+        "disabled": {
+          "uuid": "00000000-0000-4000-8000-000000000001",
+          "kind": "disabled",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "supervisory": {
+          "uuid": "00000000-0000-4000-8000-000000000001",
+          "kind": "supervisory",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "trouble": {
+          "uuid": "00000000-0000-4000-8000-000000000001",
+          "kind": "trouble",
+          "value": true,
+          "observed": 1790530877.333844,
+          "synchronized": 1,
+          "quality": "valid"
+        }
+      },
+      "data_valid": true,
+      "bindings": {
+        "alarm": 100,
+        "trouble": 101,
+        "supervisory": 102,
+        "disabled": 103,
+        "data_valid": 104
+      },
+      "placement_status": "unplaced"
+    },
+    {
+      "uuid": "00000000-0000-4000-8000-000000000002",
+      "address": {
+        "network": "SIM-NET",
+        "node": "SIM-NODE-A",
+        "point": "SIM-POINT-002"
+      },
+      "type": "manual_pull_station",
+      "label": "SIMULATED Level 1 stair pull station",
+      "supported": [
+        "alarm",
+        "trouble"
+      ],
+      "binding_epoch": 1,
+      "first_instance": 105,
+      "retired": 0,
+      "floor": null,
+      "x": null,
+      "y": null,
+      "conditions": {
+        "alarm": {
+          "uuid": "00000000-0000-4000-8000-000000000002",
+          "kind": "alarm",
+          "value": true,
+          "observed": 1790530877.333826,
+          "synchronized": 1,
+          "quality": "valid"
+        },
+        "disabled": {
+          "uuid": "00000000-0000-4000-8000-000000000002",
+          "kind": "disabled",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "supervisory": {
+          "uuid": "00000000-0000-4000-8000-000000000002",
+          "kind": "supervisory",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "trouble": {
+          "uuid": "00000000-0000-4000-8000-000000000002",
+          "kind": "trouble",
+          "value": false,
+          "observed": 1790530877.3337831,
+          "synchronized": 1,
+          "quality": "valid"
+        }
+      },
+      "data_valid": true,
+      "bindings": {
+        "alarm": 105,
+        "trouble": 106,
+        "supervisory": 107,
+        "disabled": 108,
+        "data_valid": 109
+      },
+      "placement_status": "unplaced"
+    }
+  ],
+  "rename_changes": {
+    "epoch": 2,
+    "changes": [
+      {
+        "uuid": "00000000-0000-4000-8000-000000000001",
+        "action": "rename"
+      },
+      {
+        "uuid": "00000000-0000-4000-8000-000000000003",
+        "action": "add"
+      }
+    ],
+    "idempotent": false
+  },
+  "after_gap": [
+    {
+      "uuid": "00000000-0000-4000-8000-000000000001",
+      "address": {
+        "network": "SIM-NET",
+        "node": "SIM-NODE-A",
+        "point": "SIM-POINT-001"
+      },
+      "type": "smoke_detector",
+      "label": "SIMULATED Level 1 renovated east lobby detector",
+      "supported": [
+        "alarm",
+        "trouble"
+      ],
+      "binding_epoch": 1,
+      "first_instance": 100,
+      "retired": 0,
+      "floor": null,
+      "x": null,
+      "y": null,
+      "conditions": {
+        "alarm": {
+          "uuid": "00000000-0000-4000-8000-000000000001",
+          "kind": "alarm",
+          "value": false,
+          "observed": 1790530877.333864,
+          "synchronized": 0,
+          "quality": "stale"
+        },
+        "disabled": {
+          "uuid": "00000000-0000-4000-8000-000000000001",
+          "kind": "disabled",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "supervisory": {
+          "uuid": "00000000-0000-4000-8000-000000000001",
+          "kind": "supervisory",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "trouble": {
+          "uuid": "00000000-0000-4000-8000-000000000001",
+          "kind": "trouble",
+          "value": true,
+          "observed": 1790530877.333844,
+          "synchronized": 0,
+          "quality": "stale"
+        }
+      },
+      "data_valid": false,
+      "bindings": {
+        "alarm": 100,
+        "trouble": 101,
+        "supervisory": 102,
+        "disabled": 103,
+        "data_valid": 104
+      },
+      "placement_status": "unplaced"
+    },
+    {
+      "uuid": "00000000-0000-4000-8000-000000000002",
+      "address": {
+        "network": "SIM-NET",
+        "node": "SIM-NODE-A",
+        "point": "SIM-POINT-002"
+      },
+      "type": "manual_pull_station",
+      "label": "SIMULATED Level 1 stair pull station",
+      "supported": [
+        "alarm",
+        "trouble"
+      ],
+      "binding_epoch": 1,
+      "first_instance": 105,
+      "retired": 0,
+      "floor": null,
+      "x": null,
+      "y": null,
+      "conditions": {
+        "alarm": {
+          "uuid": "00000000-0000-4000-8000-000000000002",
+          "kind": "alarm",
+          "value": true,
+          "observed": 1790530877.333826,
+          "synchronized": 0,
+          "quality": "stale"
+        },
+        "disabled": {
+          "uuid": "00000000-0000-4000-8000-000000000002",
+          "kind": "disabled",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "supervisory": {
+          "uuid": "00000000-0000-4000-8000-000000000002",
+          "kind": "supervisory",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "trouble": {
+          "uuid": "00000000-0000-4000-8000-000000000002",
+          "kind": "trouble",
+          "value": false,
+          "observed": 1790530877.3337831,
+          "synchronized": 0,
+          "quality": "stale"
+        }
+      },
+      "data_valid": false,
+      "bindings": {
+        "alarm": 105,
+        "trouble": 106,
+        "supervisory": 107,
+        "disabled": 108,
+        "data_valid": 109
+      },
+      "placement_status": "unplaced"
+    },
+    {
+      "uuid": "00000000-0000-4000-8000-000000000003",
+      "address": {
+        "network": "SIM-NET",
+        "node": "SIM-NODE-A",
+        "point": "SIM-POINT-003"
+      },
+      "type": "smoke_detector",
+      "label": "SIMULATED Level 2 new west detector",
+      "supported": [
+        "alarm",
+        "trouble"
+      ],
+      "binding_epoch": 2,
+      "first_instance": 110,
+      "retired": 0,
+      "floor": null,
+      "x": null,
+      "y": null,
+      "conditions": {
+        "alarm": {
+          "uuid": "00000000-0000-4000-8000-000000000003",
+          "kind": "alarm",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unknown"
+        },
+        "disabled": {
+          "uuid": "00000000-0000-4000-8000-000000000003",
+          "kind": "disabled",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "supervisory": {
+          "uuid": "00000000-0000-4000-8000-000000000003",
+          "kind": "supervisory",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unsupported"
+        },
+        "trouble": {
+          "uuid": "00000000-0000-4000-8000-000000000003",
+          "kind": "trouble",
+          "value": null,
+          "observed": null,
+          "synchronized": 0,
+          "quality": "unknown"
+        }
+      },
+      "data_valid": false,
+      "bindings": {
+        "alarm": 110,
+        "trouble": 111,
+        "supervisory": 112,
+        "disabled": 113,
+        "data_valid": 114
+      },
+      "placement_status": "unplaced"
+    }
+  ],
+  "ack": 10,
+  "address_reuse": "QUARANTINED"
+}

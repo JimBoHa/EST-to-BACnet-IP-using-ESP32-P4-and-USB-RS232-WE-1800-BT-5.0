@@ -1,0 +1,14 @@
+{
+  "version": "0.1.1",
+  "idf": "v5.5.5",
+  "idf_commit": "b774170ff46c393eeb5e495ea37936038d3f4f4f",
+  "target": "esp32p4",
+  "chip_range": "1.0-1.99",
+  "board_chip": "1.3",
+  "hashes": {
+    "firmware/build/est3_gateway_rxonly.bin": "6b1deddca63ff57cdcfd8993392959233618086ddfe2022da8eb4bdf5980cbec",
+    "firmware/build/bootloader/bootloader.bin": "312b80d56be7ddd1c5438c78e6bb449a9d5e0a09f714c6dff641418e79848767",
+    "firmware/build/partition_table/partition-table.bin": "46de5683b232b373d6b0f65ca5dbba7420aa291279c76b96955d9a2605b551b8",
+    "firmware/build/ota_data_initial.bin": "7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f"
+  }
+}

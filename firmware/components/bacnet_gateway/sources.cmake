@@ -1,0 +1,20 @@
+file(GLOB BACNET_SOURCES "${BACNET_ROOT}/bacnet/*.c")
+list(APPEND BACNET_SOURCES
+    "${BACNET_ROOT}/bacnet/basic/binding/address.c"
+    "${BACNET_ROOT}/bacnet/basic/server/bacnet_device.c"
+    "${BACNET_ROOT}/bacnet/basic/object/bi.c"
+    "${BACNET_ROOT}/bacnet/basic/npdu/h_npdu.c"
+    "${BACNET_ROOT}/bacnet/basic/service/h_apdu.c"
+    "${BACNET_ROOT}/bacnet/basic/service/h_noserv.c"
+    "${BACNET_ROOT}/bacnet/basic/service/h_rp.c"
+    "${BACNET_ROOT}/bacnet/basic/service/h_rpm.c"
+    "${BACNET_ROOT}/bacnet/basic/service/h_whois.c"
+    "${BACNET_ROOT}/bacnet/basic/service/s_iam.c"
+    "${BACNET_ROOT}/bacnet/basic/tsm/tsm.c"
+    "${BACNET_ROOT}/bacnet/basic/sys/datetime_mstimer.c"
+    "${BACNET_ROOT}/bacnet/basic/sys/days.c"
+    "${BACNET_ROOT}/bacnet/basic/sys/dst.c"
+    "${BACNET_ROOT}/bacnet/basic/sys/debug.c"
+    "${BACNET_ROOT}/bacnet/basic/sys/keylist.c"
+    "${BACNET_ROOT}/bacnet/basic/sys/mstimer.c"
+)

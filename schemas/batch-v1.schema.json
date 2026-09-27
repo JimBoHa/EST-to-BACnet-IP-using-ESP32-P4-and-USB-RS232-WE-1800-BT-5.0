@@ -1,0 +1,268 @@
+{
+  "$defs": {
+    "Address": {
+      "additionalProperties": false,
+      "properties": {
+        "network": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Network",
+          "type": "string"
+        },
+        "node": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Node",
+          "type": "string"
+        },
+        "point": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Point",
+          "type": "string"
+        }
+      },
+      "required": [
+        "network",
+        "node",
+        "point"
+      ],
+      "title": "Address",
+      "type": "object"
+    },
+    "Record": {
+      "additionalProperties": false,
+      "properties": {
+        "sequence": {
+          "maximum": 9007199254740991,
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "record_type": {
+          "enum": [
+            "event",
+            "snapshot",
+            "history_gap",
+            "diagnostic",
+            "heartbeat"
+          ],
+          "title": "Record Type",
+          "type": "string"
+        },
+        "logical_device_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Logical Device Id"
+        },
+        "binding_epoch": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Binding Epoch"
+        },
+        "normalized_condition": {
+          "default": "unknown",
+          "enum": [
+            "alarm",
+            "trouble",
+            "supervisory",
+            "disabled",
+            "unknown"
+          ],
+          "title": "Normalized Condition",
+          "type": "string"
+        },
+        "transition": {
+          "default": "unknown",
+          "enum": [
+            "assert",
+            "restore",
+            "unknown"
+          ],
+          "title": "Transition",
+          "type": "string"
+        },
+        "values": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "title": "Values",
+          "type": "object"
+        },
+        "raw_source_code": {
+          "default": "",
+          "maxLength": 128,
+          "title": "Raw Source Code",
+          "type": "string"
+        },
+        "source_label_snapshot": {
+          "default": "",
+          "maxLength": 4096,
+          "title": "Source Label Snapshot",
+          "type": "string"
+        },
+        "source_address": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Address"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "received_utc": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Received Utc"
+        },
+        "source_time": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Time"
+        },
+        "time_quality": {
+          "default": "monotonic_only",
+          "maxLength": 40,
+          "title": "Time Quality",
+          "type": "string"
+        },
+        "monotonic_ms": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Monotonic Ms",
+          "type": "integer"
+        },
+        "missing_sequence_start": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Missing Sequence Start"
+        },
+        "missing_sequence_end": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Missing Sequence End"
+        },
+        "reason": {
+          "default": "",
+          "maxLength": 512,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "record_type"
+      ],
+      "title": "Record",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "gateway_id": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Gateway Id",
+      "type": "string"
+    },
+    "boot_id": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Boot Id",
+      "type": "string"
+    },
+    "source_mode": {
+      "enum": [
+        "simulation",
+        "protocol_disabled"
+      ],
+      "title": "Source Mode",
+      "type": "string"
+    },
+    "sent_monotonic_ms": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sent Monotonic Ms"
+    },
+    "records": {
+      "items": {
+        "$ref": "#/$defs/Record"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "title": "Records",
+      "type": "array"
+    }
+  },
+  "required": [
+    "gateway_id",
+    "boot_id",
+    "source_mode",
+    "records"
+  ],
+  "title": "Batch",
+  "type": "object"
+}

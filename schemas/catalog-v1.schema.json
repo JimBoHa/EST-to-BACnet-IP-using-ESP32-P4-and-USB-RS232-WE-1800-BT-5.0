@@ -1,0 +1,157 @@
+{
+  "$defs": {
+    "Address": {
+      "additionalProperties": false,
+      "properties": {
+        "network": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Network",
+          "type": "string"
+        },
+        "node": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Node",
+          "type": "string"
+        },
+        "point": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Point",
+          "type": "string"
+        }
+      },
+      "required": [
+        "network",
+        "node",
+        "point"
+      ],
+      "title": "Address",
+      "type": "object"
+    },
+    "Device": {
+      "additionalProperties": false,
+      "properties": {
+        "logical_device_id": {
+          "title": "Logical Device Id",
+          "type": "string"
+        },
+        "source_address": {
+          "$ref": "#/$defs/Address"
+        },
+        "source_type": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Source Type",
+          "type": "string"
+        },
+        "source_label": {
+          "maxLength": 4096,
+          "title": "Source Label",
+          "type": "string"
+        },
+        "supported_conditions": {
+          "items": {
+            "enum": [
+              "alarm",
+              "trouble",
+              "supervisory",
+              "disabled"
+            ],
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Supported Conditions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "logical_device_id",
+        "source_address",
+        "source_type",
+        "source_label",
+        "supported_conditions"
+      ],
+      "title": "Device",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "source_mode": {
+      "const": "simulation",
+      "title": "Source Mode",
+      "type": "string"
+    },
+    "fixture_only": {
+      "const": true,
+      "title": "Fixture Only",
+      "type": "boolean"
+    },
+    "site_id": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Site Id",
+      "type": "string"
+    },
+    "revision": {
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "declared_complete": {
+      "const": true,
+      "title": "Declared Complete",
+      "type": "boolean"
+    },
+    "declared_count": {
+      "maximum": 1000,
+      "minimum": 0,
+      "title": "Declared Count",
+      "type": "integer"
+    },
+    "devices": {
+      "items": {
+        "$ref": "#/$defs/Device"
+      },
+      "maxItems": 1000,
+      "title": "Devices",
+      "type": "array"
+    },
+    "approved_retirements": {
+      "default": false,
+      "title": "Approved Retirements",
+      "type": "boolean"
+    },
+    "identity_decisions": {
+      "additionalProperties": {
+        "enum": [
+          "same_logical_replacement",
+          "new_identity"
+        ],
+        "type": "string"
+      },
+      "title": "Identity Decisions",
+      "type": "object"
+    }
+  },
+  "required": [
+    "source_mode",
+    "fixture_only",
+    "site_id",
+    "revision",
+    "declared_complete",
+    "declared_count",
+    "devices"
+  ],
+  "title": "Catalog",
+  "type": "object"
+}

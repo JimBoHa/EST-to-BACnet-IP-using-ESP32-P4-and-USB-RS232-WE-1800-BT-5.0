@@ -1,0 +1,22 @@
+{
+  "fixture_only": true,
+  "schema_version": 1,
+  "source_mode": "simulation",
+  "inventory_revision": "SIM-REV-003",
+  "proposed_change": {
+    "source_address": {
+      "network": "SIM-NET",
+      "node": "SIM-NODE-A",
+      "point": "SIM-POINT-001"
+    },
+    "previous_logical_device_id": "00000000-0000-4000-8000-000000000001",
+    "proposed_source_type": "manual_pull_station",
+    "proposed_source_label": "SIMULATED Different location: Level 3 loading stair",
+    "decision": "QUARANTINE_PENDING_IDENTITY_RECONCILIATION",
+    "must_not_inherit": [
+      "condition_state",
+      "floorplan_coordinates",
+      "logical_device_id"
+    ]
+  }
+}
