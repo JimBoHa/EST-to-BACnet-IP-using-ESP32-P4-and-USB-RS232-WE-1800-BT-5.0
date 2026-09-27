@@ -32,6 +32,6 @@ The 180-second 0.1.1 capture reports stable post-enumeration free heap 33,227,47
 
 ## Remaining unexecuted checks
 
-Physical power loss during an update, electrical levels, VBUS load, independent baud/zero-TX capture, binary packet RX, physical hotplug, overload, brownout, extended mixed load, full-day soak, real ECP, genuine contractor exports and installed Metasys commissioning. Subsequent Ethernet checks are documented separately above.
+Physical power loss during an update, electrical levels, VBUS load, independent baud/zero-TX capture, binary packet RX, hotplug during serial traffic, overload, brownout, extended mixed load, full-day soak, real ECP, genuine contractor exports and installed Metasys commissioning. Subsequent Ethernet and idle USB-A hotplug checks are documented separately above.
 
 Inherited acceptance rows remain NOT_RUN when their full procedure or specified evidence tier was not satisfied. Partial simulation/software observations are recorded without promoting them to contractor, hardware or site passes. Software test count is distinct from acceptance-gate count.

@@ -13,10 +13,12 @@ Updated 2026-09-27. Original Desktop ZIP and supplied NEXT_SESSION_PROMPT.md rev
 | Software checks | **25 pytest tests passed**; **1 native ASan/UBSan C test passed**, including 10,000 malformed inputs |
 | Software capacity | 1,000 logical devices / 5,000 condition objects plus 4 health objects and Device object; independent client reads passed |
 | Ethernet / PoE | Owner connected PoE with USB-C removed; device found at **10.0.7.195**; authenticated HTTPS, FTDI enumeration and independent BACnet RP/RPM passed |
+| USB-A hotplug | Physical disconnect/reconnect observed over Ethernet; adapter reconnects increased 1 to 2, boot count stayed 9, no new USB errors; BACnet reads still passed |
+| Network load with adapter idle | 60 seconds, 131 authenticated HTTPS status reads plus 564 BACnet reads; FTDI remained attached, no reboot/new USB errors; no serial payload traffic |
 | Invalid updates | Bad signature, signed truncated image, wrong project and interrupted upload rejected/aborted; running image and boot count preserved |
 | Panel / Metasys | Panel wires disconnected per owner; no panel testing or Metasys writes |
 
-The capacity and native BACnet results are software evidence. The short idle USB observation is not a mixed-load or 24-hour soak. Flashing and console opens intentionally reset the board. The file named `usb-reconnect-observation.log` did **not** observe a confirmed physical hotplug.
+The capacity and native BACnet results are software evidence. Short idle observations are not a mixed-load or 24-hour soak. Flashing and console opens intentionally reset the board. The older `usb-reconnect-observation.log` did not capture a hotplug; the later physical test is recorded in `evidence/adapter-hotplug-result.json`, at approximately 51 minutes of uptime with no serial traffic.
 
 ## Implemented
 
@@ -35,7 +37,7 @@ Remote application updates now work on this LAN. Bootloader/partition-table chan
 
 ## Remaining field gates
 
-RS232 levels, actual baud, continuity, unused-lead insulation, PoE USB-A VBUS under load, independent zero-payload-TX capture, binary RX, physical hotplug, overload and combined load remain NOT_RUN. No instrument or independent RS232 peer is attached. Driver binds candidate VID/PID and logs descriptors; physical cable verification remains separate.
+RS232 levels, actual baud, continuity, unused-lead insulation, PoE USB-A VBUS under load, independent zero-payload-TX capture, binary RX, hotplug during serial traffic, overload and combined load remain NOT_RUN. No instrument or independent RS232 peer is attached. Driver binds candidate VID/PID and logs descriptors; physical cable verification remains separate.
 
 Real ECP needs exact panel/firmware/mode documentation and authorized captures. Complete inventory, program-change detection and genuine export format remain unavailable. Current CPU/TB2/3-RS232 photos, available port/settings and contractor agreement remain prerequisites. Metasys version, licensing, capacity, schemas, graphics and navigation need installed-site validation. Coordinates and production BACnet assignments are also missing.
 

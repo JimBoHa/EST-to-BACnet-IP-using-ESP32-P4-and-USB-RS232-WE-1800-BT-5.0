@@ -17,6 +17,8 @@ Device: MAC `e8:f6:0a:e4:1f:e8`, DHCP `10.0.7.195`, BACnet Device 3899000. Mac: 
 | Corrected signed update | PASS: 0.1.3 uploaded, rebooted as `ota_1`, boot 9; full ELF hash matched local image and remote confirmation succeeded | `ethernet-update-0.1.3.json` |
 | Independent BACnet client | PASS on actual board: Who-Is/I-Am, indexed five-object list, RP/RPM, protocol-disabled/USB health and advertised service bits | `ethernet-bacnet-0.1.3.json` |
 | Durable diagnostics delivery | PASS: retained sequences 1–32 delivered over authenticated HTTPS; explicit gap 33–225 recorded; ACK advanced to 228; device queue emptied | `ethernet-telemetry-replay.json` |
+| Physical USB-A reconnect | PASS with no serial peer: adapter disconnect/reconnect observed, connects 1 to 2, boot count 9 unchanged, no new USB errors; subsequent independent BACnet reads passed | `adapter-hotplug-result.json`, `adapter-hotplug-bacnet.json` |
+| Network load with idle adapter | PASS: 131 authenticated HTTPS status reads and 564 BACnet reads over 60 seconds; FTDI connection/boot count/error counters unchanged | `adapter-idle-network-load.json` |
 
 Evidence filenames above are under `evidence/`. No registry devices are provisioned, so BACnet exposes the Device object and four gateway-health objects, not invented detector data.
 
@@ -27,6 +29,10 @@ Evidence filenames above are under `evidence/`. No registry devices are provisio
 Confirmed 0.1.3 ELF SHA-256: `c601654d378a81ca734ddff2e1897c7c7bf5b6a982d19d2cf80a353173bdaac3`.
 
 The diagnostic outbox had filled during earlier operation without a host. All first 32 persisted records survived the move, failed update, rollback and corrected update. The 193 omitted records were explicitly represented as a gap rather than silently reported as complete history. These are gateway diagnostics only; no EST events were decoded.
+
+Later adapter test: at approximately 51 minutes of uptime, the owner physically unplugged and reconnected USB-A while PoE Ethernet remained connected. HTTPS polling observed both states and the completed reconnect. Boot count stayed 9 and USB/line-error counters stayed zero. BACnet discovery/RP/RPM also passed after reconnect. RX bytes remained zero, so this does not test payload preservation, queue draining under traffic, actual baud or electrical output silence. Raw observations are in `evidence/adapter-hotplug-20260927T221956Z.jsonl`.
+
+The subsequent 60-second network-read load also passed with the adapter idle. The owner has no additional serial tester/adapter available. A true serial peer or verified external loopback and a separate transmitting bench image would be needed to exercise the electrical data path. Production firmware still transmits no serial payload. The network-load result is not a serial throughput or long-duration endurance result. Reproduce its bounded read workload with `tools/bench_idle_adapter_load.py`.
 
 ## Limits
 

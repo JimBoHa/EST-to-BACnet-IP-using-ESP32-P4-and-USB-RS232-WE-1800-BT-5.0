@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "scope": "Network reads with idle attached FTDI; no serial payload traffic",
+  "duration_seconds": 60,
+  "counts": {
+    "https_reads": 131,
+    "bacnet_reads": 564
+  }
+}

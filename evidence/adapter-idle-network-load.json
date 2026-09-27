@@ -1,0 +1,1246 @@
+{
+  "result": "PASS",
+  "scope": "Network reads with idle attached FTDI; no serial payload traffic",
+  "duration_seconds": 60,
+  "counts": {
+    "https_reads": 131,
+    "bacnet_reads": 564
+  },
+  "baseline": {
+    "project": "est3_gateway_rxonly",
+    "version": "0.1.3",
+    "elf_sha256": "c601654d378a81ca734ddff2e1897c7c7bf5b6a982d19d2cf80a353173bdaac3",
+    "partition": "ota_1",
+    "ip": "10.0.7.195",
+    "protocol": "DISABLED_NO_VERIFIED_ECP_PROFILE",
+    "serial_payload_tx_enabled": false,
+    "simulation": false,
+    "usb_connected": true,
+    "usb_connects": 2,
+    "rx_bytes": 0,
+    "rx_drops": 0,
+    "rx_crc32": 0,
+    "usb_errors": 0,
+    "line_errors": 0,
+    "telemetry_queued": 0,
+    "telemetry_dropped": 193,
+    "journal_ok": true,
+    "awaiting_confirmation": false,
+    "uptime_ms": 3299047,
+    "boot_count": 9,
+    "heap_free": 33163795,
+    "internal_heap_free": 388375,
+    "registry_ok": true,
+    "registry_epoch": 0,
+    "device_count": 0
+  },
+  "final": {
+    "project": "est3_gateway_rxonly",
+    "version": "0.1.3",
+    "elf_sha256": "c601654d378a81ca734ddff2e1897c7c7bf5b6a982d19d2cf80a353173bdaac3",
+    "partition": "ota_1",
+    "ip": "10.0.7.195",
+    "protocol": "DISABLED_NO_VERIFIED_ECP_PROFILE",
+    "serial_payload_tx_enabled": false,
+    "simulation": false,
+    "usb_connected": true,
+    "usb_connects": 2,
+    "rx_bytes": 0,
+    "rx_drops": 0,
+    "rx_crc32": 0,
+    "usb_errors": 0,
+    "line_errors": 0,
+    "telemetry_queued": 0,
+    "telemetry_dropped": 193,
+    "journal_ok": true,
+    "awaiting_confirmation": false,
+    "uptime_ms": 3359318,
+    "boot_count": 9,
+    "heap_free": 33163783,
+    "internal_heap_free": 388363,
+    "registry_ok": true,
+    "registry_epoch": 0,
+    "device_count": 0
+  },
+  "samples": [
+    {
+      "uptime_ms": 3299249,
+      "heap_free": 33163799,
+      "internal_heap_free": 388379,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3299696,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3300144,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3300597,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3301063,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3301519,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3301969,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3302423,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3302881,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3303338,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3303796,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3304248,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3304712,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3305163,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3305612,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3306071,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3306536,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3306998,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3307459,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3307912,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3308366,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3308823,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3309276,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3309730,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3310180,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3310635,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3311087,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3311553,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3312003,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3312456,
+      "heap_free": 33163647,
+      "internal_heap_free": 388395,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3312914,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3313364,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3313825,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3314282,
+      "heap_free": 33163687,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3314748,
+      "heap_free": 33163687,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3315208,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3315659,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3316110,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3316559,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3317013,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3317466,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3317920,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3318367,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3318821,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3319279,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3319732,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3320189,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3320642,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3321096,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3321543,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3321997,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3322447,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3322896,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3323349,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3323801,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3324257,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3324710,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3325162,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3325614,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3326070,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3326530,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3326979,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3327435,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3327888,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3328346,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3328798,
+      "heap_free": 33163787,
+      "internal_heap_free": 388359,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3329251,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3329707,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3330165,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3330626,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3331082,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3331530,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3331982,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3332441,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3332891,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3333349,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3333810,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3334272,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3334719,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3335177,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3335638,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3336090,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3336546,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3337001,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3337462,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3337914,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3338379,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3338831,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3339286,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3339737,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3340192,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3340643,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3341104,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3341560,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3342019,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3342476,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3342936,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3343385,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3343832,
+      "heap_free": 33163815,
+      "internal_heap_free": 388395,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3344286,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3344735,
+      "heap_free": 33163831,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3345191,
+      "heap_free": 33163627,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3345641,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3346097,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3346549,
+      "heap_free": 33163663,
+      "internal_heap_free": 388411,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3347010,
+      "heap_free": 33164019,
+      "internal_heap_free": 388599,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3347637,
+      "heap_free": 33164019,
+      "internal_heap_free": 388599,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3348359,
+      "heap_free": 33163759,
+      "internal_heap_free": 388335,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3348811,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3349275,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3349722,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3350186,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3350642,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3351103,
+      "heap_free": 33163783,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3351558,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3352024,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3352477,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3352939,
+      "heap_free": 33163783,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3353389,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3353845,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3354304,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3354775,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3355230,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3355689,
+      "heap_free": 33163783,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3356139,
+      "heap_free": 33163795,
+      "internal_heap_free": 388375,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3356591,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3357043,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3357498,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3357963,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3358420,
+      "heap_free": 33163783,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    },
+    {
+      "uptime_ms": 3358868,
+      "heap_free": 33163615,
+      "internal_heap_free": 388363,
+      "usb_connected": true,
+      "usb_connects": 2,
+      "boot_count": 9,
+      "usb_errors": 0
+    }
+  ]
+}
