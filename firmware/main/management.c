@@ -41,7 +41,11 @@ static esp_err_t status(httpd_req_t *r) {
     const esp_partition_t *p=esp_ota_get_running_partition();
     cJSON_AddStringToObject(j,"project",esp_app_get_description()->project_name);
     cJSON_AddStringToObject(j,"version",esp_app_get_description()->version);
-    char elf_hash[65];esp_app_get_elf_sha256(elf_hash,sizeof(elf_hash));cJSON_AddStringToObject(j,"elf_sha256",elf_hash);
+    /* esp_app_get_elf_sha256() is capped by CONFIG_APP_RETRIEVE_LEN_ELF_SHA
+       (9 for this build). OTA confirmation needs all 32 descriptor bytes. */
+    char elf_hash[65];const uint8_t *hash=esp_app_get_description()->app_elf_sha256;
+    for(size_t i=0;i<32;i++)snprintf(elf_hash+2*i,3,"%02x",hash[i]);
+    cJSON_AddStringToObject(j,"elf_sha256",elf_hash);
     cJSON_AddStringToObject(j,"partition",p?p->label:"unknown");
     cJSON_AddStringToObject(j,"ip",runtime_ip);
     cJSON_AddStringToObject(j,"protocol","DISABLED_NO_VERIFIED_ECP_PROFILE");

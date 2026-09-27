@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "checks": [
+    {
+      "test": "wrong authentication",
+      "result": "PASS",
+      "response": "HTTP 401: Authentication required"
+    },
+    {
+      "test": "bad image signature",
+      "result": "PASS",
+      "response": "HTTP 400: Rejected: incomplete image, wrong project, or bad signature"
+    },
+    {
+      "test": "signed truncated image",
+      "result": "PASS",
+      "response": "HTTP 400: ESP image validation failed"
+    },
+    {
+      "test": "wrong project",
+      "result": "PASS",
+      "response": "HTTP 400: Rejected: incomplete image, wrong project, or bad signature"
+    },
+    {
+      "test": "connection interrupted during upload",
+      "result": "PASS",
+      "running_image_unchanged": true
+    }
+  ]
+}

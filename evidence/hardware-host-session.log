@@ -1,0 +1,42 @@
+INFO:     Started server process [70385]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://10.0.7.6:8443 (Press CTRL+C to quit)
+INFO:     10.0.7.195:58401 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58402 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58403 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58404 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58405 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58406 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58407 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58408 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58409 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58410 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58411 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58412 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58413 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58414 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58415 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58416 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58417 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58418 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58419 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58420 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58421 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58422 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58423 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58424 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58425 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58426 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58427 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58428 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58429 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58430 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58431 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58432 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58433 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58434 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58435 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58436 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58437 - "POST /api/v1/telemetry HTTP/1.1" 200 OK
+INFO:     10.0.7.195:58438 - "POST /api/v1/telemetry HTTP/1.1" 200 OK

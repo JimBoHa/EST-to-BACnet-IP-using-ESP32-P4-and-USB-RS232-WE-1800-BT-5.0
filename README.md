@@ -27,7 +27,7 @@ Initial installation changes the partition layout. It was performed only after s
 
 ## Ethernet updates
 
-Disconnect USB-C before the planned PoE-only test, then connect board Ethernet to a suitable PoE source on the Mac's lab subnet. Keep EST wires disconnected. DHCP hostname is `est3-p4-e41fe8`; no Wi-Fi is enabled. Locate its lease by MAC, or use a targeted BACnet request on the correct subnet:
+PoE Ethernet operation, an application update to 0.1.3 and automatic rollback have now been tested on this board with USB-C disconnected. Current DHCP address is `10.0.7.195`; keep EST wires disconnected. DHCP hostname is `est3-p4-e41fe8`; no Wi-Fi is enabled. Locate its lease by MAC, or use a targeted BACnet request on the correct subnet:
 
 ```sh
 .venv/bin/python tools/discover.py --broadcast YOUR_SUBNET_BROADCAST
@@ -37,9 +37,9 @@ Disconnect USB-C before the planned PoE-only test, then connect board Ethernet t
 
 The client verifies the TLS chain/time and exact device certificate pin, authenticates with the local token, and signs the image with the separate ECDSA signing key. Device validates the signature, project name, image structure/chip compatibility and partition size before boot selection. Two 5 MiB app slots support rollback. The client checks the new boot after 10 seconds and explicitly confirms it. If no authenticated confirmation arrives within 180 seconds, firmware rolls back. Power loss on an unconfirmed image also triggers ESP-IDF rollback. Initial serial installation is not an OTA rollback test.
 
-The uploader also requires the running ELF hash to match the uploaded image before confirming. Status includes that hash starting with 0.1.2; the stricter client cannot automatically confirm a 0.1.1 image.
+The uploader also requires the running ELF hash to match the uploaded image before confirming. **Use 0.1.3 or later:** 0.1.1 omits that hash, and 0.1.2 incorrectly truncated it to nine characters through ESP-IDF's configured diagnostic helper. The client refused to confirm 0.1.2, and the board returned to 0.1.1 automatically. Version 0.1.3 formats all 32 descriptor bytes and was successfully confirmed remotely.
 
-`--no-confirm` on upload intentionally tests timeout rollback on a disconnected bench device. This must be proved over Ethernet before remote-only field operation. Application updates preserve NVS. Bootloader/partition-layout updates require USB. No Secure Boot, encryption or anti-rollback eFuses were changed. Keep `private/` and firmware binaries private: the TLS server key and device token are embedded; the OTA signing private key stays on the Mac and never enters the firmware.
+`--no-confirm` on upload intentionally tests timeout rollback on a disconnected bench device. Timeout rollback has been observed over Ethernet; physical power-cut recovery remains untested. Application updates preserve NVS. Bootloader/partition-layout updates require USB. No Secure Boot, encryption or anti-rollback eFuses were changed. Keep `private/` and firmware binaries private: the TLS server key and device token are embedded; the OTA signing private key stays on the Mac and never enters the firmware.
 
 ## Host and simulator
 
@@ -77,4 +77,4 @@ Identity allocation, metadata/state separation, telemetry deduplication and gaps
 
 [PICS](docs/PICS.md) states implemented BACnet services and read-only behavior. Metasys reconciliation produces deterministic proposals and preserves unmanaged relationships; it performs **no site writes**. Mapper schemas, license/roles, engine capacity, native graphics, alarm configuration and external-page navigation still need the installed system. New points remain unplaced until coordinates/engineering work are supplied.
 
-Do not infer complete inventory from events. A supported contractor export importer cannot be written until its real format is supplied. Version-matched ECP documentation, authorized captures, RS232 electrical verification, independent TX capture, contractor port/wiring confirmation, Ethernet update/rollback tests and a mixed-load soak are later gates before field commissioning.
+Do not infer complete inventory from events. A supported contractor export importer cannot be written until its real format is supplied. Version-matched ECP documentation, authorized captures, RS232 electrical verification, independent TX capture, contractor port/wiring confirmation and a mixed-load soak remain gates before field commissioning. Ethernet update and timeout rollback results are recorded in [the hardware test report](docs/ETHERNET_TEST_REPORT.md).

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/jimcochran-miller/est3-metasys-gateway/tools/gateway_client.py", line 68, in <module>
+    if args.command=="upload":result=client.upload(args.file,not args.no_confirm)
+                                     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jimcochran-miller/est3-metasys-gateway/tools/gateway_client.py", line 59, in upload
+    raise RuntimeError("Update not confirmed; device should roll back within 180 seconds")
+RuntimeError: Update not confirmed; device should roll back within 180 seconds

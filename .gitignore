@@ -12,3 +12,4 @@ build-tests/
 evidence/original-flash.bin
 release/**/*.bin
 .DS_Store
+evidence/hardware-host.log

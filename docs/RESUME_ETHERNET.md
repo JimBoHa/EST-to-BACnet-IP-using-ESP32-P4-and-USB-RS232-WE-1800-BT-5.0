@@ -1,16 +1,18 @@
-# Resume the PoE bench test
+# Resume remote Ethernet work
 
-Read `STATUS.md` first. No panel wires are connected. User authorizes disconnected firmware/network testing and selected PoE switch/injector power. Avoid opening the USB console during the transition: opening the bridge can reset the P4.
+Read STATUS.md and ETHERNET_TEST_REPORT.md first. Board now runs **0.1.3** on PoE Ethernet at **10.0.7.195**, MAC `e8:f6:0a:e4:1f:e8`. USB-C is disconnected and unavailable. FTDI USB-A remains connected; panel wires remain disconnected. No physical change is needed for ordinary application updates.
 
-Current installed version is 0.1.1, USB-tested only. Candidate `release/0.1.2/est3_gateway_rxonly.bin` is built and not installed. It exposes `elf_sha256`, required by the stricter uploader before automatic confirmation. Original flash and 0.1.1 release are retained privately. No port monitor or host service is running at this handoff.
+Actual tests passed: signed upload/reboot/full-hash confirmation, automatic timeout rollback, invalid-signature/truncated/wrong-project rejection, interrupted upload, independent BACnet RP/RPM, and persisted diagnostic replay with an explicit overflow gap. The 0.1.2 hash-reporting defect was corrected in 0.1.3. Do not reinstall 0.1.2 as a working release.
 
-1. Wait for owner to disconnect USB-C and connect PoE Ethernet on the Mac's LAN. Do not infer this from having a PoE power source. Current Mac en0 is `10.0.7.6/24`, broadcast `10.0.7.255`; verify again if the network changes.
-2. Run `.venv/bin/python tools/discover.py --broadcast 10.0.7.255`. This issues one bounded Who-Is for lab Device 3899000. Expected Ethernet MAC `e8:f6:0a:e4:1f:e8`, hostname `est3-p4-e41fe8` (hostname is not an mDNS service).
-3. Read pinned/authenticated status: `.venv/bin/python tools/gateway_client.py --host DEVICE_IP status`. Keep tokens/cert private keys out of tool output and logs. Record counters, boot number, identity, registry status and free/internal heap.
-4. Use an independent BACnet client for discovery, indexed object list and RP/RPM on the actual board. Empty production registry should expose only Device plus four gateway health BIs. Do not upload a fake catalog as a verified contractor export.
-5. Exercise authentication, invalid signatures and truncated/wrong-project updates while EST is absent; verify running image survives. A rejected upload can overwrite the inactive slot; it must not select that slot. Preserve the known-good file locally.
-6. Upload signed 0.1.2: `.venv/bin/python tools/gateway_client.py --host DEVICE_IP upload release/0.1.2/est3_gateway_rxonly.bin`. Verify exact ELF hash, new boot/version and `awaiting_confirmation=false`. Then deliberately test `--no-confirm` using a distinct later test version and observe the 180-second return to the confirmed image. Record both boots and partition identities. Physical power-interruption recovery is a separate test.
-7. For real diagnostics delivery, start host with a separate `EST3_DB`, `EST3_BIND=10.0.7.6`, `EST3_GATEWAY_ID=P4-e8f60ae41fe8`, `.venv/bin/python tools/run_host.py`. Configure `https://10.0.7.6:8443/api/v1/telemetry` through authenticated `/api/v1/host` using `Client.request`. Device pins the provisioned host certificate and expected name `est3-host.local`; valid device UTC from NTP is needed. Observe backlog drain, ACK persistence, host outage and BACnet independence. Do not mix this database with SIMULATION_ONLY data.
-8. Update status, matrix and report with only actually executed checks. Keep separate electrical/RS232, 24-hour soak, real ECP and Metasys gates open.
+```sh
+.venv/bin/python tools/gateway_client.py --host 10.0.7.195 status
+.venv/bin/python tools/gateway_client.py --host 10.0.7.195 upload release/0.1.3/est3_gateway_rxonly.bin
+```
 
-No scope exists here for live panel attachment, operational commands, arbitrary serial forwarding or guessed ECP framing. Firmware payload TX and real ECP stay disabled. Independent physical zero-TX capture still requires equipment; successful builds and zero RX counters do not satisfy it.
+The updater signs locally, verifies the device certificate, checks all 64 ELF hash characters after reboot and explicitly confirms the new slot. Keep signing credentials and binaries private. Do not change bootloader/partition layout remotely. `--no-confirm` deliberately tests rollback and should be used only for a defined disconnected bench test.
+
+The current address is a DHCP lease. Rediscover with `tools/discover.py --broadcast 10.0.7.255` if needed; verify the Mac remains on that subnet first. Discovery uses Device 3899000. Future access from a different site/network requires routing or an authorized remote-access arrangement; none has been configured here.
+
+The temporary diagnostics host is running on `https://10.0.7.6:8443`, using `private/hardware-bench.sqlite`, bound specifically to the Mac LAN address. It was launched with `EST3_BIND=10.0.7.6`, `EST3_GATEWAY_ID=P4-e8f60ae41fe8`, and `tools/run_host.py`. Process 70385 was the initial launch; check the current process before stopping it. It is not installed as a persistent service. Live log `evidence/hardware-host.log` is excluded from Git; a fixed session snapshot is retained. The board queues diagnostics if the host stops. Do not mix this database with SIMULATION_ONLY data.
+
+Remaining work: extended mixed-load soak, physical PoE VBUS/RS232 measurements, independent TX capture, actual binary receive traffic and adapter hotplug. Real ECP and all serial payload TX stay disabled. Exact panel/protocol documentation, supported export and installed Metasys capability work remain later gates.

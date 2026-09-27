@@ -1,0 +1,85 @@
+{
+  "result": "PASS",
+  "host": "10.0.7.195",
+  "checks": [
+    {
+      "test": "wrong authentication",
+      "result": "PASS",
+      "response": "HTTP 401: Authentication required"
+    },
+    {
+      "test": "bad image signature",
+      "result": "PASS",
+      "response": "HTTP 400: Rejected: incomplete image, wrong project, or bad signature"
+    },
+    {
+      "test": "signed truncated image",
+      "result": "PASS",
+      "response": "HTTP 400: ESP image validation failed"
+    },
+    {
+      "test": "wrong project",
+      "result": "PASS",
+      "response": "HTTP 400: Rejected: incomplete image, wrong project, or bad signature"
+    },
+    {
+      "test": "connection interrupted during upload",
+      "result": "PASS",
+      "running_image_unchanged": true
+    }
+  ],
+  "before": {
+    "project": "est3_gateway_rxonly",
+    "version": "0.1.1",
+    "partition": "ota_0",
+    "ip": "10.0.7.195",
+    "protocol": "DISABLED_NO_VERIFIED_ECP_PROFILE",
+    "serial_payload_tx_enabled": false,
+    "simulation": false,
+    "usb_connected": true,
+    "usb_connects": 1,
+    "rx_bytes": 0,
+    "rx_drops": 0,
+    "rx_crc32": 0,
+    "usb_errors": 0,
+    "line_errors": 0,
+    "telemetry_queued": 32,
+    "telemetry_dropped": 192,
+    "journal_ok": true,
+    "awaiting_confirmation": false,
+    "uptime_ms": 31771,
+    "boot_count": 8,
+    "heap_free": 33164675,
+    "internal_heap_free": 389255,
+    "registry_ok": true,
+    "registry_epoch": 0,
+    "device_count": 0
+  },
+  "after": {
+    "project": "est3_gateway_rxonly",
+    "version": "0.1.1",
+    "partition": "ota_0",
+    "ip": "10.0.7.195",
+    "protocol": "DISABLED_NO_VERIFIED_ECP_PROFILE",
+    "serial_payload_tx_enabled": false,
+    "simulation": false,
+    "usb_connected": true,
+    "usb_connects": 1,
+    "rx_bytes": 0,
+    "rx_drops": 0,
+    "rx_crc32": 0,
+    "usb_errors": 0,
+    "line_errors": 0,
+    "telemetry_queued": 32,
+    "telemetry_dropped": 192,
+    "journal_ok": true,
+    "awaiting_confirmation": false,
+    "uptime_ms": 41507,
+    "boot_count": 8,
+    "heap_free": 33164491,
+    "internal_heap_free": 389239,
+    "registry_ok": true,
+    "registry_epoch": 0,
+    "device_count": 0
+  }
+}

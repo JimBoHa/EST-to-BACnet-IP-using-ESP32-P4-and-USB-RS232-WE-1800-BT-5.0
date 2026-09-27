@@ -1,5 +1,7 @@
 # First-draft test report — 2026-09-27
 
+This file records the first USB/software stage. Subsequent actual PoE, signed update, automatic rollback, update-rejection and diagnostics-replay results are in [ETHERNET_TEST_REPORT.md](ETHERNET_TEST_REPORT.md). Consult STATUS.md for the current installed version.
+
 ## Executed software tests
 
 | Group | Result | Scope |
@@ -28,8 +30,8 @@ FTDI VID `0403`, PID `6001`, bcdDevice `0600`, product `USB-RS232-WE-1800-BT-5.0
 
 The 180-second 0.1.1 capture reports stable post-enumeration free heap 33,227,475 bytes; minimum 33,194,648 bytes. RX/drop/USB-error/line-error counters stayed zero. No external peer existed: zero RX proves no traffic-integrity claim. No spontaneous reset observed; console/flashing resets were intentional.
 
-## Not executed
+## Remaining unexecuted checks
 
-Ethernet/PoE operation, HTTPS update/confirmation/rollback, device invalid-image handling, host delivery/replay, electrical levels, VBUS load, independent baud/zero-TX capture, binary packet RX, physical hotplug, overload, brownout, mixed load, full-day soak, real ECP, genuine contractor exports and installed Metasys commissioning.
+Physical power loss during an update, electrical levels, VBUS load, independent baud/zero-TX capture, binary packet RX, physical hotplug, overload, brownout, extended mixed load, full-day soak, real ECP, genuine contractor exports and installed Metasys commissioning. Subsequent Ethernet checks are documented separately above.
 
 Inherited acceptance rows remain NOT_RUN when their full procedure or specified evidence tier was not satisfied. Partial simulation/software observations are recorded without promoting them to contractor, hardware or site passes. Software test count is distinct from acceptance-gate count.

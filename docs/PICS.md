@@ -13,4 +13,4 @@ Stack: bacnet-stack 1.5.2, commit d2468d56de3d156659a9051c95119e3a6e11c421. BACn
 
 Current bench Device instance: **3899000**. Native software simulator: **3899001**, bound only to localhost. Both are lab assignments; verify uniqueness before site commissioning. Vendor identifier **65535** and name `UNASSIGNED LAB ONLY` are an explicit bench placeholder, not a production vendor registration. Obtain the owner's assigned BACnet Vendor ID through ASHRAE and a site-approved Device instance before field commissioning. Do not use another manufacturer's identity.
 
-Independent BACpypes3 tests exercise the same C code compiled natively. Hardware Ethernet interoperability and installed Metasys behavior have separate evidence gates.
+Independent BACpypes3 tests exercise the same C code compiled natively. Actual PoE hardware also passed discovery, five-object indexed reads, RP/RPM and advertised-service checks (see [ETHERNET_TEST_REPORT.md](ETHERNET_TEST_REPORT.md)). Hardware stress capacity and installed Metasys behavior remain separate gates.
