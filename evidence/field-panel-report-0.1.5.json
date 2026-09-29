@@ -1,0 +1,23 @@
+{
+  "recorded_utc": "2026-09-29T00:42:26.932129+00:00",
+  "version": "0.1.5",
+  "boot_count": 13,
+  "baud": 9600,
+  "format": "8N1",
+  "uptime_ms": 180040,
+  "awaiting_confirmation": false,
+  "payload_bytes": 3564,
+  "rx_bytes": 3564,
+  "captured_bytes": 3564,
+  "capture_offset_gaps": [],
+  "report_headers": 2,
+  "complete_end_markers": 2,
+  "ascii_printable_or_whitespace": true,
+  "sha256": "dbf5d3bdac87ffc6331d9fbc621ead6b2b754e4e4d4f32cd423cf7bad7eac73f",
+  "usb_line_error_packets": 0,
+  "line_errors": 0,
+  "usb_errors": 0,
+  "rx_drops": 0,
+  "serial_payload_tx_enabled": false,
+  "raw_capture_published": false
+}

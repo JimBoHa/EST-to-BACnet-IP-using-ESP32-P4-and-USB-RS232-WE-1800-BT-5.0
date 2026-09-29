@@ -12,7 +12,7 @@ No manufacturer wire specification or authorized EST captures have been supplied
 | Physical USB-A reconnect | Disconnect then reconnect observed; connection count 1 to 2, boot count remained 9, zero new USB errors; Ethernet and subsequent BACnet reads available | IDLE_HOTPLUG_PASS; serial-traffic hotplug NOT_RUN |
 | Attached adapter during network reads | 131 authenticated HTTPS reads and 564 BACnet reads in 60 seconds; adapter remained connected with no new boot/errors | IDLE_NETWORK_LOAD_PASS; serial throughput NOT_RUN |
 | Owner-reported EST attachment, 2026-09-28 | Same certificate at 192.168.75.157; 13 passive status samples over 60 seconds, USB connected, zero RX bytes and no new boots/reconnects/USB or line errors | NETWORK_ACCESS_PASS; EST data connection UNVERIFIED |
-| Owner-requested Printer 2 revision report | 19200 produced UART errors; repeat at 9600 8N1 produced a complete 3,564-byte readable report with no capture gaps or new errors/drops | REAL_PANEL_REPORT_RX_PASS; live event decoding NOT_IMPLEMENTED |
+| Owner-requested Printer 2 revision report | 19200 produced UART errors; 9600 8N1 produced five complete reports totaling 8,910 readable bytes across 0.1.4/0.1.5, including after reboot, with no capture gaps or new errors/drops | REAL_PANEL_REPORT_RX_PASS; live event decoding NOT_IMPLEMENTED |
 | ECP framing / checksum / addressing / sequence / session | No version-matched specification | UNKNOWN; DISABLED |
 | ECP reads / transport acknowledgements | Public FieldServer manual is not a wire specification | UNKNOWN; DISABLED |
 | Current-state recovery / independent conditions | Application simulation only | SIMULATION_ONLY |
