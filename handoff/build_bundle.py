@@ -13,6 +13,7 @@ import subprocess
 import tarfile
 import tempfile
 import zipfile
+from contextlib import closing
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('handoff_restore', ROOT / 'handoff/restore.py')
@@ -46,6 +47,16 @@ def manifest_files(output):
     return [{'path': p.relative_to(output).as_posix(), 'size': p.stat().st_size,
              'sha256': restore.sha256(p)} for p in sorted(output.rglob('*'))
             if p.is_file() and p.name != 'BUNDLE_MANIFEST.json']
+
+
+def snapshot_database(source_path, target):
+    """Close both connections before manifesting; context manager alone doesn't."""
+    with closing(sqlite3.connect(source_path.as_uri() + '?mode=ro', uri=True)) as source:
+        with closing(sqlite3.connect(target)) as destination:
+            source.backup(destination)
+            if destination.execute('PRAGMA integrity_check').fetchall() != [('ok',)]:
+                raise ValueError('Database backup integrity failed: ' + source_path.name)
+            destination.execute('PRAGMA journal_mode=DELETE')
 
 
 def main():
@@ -95,12 +106,7 @@ def main():
     for p in private.glob('*.sqlite'):
         target = payload / 'private' / p.name
         target.parent.mkdir(parents=True, exist_ok=True)
-        with sqlite3.connect(p.as_uri() + '?mode=ro', uri=True) as source:
-            with sqlite3.connect(target) as destination:
-                source.backup(destination)
-                check = destination.execute('PRAGMA integrity_check').fetchall()
-                if check != [('ok',)]:
-                    raise ValueError('Database backup integrity failed: ' + p.name)
+        snapshot_database(p, target)
         target.chmod(0o600)
         database_results[p.name] = 'backup API snapshot; integrity_check ok'
     review = private / 'sdu-review'

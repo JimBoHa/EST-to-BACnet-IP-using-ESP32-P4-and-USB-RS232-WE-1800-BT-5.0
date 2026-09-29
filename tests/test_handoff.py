@@ -53,3 +53,20 @@ def test_existing_workspace_untouched(tmp_path):
     with pytest.raises(ValueError, match='Destination already exists'):
         restore.restore(root, destination, manifest)
     assert sentinel.read_text() == 'user data'
+
+
+def test_snapshot_has_no_transient_manifest_sidecars(tmp_path):
+    import sqlite3
+    import runpy
+    builder=runpy.run_path(str(Path(__file__).parents[1]/'handoff/build_bundle.py'))
+    source=tmp_path/'source.sqlite';target=tmp_path/'snapshot.sqlite'
+    db=sqlite3.connect(source)
+    db.execute('PRAGMA journal_mode=WAL')
+    db.execute('CREATE TABLE sample(value)')
+    db.execute('INSERT INTO sample VALUES (42)');db.commit()
+    builder['snapshot_database'](source,target)
+    assert not target.with_name(target.name+'-wal').exists()
+    assert not target.with_name(target.name+'-shm').exists()
+    restored=sqlite3.connect(target.as_uri()+'?mode=ro&immutable=1',uri=True)
+    assert restored.execute('SELECT value FROM sample').fetchone()==(42,)
+    restored.close();db.close()

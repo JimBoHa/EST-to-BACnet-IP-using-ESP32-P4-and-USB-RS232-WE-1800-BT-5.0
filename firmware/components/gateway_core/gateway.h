@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define GW_MAX_DEVICES 1000
+#define GW_MAX_DEVICES 2048
 #define GW_MAX_JSON (1024*1024)
 #define GW_STALE_MS 60000
 #define GW_SERIAL_PAYLOAD_TX_ENABLED 0
@@ -24,6 +24,7 @@ typedef struct {
     uint32_t epoch;
     size_t count;
     bool simulation;
+    char source_hash[65], source_quality[64];
     gw_device devices[GW_MAX_DEVICES];
 } gw_registry;
 

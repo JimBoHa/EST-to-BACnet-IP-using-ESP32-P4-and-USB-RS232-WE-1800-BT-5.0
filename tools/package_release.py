@@ -28,6 +28,8 @@ if {'gw_observe','cdc_acm_host_data_tx_blocking'} & names:
     raise SystemExit('Production image contains simulation observer or serial payload TX')
 if not {'__wrap_cdc_acm_host_open','observe_usb_packet'} <= names:
     raise SystemExit('Receive diagnostics USB observer is not linked')
+if 'pr_feed' not in names:
+    raise SystemExit('On-device printer observation parser is not linked')
 hashes={}
 for name,source in files.items():
     target=destination/name
@@ -44,7 +46,9 @@ manifest={'version':version,'built_utc':datetime.datetime.now(datetime.timezone.
           'elf_sha256':binary[176:208].hex(),'application_size_bytes':len(binary),
           'release_files_sha256':hashes,
           'production_symbol_audit':{'simulation_observer_absent':True,'original_payload_tx_absent':True,
-                                     'usb_receive_observer_linked':True}}
+                                     'usb_receive_observer_linked':True,'printer_parser_linked':True},
+          'external_history_host_required':False,'current_state_decoder_validated':False,
+          'recent_observation_storage':'128 bounded RAM records; no long-term journal'}
 for path in (ROOT/f'evidence/build-manifest-{version}.json',ROOT/'evidence/build-manifest.json'):
     path.write_text(json.dumps(manifest,indent=2)+'\n')
 print(json.dumps(manifest,indent=2))

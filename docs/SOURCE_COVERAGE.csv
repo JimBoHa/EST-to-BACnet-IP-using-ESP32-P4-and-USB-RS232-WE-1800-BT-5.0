@@ -1,0 +1,18 @@
+field,status,source,completeness,freshness,restore_semantics,startup_recovery,representation
+serial_report_reception,VERIFIED,five private 9600 reports,complete captured reports,receive uptime,not applicable,not applicable,receiver diagnostics
+revision_parser,IMPLEMENTED_FIXTURE_ONLY,genuine sanitized report syntax,strict report envelope,report observation time,not current state,new report required,on-device report metadata
+physical_inventory,VERIFIED,SENSOR MODULE OBJECT LRM joins,674 archive physical rows,backup only,metadata only,persistent qualified registry,searchable directory and reserved native BIs
+all_archive_objects,VERIFIED,OBJECT table,1214 active table rows,backup only,metadata only,persistent registry,6070 reserved BIs plus four health BIs
+special_scope_objects,NOT_YET_VERIFIED,raw cabinet codes 0 and 255,205 archive objects,backup only,unknown,unknown,explicit unresolved source types
+human_message_blob,NOT_YET_VERIFIED,OBJECT Message binary field,raw archive retained,backup only,not applicable,archive available,not interpreted as location
+automatic_event_output,NOT_YET_VERIFIED,manufacturer manual and configured printer candidate,installed routing unverified,unknown,unverified,unverified,recent raw observations
+alarm,NOT_YET_VERIFIED,no validated installed event fixture,unknown,unknown,unverified,unavailable,BI fault and DataValid inactive
+trouble,NOT_YET_VERIFIED,no validated installed event fixture,unknown,unknown,unverified,unavailable,BI fault and DataValid inactive
+supervisory,NOT_YET_VERIFIED,no validated installed event fixture,unknown,unknown,unverified,unavailable,BI fault and DataValid inactive
+disabled,NOT_YET_VERIFIED,no validated installed event fixture,unknown,unknown,unverified,unavailable,BI fault and DataValid inactive
+automatic_snapshot,SOURCE_UNAVAILABLE,current RX-only profile has no verified unsolicited snapshot,unknown,unknown,unknown,unavailable,source coverage notice
+analog_diagnostics,NOT_YET_VERIFIED,archival fields are not live measurements,unknown,unknown,unknown,unavailable,no asserted live value
+program_change_signal,SOURCE_UNAVAILABLE,no verified printer change/export mechanism,unknown,backup import age,not applicable,new reviewed export needed,qualified import diff
+gateway_health,VERIFIED,local USB network memory counters,gateway only,local uptime,not panel conditions,local startup,HTTPS and health BIs
+long_term_history,NOT_APPLICABLE,owner delegates history to Metasys,outside controller scope,Metasys policy,not applicable,Metasys policy,no permanent host or controller recorder
+metasys_commissioning,NOT_APPLICABLE,owner deferred installed integration,pending owner tests,unknown,unknown,unknown,independent BACnet testing only

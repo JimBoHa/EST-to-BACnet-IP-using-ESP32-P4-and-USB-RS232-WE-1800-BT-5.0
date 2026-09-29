@@ -1,0 +1,22 @@
+{
+  "version": "0.1.14",
+  "elf_sha256": "c3bc8da2dd812651e709475f4a3748c68acaf9d4ab43280dc94249f86915c0f2",
+  "boot_count": 31,
+  "uptime_ms": 559977,
+  "reset_reason": 3,
+  "startup_phase": "ready",
+  "awaiting_confirmation": false,
+  "registry_epoch": 1,
+  "device_count": 1214,
+  "rx_bytes": 0,
+  "rx_drops": 0,
+  "usb_errors": 0,
+  "line_errors": 0,
+  "telemetry_queued": 32,
+  "telemetry_dropped": 868,
+  "external_host_delivery_enabled": false,
+  "result": "PASS",
+  "utc": "2026-09-29T12:45:10.296328+00:00",
+  "registry_backup_matches_source": true,
+  "web_name_resolved_to_current_device": true
+}

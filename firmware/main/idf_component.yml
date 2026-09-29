@@ -2,3 +2,4 @@ dependencies:
   idf: "==5.5.5"
   espressif/usb_host_ftdi_vcp: "==2.1.1"
   espressif/usb_host_cdc_acm: "==2.3.0"
+  espressif/mdns: "==1.13.1"

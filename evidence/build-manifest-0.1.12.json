@@ -1,0 +1,27 @@
+{
+  "version": "0.1.12",
+  "built_utc": "2026-09-29T12:27:35.795155+00:00",
+  "status": "BUILT; consult STATUS.md for installation/test state",
+  "idf": "v5.5.5",
+  "idf_commit": "b774170ff46c393eeb5e495ea37936038d3f4f4f",
+  "target": "esp32p4",
+  "chip_range": "1.0-1.99",
+  "board_chip": "1.3",
+  "elf_sha256": "e517ef42ec0b86cde5a8080a07aadd25ce108272cc4e35c27db95df055f56a2f",
+  "application_size_bytes": 985424,
+  "release_files_sha256": {
+    "est3_gateway_rxonly.bin": "e6d914ecc0968e642e155bfcb20a1ac8cee4a2be79ad7d20a233f288818d40c8",
+    "bootloader.bin": "7db80f5651486acc0e59852149b6f4bc3cb561a838d05b8c853852ca21af2de1",
+    "partition-table.bin": "46de5683b232b373d6b0f65ca5dbba7420aa291279c76b96955d9a2605b551b8",
+    "ota_data_initial.bin": "7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f"
+  },
+  "production_symbol_audit": {
+    "simulation_observer_absent": true,
+    "original_payload_tx_absent": true,
+    "usb_receive_observer_linked": true,
+    "printer_parser_linked": true
+  },
+  "external_history_host_required": false,
+  "current_state_decoder_validated": false,
+  "recent_observation_storage": "128 bounded RAM records; no long-term journal"
+}

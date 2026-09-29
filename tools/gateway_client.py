@@ -13,9 +13,14 @@ from cryptography.hazmat.primitives.asymmetric import ec,utils
 
 ROOT=Path(__file__).resolve().parents[1]
 
+class UpdateRolledBack(RuntimeError):
+    """The candidate failed and the previously running image recovered."""
+
+
 class Client:
-    def __init__(self,host,private=ROOT/"private"):
+    def __init__(self,host,private=ROOT/"private",timeout=30):
         self.host=host
+        self.timeout=timeout
         self.private=Path(private)
         self.token=json.loads((self.private/"tokens.json").read_text())["device"]
         certificate=(self.private/"device-cert.pem").read_bytes()
@@ -25,7 +30,7 @@ class Client:
         self.context.check_hostname=False
 
     def request(self,method,path,body=None,headers=None):
-        connection=http.client.HTTPSConnection(self.host,context=self.context,timeout=30)
+        connection=http.client.HTTPSConnection(self.host,context=self.context,timeout=self.timeout)
         connection.connect()
         if connection.sock.getpeercert(binary_form=True)!=self.expected:
             connection.close();raise ssl.SSLError("device certificate pin mismatch")
@@ -38,6 +43,7 @@ class Client:
         finally:connection.close()
 
     def upload(self,path,confirm=True):
+        before=self.request("GET","/ota/status")
         data=Path(path).read_bytes()
         if len(data)<208 or data[32:36]!=bytes.fromhex('3254cdab'):
             raise ValueError('Expected ESP-IDF application image with app descriptor')
@@ -51,9 +57,20 @@ class Client:
         while time.monotonic()<deadline:
             try:
                 status=self.request("GET","/ota/status")
-                if status.get("elf_sha256")==expected_elf and status["uptime_ms"]>=10000 and status["registry_ok"] and status["serial_payload_tx_enabled"] is False and status["simulation"] is False:
+                if status["boot_count"]>before["boot_count"] and status.get("elf_sha256")==before.get("elf_sha256") and status.get("elf_sha256")!=expected_elf and not status.get("awaiting_confirmation"):
+                    raise UpdateRolledBack("Candidate failed; previous confirmed image recovered with boot "+str(status["boot_count"]))
+                healthy=status.get("startup_phase","ready")=="ready" and status.get("elf_sha256")==expected_elf and status["boot_count"]!=before["boot_count"] and status["uptime_ms"]>=10000 and status["registry_ok"] and status["serial_payload_tx_enabled"] is False and status["simulation"] is False
+                if healthy and status.get("printer_profile"):
+                    receiver=self.request("GET","/api/v1/serial")
+                    parser=self.request("GET","/api/v1/printer?limit=1")
+                    healthy=receiver["baud"]==9600 and receiver["configuration_error"]==0 and receiver["usb_connected"] and parser["profile"]==status["printer_profile"] and status.get("external_host_delivery_enabled") is False
+                    healthy=healthy and all(status.get(k)==before[k] for k in ("registry_epoch","device_count","inventory_source_sha256") if k in before)
+                    if "main_stack_in_dram" in status:
+                        healthy=healthy and status["main_stack_in_dram"] and status["event_stack_in_dram"]
+                if healthy:
                     self.request("POST","/ota/confirm",b"")
                     return self.request("GET","/ota/status")
+            except UpdateRolledBack:raise
             except (OSError,RuntimeError):pass
             time.sleep(2)
         raise RuntimeError("Update not confirmed; device should roll back within 180 seconds")

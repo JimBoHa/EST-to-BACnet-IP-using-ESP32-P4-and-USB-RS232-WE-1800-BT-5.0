@@ -1,0 +1,33 @@
+{
+  "version": "0.1.14",
+  "elf_sha256": "c3bc8da2dd812651e709475f4a3748c68acaf9d4ab43280dc94249f86915c0f2",
+  "partition": "ota_1",
+  "boot_count": 31,
+  "reset_reason": 3,
+  "startup_phase": "ready",
+  "registry_ok": true,
+  "registry_epoch": 1,
+  "device_count": 1214,
+  "inventory_source_sha256": "c8bd4dedb598fea590bd5167b6fcb692e74625cfb1d00e56bd1b71b275aa200b",
+  "awaiting_confirmation": false,
+  "uptime_ms": 18783,
+  "serial_payload_tx_enabled": false,
+  "simulation": false,
+  "usb_connected": true,
+  "rx_bytes": 0,
+  "rx_drops": 0,
+  "usb_errors": 0,
+  "line_errors": 0,
+  "external_host_delivery_enabled": false,
+  "result": "PASS",
+  "scope": "Actual signed app OTA and authenticated health confirmation; no live condition decoding proof",
+  "previous_version": "0.1.13",
+  "previous_boot": 30,
+  "observed_startup_stages": [
+    "registry_nvs_init",
+    "registry_read",
+    "registry_parse",
+    "legacy_diagnostics",
+    "ready"
+  ]
+}

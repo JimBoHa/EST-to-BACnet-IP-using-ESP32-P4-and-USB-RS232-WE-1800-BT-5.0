@@ -1,6 +1,6 @@
 # Private SDU reader notes
 
-The three original SDU files are retained separately and must remain unchanged. These are ZIP containers holding Paradox tables, not the mock JSON catalog accepted by the current host. Reading selected tables does not yet constitute a validated complete inventory importer.
+The three original SDU files are retained separately and must remain unchanged. These are ZIP containers holding Paradox tables, not the mock JSON catalog accepted by the optional host. The 2026-09-29 continuation adds `tools/sdu_inventory.py` with selected-table, identity and join validation. See `docs/SOURCE_COVERAGE.md` for the exact supported fields; this does not prove a complete match to the live panel.
 
 Reader used during the previous session: pypxlib **2.5**, with pxlib **0.6.8** built from `https://github.com/steinm/pxlib.git`, commit `e32d17611e5ee353c4e3ce04e61b0b38feb95855`. Source copies accompany these notes. Native compiled libraries and installed Python environments were intentionally omitted; rebuild for the new Mac's architecture. pypxlib source: `https://github.com/mherrmann/pypxlib` and its versioned PyPI package. Retain their upstream licenses; the included package metadata records licensing.
 

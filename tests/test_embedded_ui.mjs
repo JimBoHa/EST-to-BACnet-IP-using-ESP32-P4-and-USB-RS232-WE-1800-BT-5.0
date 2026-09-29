@@ -1,0 +1,66 @@
+/* Browser behavior checks against synthetic data only. */
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+import {mkdir} from 'node:fs/promises';
+const modulePath=process.env.EST3_PLAYWRIGHT_MODULE;
+const {chromium}=await import(modulePath?pathToFileURL(modulePath).href:'playwright');
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1360,height:1050}});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const token='SYNTHETIC-TEST-KEY-'+ 'x'.repeat(40);
+let outage=false,applied=0;
+const device={uuid:'00000000-0000-4000-8000-000000000001',label:'Example smoke detector <script>alert(1)</script>',address:'P01 C02 D0001',type:'Sensor / PS',binding_epoch:1,retired:false,data_valid:false,data_valid_instance:104,conditions:['alarm','trouble','supervisory','disabled'].map((condition,i)=>({condition,instance:100+i,last_value:null,quality:'not_source_verified'}))};
+const status={version:'0.1.6',ip:'192.0.2.10',boot_count:14,uptime_ms:5400000,heap_free:30000000,internal_heap_free:350000,awaiting_confirmation:false,bacnet_device_instance:3899000,bacnet_vendor_id:65535,device_count:1214,registry_epoch:1,bacnet_assignment:'lab placeholders'};
+const serial={usb_connected:true,baud:9600,format:'8N1',rx_bytes:1782,rx_drops:0,usb_in_packets:45000,usb_status_only_packets:43218,usb_line_error_packets:0,usb_errors:0,last_payload_ms:5000000};
+const printer={complete_reports:1,incomplete_reports:0,unrecognized:1,gaps:1,retained:80,evicted:0,partial_bytes:0,last_complete_report:{complete:true,panel:1,cpu:'V05.30.00',sdu:'V05.47.00',project:'V01.02.03',database_date:'01/02/26',source_time:'10:00:00 01/02/2026',historical_alarm_count:7,cards:[{address:2,type:'3-SDDC',firmware:'V05.20.00'}]},records:[{id:80,received_monotonic_ms:5000000,parse_status:'unrecognized',offset:1782,raw_hex:Buffer.from('<img src=x onerror=alert(1)>').toString('hex')}]};
+await page.route('**/api/**',async route=>{
+  const req=route.request(),url=new URL(req.url());
+  if(req.headers().authorization!=='Bearer '+token)return route.fulfill({status:401,body:'Authentication required'});
+  if(outage)return route.fulfill({status:503,body:'Synthetic connection outage'});
+  let data;
+  if(url.pathname.endsWith('/status'))data=status;
+  else if(url.pathname.endsWith('/serial'))data=req.method()==='GET'?serial:{accepted:true};
+  else if(url.pathname.endsWith('/printer'))data=printer;
+  else if(url.pathname.endsWith('/devices'))data={total:1214,matched:1,registry_epoch:1,inventory_quality:'backup metadata; installed content unverified',devices:[device]};
+  else if(url.pathname.endsWith('/registry/preview'))data={valid:true,additions:1,renames:0,retirements:0};
+  else if(url.pathname.endsWith('/registry')){if(req.method()==='POST')applied++;data={applied:true};}
+  else throw Error('Unexpected API '+url.pathname);
+  return route.fulfill({json:data});
+});
+try {
+  await page.goto(process.env.EST3_UI_URL||'http://127.0.0.1:8765');
+  await page.locator('#key').fill('wrong');await page.locator('#connect').click();
+  await page.waitForFunction(()=>document.querySelector('#connection').textContent.includes('401'));
+  await page.locator('#key').fill(token);await page.locator('#connect').click();
+  await page.waitForFunction(()=>document.querySelector('#controllerMetrics').textContent.includes('0.1.6'));
+  assert.equal(await page.locator('#key').inputValue(),'');
+  assert.equal(await page.evaluate(()=>localStorage.length+sessionStorage.length),0);
+  await mkdir('evidence/ui',{recursive:true});
+  await page.screenshot({path:'evidence/ui/embedded-status.png',fullPage:true});
+  await page.getByRole('button',{name:'Device directory',exact:true}).click();
+  await page.waitForSelector('#deviceRows button');
+  assert.equal(await page.locator('#deviceRows script').count(),0);
+  assert.ok((await page.locator('#deviceRows').textContent()).includes('<script>'));
+  await page.locator('#deviceRows button').click();
+  assert.ok(page.url().endsWith('#device='+device.uuid));
+  assert.ok((await page.locator('#deviceDetail').textContent()).includes('No observation'));
+  await page.getByRole('button',{name:'Receiver diagnostics',exact:true}).click();
+  assert.equal(await page.locator('#recent img').count(),0);
+  assert.ok((await page.locator('#recent').textContent()).includes('<img'));
+  await page.getByRole('button',{name:'Configuration',exact:true}).click();
+  assert.ok(await page.locator('#applyRegistry').isDisabled());
+  await page.locator('#registryFile').setInputFiles({name:'synthetic.json',mimeType:'application/json',buffer:Buffer.from('{"schema_version":1}')});
+  await page.locator('#previewRegistry').click();
+  await page.waitForFunction(()=>!document.querySelector('#applyRegistry').disabled);
+  await page.locator('#applyRegistry').click();
+  await page.waitForFunction(()=>document.querySelector('#applyRegistry').disabled);
+  assert.equal(applied,1);
+  await page.setViewportSize({width:390,height:844});
+  await page.getByRole('button',{name:'BACnet & Status',exact:true}).click();
+  await page.screenshot({path:'evidence/ui/embedded-mobile.png',fullPage:true});
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  outage=true;
+  await page.waitForFunction(()=>document.querySelector('#connection').textContent.includes('stale'),{timeout:12000});
+  assert.deepEqual(errors,[]);
+  console.log('PASS: embedded UI auth, no saved key, text safety, UUID link, preview/apply, mobile layout and stale connection banner');
+} finally {await browser.close();}

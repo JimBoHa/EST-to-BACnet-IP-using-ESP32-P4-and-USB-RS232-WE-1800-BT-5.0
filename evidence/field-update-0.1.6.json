@@ -1,0 +1,22 @@
+{
+  "version": "0.1.6",
+  "elf_sha256": "1849177492350bbd47146e974717671f532c77580215cd3324d271924d312de7",
+  "partition": "ota_0",
+  "boot_count": 14,
+  "registry_ok": true,
+  "registry_epoch": 0,
+  "device_count": 0,
+  "inventory_source_sha256": "",
+  "awaiting_confirmation": false,
+  "uptime_ms": 14842,
+  "serial_payload_tx_enabled": false,
+  "simulation": false,
+  "usb_connected": true,
+  "rx_bytes": 0,
+  "rx_drops": 0,
+  "usb_errors": 0,
+  "line_errors": 0,
+  "external_host_delivery_enabled": false,
+  "result": "PASS",
+  "scope": "Actual signed app OTA and authenticated health confirmation; no live condition decoding proof"
+}
