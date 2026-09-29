@@ -137,13 +137,67 @@ static esp_err_t set_host(httpd_req_t *r) {
     cJSON_Delete(obj);if(err!=ESP_OK)return httpd_resp_send_err(r,HTTPD_400_BAD_REQUEST,"HTTPS telemetry URL required; pinned host trust is fixed");
     return httpd_resp_sendstr(r,"{\"configured\":true}");
 }
+static esp_err_t serial_get(httpd_req_t *r) {
+    if(!authorized(r))return deny(r);
+    serial_stats s;serial_diagnostics d;serial_rx_diagnostics(&s,&d);
+    uint8_t payload[SERIAL_CAPTURE_CAPACITY];
+    char hex[SERIAL_CAPTURE_CAPACITY*2+1];
+    size_t n=serial_diagnostics_payload(&d,payload,sizeof(payload));
+    static const char digits[]="0123456789abcdef";
+    for(size_t i=0;i<n;i++){hex[2*i]=digits[payload[i]>>4];hex[2*i+1]=digits[payload[i]&15];}
+    hex[2*n]=0;
+    cJSON *j=cJSON_CreateObject();
+    cJSON_AddBoolToObject(j,"usb_connected",s.connected);
+    cJSON_AddBoolToObject(j,"serial_payload_tx_enabled",false);
+    cJSON_AddNumberToObject(j,"boot_count",runtime_boot_count);
+    cJSON_AddNumberToObject(j,"baud",s.baud);
+    cJSON_AddNumberToObject(j,"requested_baud",s.requested_baud);
+    cJSON_AddNumberToObject(j,"baud_epoch",s.baud_epoch);
+    cJSON_AddNumberToObject(j,"configuration_error",s.configuration_error);
+    cJSON_AddStringToObject(j,"format","8N1");
+    cJSON_AddStringToObject(j,"flow_control","none");
+    cJSON_AddNumberToObject(j,"usb_in_packets",d.packets);
+    cJSON_AddNumberToObject(j,"usb_status_only_packets",d.status_only_packets);
+    cJSON_AddNumberToObject(j,"usb_invalid_packets",d.invalid_packets);
+    cJSON_AddNumberToObject(j,"usb_line_error_packets",d.error_packets);
+    cJSON_AddNumberToObject(j,"ftdi_modem_status",d.modem_status);
+    cJSON_AddNumberToObject(j,"ftdi_line_status",d.line_status);
+    cJSON_AddNumberToObject(j,"last_usb_packet_ms",(double)d.last_packet_ms);
+    cJSON_AddNumberToObject(j,"last_payload_ms",(double)d.last_payload_ms);
+    cJSON_AddNumberToObject(j,"usb_payload_bytes",d.payload_bytes);
+    cJSON_AddNumberToObject(j,"rx_bytes",s.bytes);
+    cJSON_AddNumberToObject(j,"rx_drops",s.drops);
+    cJSON_AddNumberToObject(j,"usb_errors",s.errors);
+    cJSON_AddNumberToObject(j,"line_errors",s.line_errors);
+    cJSON_AddNumberToObject(j,"capture_epoch",d.capture_epoch);
+    cJSON_AddNumberToObject(j,"capture_count",n);
+    cJSON_AddNumberToObject(j,"capture_start_offset",d.payload_bytes-(uint32_t)n);
+    cJSON_AddStringToObject(j,"capture_hex",hex);
+    return json_response(r,j);
+}
+static esp_err_t serial_set(httpd_req_t *r) {
+    if(!authorized(r))return deny(r);
+    if(r->content_len<1||r->content_len>64)return httpd_resp_send_err(r,HTTPD_400_BAD_REQUEST,"Invalid receiver configuration length");
+    char body[65];int have=0;
+    while(have<r->content_len){int n=httpd_req_recv(r,body+have,r->content_len-have);if(n<=0)return ESP_FAIL;have+=n;}body[have]=0;
+    cJSON *obj=cJSON_Parse(body),*baud=cJSON_GetObjectItem(obj,"baud");
+    bool valid=cJSON_IsObject(obj)&&cJSON_GetArraySize(obj)==1&&cJSON_IsNumber(baud)&&
+        baud->valuedouble>=1200&&baud->valuedouble<=115200&&
+        baud->valuedouble==(double)baud->valueint&&serial_baud_supported((uint32_t)baud->valueint);
+    esp_err_t err=valid?serial_rx_set_baud((uint32_t)baud->valueint):ESP_ERR_INVALID_ARG;
+    cJSON_Delete(obj);
+    if(err==ESP_ERR_INVALID_ARG)return httpd_resp_send_err(r,HTTPD_400_BAD_REQUEST,"Supported receiver baud required; format fixed at 8N1, payload TX disabled");
+    if(err!=ESP_OK)return unavailable(r,"USB receiver not connected");
+    httpd_resp_set_status(r,"202 Accepted");
+    return httpd_resp_sendstr(r,"{\"accepted\":true,\"volatile\":true,\"serial_payload_tx_enabled\":false}");
+}
 esp_err_t management_start(void) {
     if(server)return ESP_OK;
     httpd_ssl_config_t config=HTTPD_SSL_CONFIG_DEFAULT();config.httpd.stack_size=16384;config.httpd.max_open_sockets=3;config.httpd.recv_wait_timeout=10;config.httpd.send_wait_timeout=10;config.httpd.lru_purge_enable=true;
     config.servercert=(const uint8_t*)DEVICE_CERT;config.servercert_len=sizeof(DEVICE_CERT);
     config.prvtkey_pem=(const uint8_t*)DEVICE_KEY;config.prvtkey_len=sizeof(DEVICE_KEY);
     esp_err_t err=httpd_ssl_start(&server,&config);if(err!=ESP_OK)return err;
-    const httpd_uri_t routes[]={ {.uri="/api/v1/status",.method=HTTP_GET,.handler=status}, {.uri="/ota/status",.method=HTTP_GET,.handler=status}, {.uri="/ota",.method=HTTP_POST,.handler=upload}, {.uri="/ota/confirm",.method=HTTP_POST,.handler=confirm}, {.uri="/api/v1/registry",.method=HTTP_POST,.handler=registry}, {.uri="/api/v1/host",.method=HTTP_POST,.handler=set_host} };
+    const httpd_uri_t routes[]={ {.uri="/api/v1/status",.method=HTTP_GET,.handler=status}, {.uri="/ota/status",.method=HTTP_GET,.handler=status}, {.uri="/ota",.method=HTTP_POST,.handler=upload}, {.uri="/ota/confirm",.method=HTTP_POST,.handler=confirm}, {.uri="/api/v1/registry",.method=HTTP_POST,.handler=registry}, {.uri="/api/v1/host",.method=HTTP_POST,.handler=set_host}, {.uri="/api/v1/serial",.method=HTTP_GET,.handler=serial_get}, {.uri="/api/v1/serial",.method=HTTP_POST,.handler=serial_set} };
     for(size_t i=0;i<sizeof(routes)/sizeof(routes[0]);i++) {err=httpd_register_uri_handler(server,&routes[i]);if(err!=ESP_OK)return err;}
     esp_ota_img_states_t state;
     awaiting_confirmation=esp_ota_get_state_partition(esp_ota_get_running_partition(),&state)==ESP_OK&&state==ESP_OTA_IMG_PENDING_VERIFY;

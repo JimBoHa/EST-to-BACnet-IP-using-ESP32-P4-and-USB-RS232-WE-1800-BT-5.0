@@ -9,6 +9,7 @@
 #include "freertos/semphr.h"
 #include "esp_log.h"
 #include "esp_rom_crc.h"
+#include "esp_timer.h"
 #include <string.h>
 
 _Static_assert(GW_SERIAL_PAYLOAD_TX_ENABLED==0 && GW_ECP_ENABLED==0,"This target must stay RX-only");
@@ -16,9 +17,62 @@ static const char *TAG="usb_rx";
 static QueueHandle_t queue;
 static SemaphoreHandle_t lost;
 static portMUX_TYPE lock=portMUX_INITIALIZER_UNLOCKED;
-static serial_stats stats;
+static serial_stats stats = {.requested_baud = 19200};
+static serial_diagnostics diagnostics;
+static cdc_acm_data_callback_t original_in_callback;
 typedef struct {size_t length;uint8_t data[64];} chunk;
 serial_stats serial_rx_stats(void) {portENTER_CRITICAL(&lock);serial_stats copy=stats;portEXIT_CRITICAL(&lock);return copy;}
+void serial_rx_diagnostics(serial_stats *s, serial_diagnostics *d) {
+    portENTER_CRITICAL(&lock);*s=stats;*d=diagnostics;portEXIT_CRITICAL(&lock);
+}
+esp_err_t serial_rx_set_baud(uint32_t baud) {
+    if(!serial_baud_supported(baud))return ESP_ERR_INVALID_ARG;
+    portENTER_CRITICAL(&lock);
+    if(!stats.connected){portEXIT_CRITICAL(&lock);return ESP_ERR_INVALID_STATE;}
+    stats.requested_baud=baud;
+    portEXIT_CRITICAL(&lock);
+    return ESP_OK;
+}
+
+/* Observe the same MPS-sized packet before the pinned FTDI driver strips its
+   status prefix. Preserve the driver's callback and original opaque argument.
+   Only one FT232/interface is opened by connector(), serially across reconnects. */
+static bool observe_usb_packet(const uint8_t *data,size_t len,void *arg) {
+    uint64_t now_ms=(uint64_t)(esp_timer_get_time()/1000);
+    portENTER_CRITICAL(&lock);
+    serial_diagnostics_feed(&diagnostics,data,len,now_ms);
+    portEXIT_CRITICAL(&lock);
+    return original_in_callback(data,len,arg);
+}
+esp_err_t __real_cdc_acm_host_open(uint16_t vid,uint16_t pid,uint8_t interface_idx,
+    const cdc_acm_host_device_config_t *config,cdc_acm_dev_hdl_t *handle);
+esp_err_t __wrap_cdc_acm_host_open(uint16_t vid,uint16_t pid,uint8_t interface_idx,
+    const cdc_acm_host_device_config_t *config,cdc_acm_dev_hdl_t *handle) {
+    if(vid!=FTDI_VID || pid!=FT232_PID || interface_idx!=0 || !config ||
+       !config->data_cb || config->in_buffer_size!=0 || config->out_buffer_size!=0)
+        return ESP_ERR_NOT_SUPPORTED;
+    cdc_acm_host_device_config_t observed=*config;
+    original_in_callback=config->data_cb;
+    observed.data_cb=observe_usb_packet;
+    return __real_cdc_acm_host_open(vid,pid,interface_idx,&observed,handle);
+}
+
+static esp_err_t configure_receiver(cdc_acm_dev_hdl_t device,uint32_t baud) {
+    const cdc_acm_line_coding_t line={.dwDTERate=baud,.bCharFormat=0,.bParityType=0,.bDataBits=8};
+    esp_err_t err=cdc_acm_host_line_coding_set(device,&line);
+    /* Work around FTDI VCP 2.1.1's swapped modem/flow request and incorrect
+       control masks. FTDI SIO: flow request 2; modem request 1; DTR mask 0x100,
+       RTS mask 0x200. Keep flow control disabled and both outputs deasserted.
+       These configure the adapter; no serial payload or break is emitted. */
+    if(err==ESP_OK)err=cdc_acm_host_send_custom_request(device,0x40,0x02,0,0,0,NULL);
+    if(err==ESP_OK)err=cdc_acm_host_send_custom_request(device,0x40,0x01,0x0100,0,0,NULL);
+    if(err==ESP_OK)err=cdc_acm_host_send_custom_request(device,0x40,0x01,0x0200,0,0,NULL);
+    portENTER_CRITICAL(&lock);
+    stats.configuration_error=err;
+    if(err==ESP_OK){stats.baud=baud;stats.baud_epoch++;serial_diagnostics_clear_capture(&diagnostics);}
+    portEXIT_CRITICAL(&lock);
+    return err;
+}
 static bool receive(const uint8_t *data,size_t len,void *arg) {
     (void)arg;
     /* FTDI component removes two status bytes once per MPS-sized transfer.
@@ -72,13 +126,16 @@ static void connector(void *arg) {
         esp_err_t err=ftdi_vcp_open(FT232_PID,0,&config,&device);
         if(err!=ESP_OK){vTaskDelay(pdMS_TO_TICKS(1000));continue;}
         cdc_acm_host_desc_print(device);
-        const cdc_acm_line_coding_t line={.dwDTERate=19200,.bCharFormat=0,.bParityType=0,.bDataBits=8};
-        err=cdc_acm_host_line_coding_set(device,&line);
-        if(err==ESP_OK)err=cdc_acm_host_set_control_line_state(device,false,false);
+        uint32_t baud=serial_rx_stats().requested_baud;
+        err=configure_receiver(device,baud);
         if(err==ESP_OK) {
             portENTER_CRITICAL(&lock);stats.connected=true;stats.connects++;portEXIT_CRITICAL(&lock);
-            ESP_LOGI(TAG,"FT232 open: 19200 8N1, DTR/RTS deasserted, OUT buffer disabled, ECP disabled");
-            xSemaphoreTake(lost,portMAX_DELAY);
+            ESP_LOGI(TAG,"FT232 RX-only open: %lu 8N1, no flow control, DTR/RTS deasserted",(unsigned long)baud);
+            while(xSemaphoreTake(lost,pdMS_TO_TICKS(100))!=pdTRUE) {
+                serial_stats current=serial_rx_stats();
+                if(current.requested_baud!=current.baud &&
+                   configure_receiver(device,current.requested_baud)!=ESP_OK)break;
+            }
         }
         cdc_acm_host_close(device);
         xQueueReset(queue);
