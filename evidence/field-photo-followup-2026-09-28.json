@@ -1,0 +1,56 @@
+{
+  "observed_at": "2026-09-29T00:02:08.130679+00:00",
+  "host": "192.168.75.157",
+  "owner_confirmation": {
+    "yellow": "Panel TX2, per owner confirmation of prior instructions",
+    "black": "Panel COM2, per owner confirmation of prior instructions",
+    "orange": "Disconnected, explicitly confirmed by owner",
+    "baud_and_interface_mode": "Owner explicitly confirmed settings unknown"
+  },
+  "photos": [
+    {
+      "filename": "IMG_8281.HEIC",
+      "sha256": "e252b4531bdb4490960ca9e5311f532e2faa758ce0fd30adffe192b48edbcb89",
+      "source": "Owner-provided local Downloads photo; not copied to repository"
+    },
+    {
+      "filename": "IMG_8282.HEIC",
+      "sha256": "6534eb42b52d113d3515f827b8d365ccc8914ded0ecd3a945d438cb364fd995e",
+      "source": "Owner-provided local Downloads photo; not copied to repository"
+    }
+  ],
+  "photo_review": {
+    "visible": "TB2 RX2/TX2/RTS2/COM2 labels; yellow/black leads at port 2 area; orange end disconnected and exposed",
+    "interpretation": "Consistent with owner-reported receive-only mapping; perspective and hidden wire-entry points prevent an independent termination/continuity verification",
+    "limitations": "Photographs do not establish signal levels, actual baud, interface mode, wire gauge compliance, electrical continuity or verified 3-RS232 card identity",
+    "unused_leads": "Exposed wire ends observed; owner advised to insulate every unused lead separately, especially red auxiliary +5 V"
+  },
+  "status": {
+    "project": "est3_gateway_rxonly",
+    "version": "0.1.3",
+    "elf_sha256": "c601654d378a81ca734ddff2e1897c7c7bf5b6a982d19d2cf80a353173bdaac3",
+    "partition": "ota_1",
+    "ip": "192.168.75.157",
+    "protocol": "DISABLED_NO_VERIFIED_ECP_PROFILE",
+    "serial_payload_tx_enabled": false,
+    "simulation": false,
+    "usb_connected": true,
+    "usb_connects": 1,
+    "rx_bytes": 0,
+    "rx_drops": 0,
+    "rx_crc32": 0,
+    "usb_errors": 0,
+    "line_errors": 0,
+    "telemetry_queued": 14,
+    "telemetry_dropped": 193,
+    "journal_ok": true,
+    "awaiting_confirmation": false,
+    "uptime_ms": 642756,
+    "boot_count": 11,
+    "heap_free": 33157799,
+    "internal_heap_free": 382547,
+    "registry_ok": true,
+    "registry_epoch": 0,
+    "device_count": 0
+  }
+}

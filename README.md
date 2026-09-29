@@ -27,7 +27,7 @@ Initial installation changes the partition layout. It was performed only after s
 
 ## Ethernet updates
 
-PoE Ethernet operation, an application update to 0.1.3 and automatic rollback have now been tested on this board with USB-C disconnected. Current DHCP address is `10.0.7.195`; keep EST wires disconnected. DHCP hostname is `est3-p4-e41fe8`; no Wi-Fi is enabled. Locate its lease by MAC, or use a targeted BACnet request on the correct subnet:
+PoE Ethernet operation, an application update to 0.1.3 and automatic rollback were tested on this board with USB-C disconnected. On 2026-09-28, the owner reported moving it to the EST panel's network and connecting panel wiring. The device was identified by its exact TLS certificate at **`192.168.75.157`**. HTTPS and BACnet reads passed; a 60-second passive observation received **zero serial bytes**, so EST communication remains unverified. See [the field observation](docs/FIELD_CONNECTION_TEST.md). DHCP hostname is `est3-p4-e41fe8`; no Wi-Fi is enabled. Locate its lease by MAC, or use a targeted BACnet request on the correct subnet:
 
 ```sh
 .venv/bin/python tools/discover.py --broadcast YOUR_SUBNET_BROADCAST

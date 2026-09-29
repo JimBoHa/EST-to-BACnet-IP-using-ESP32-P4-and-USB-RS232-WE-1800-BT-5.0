@@ -1,0 +1,31 @@
+{
+  "result": "PASS",
+  "host": "192.168.75.157",
+  "device_instance": 3899000,
+  "version": "0.1.3",
+  "boot_count": 11,
+  "object_count": 5,
+  "objects": [
+    "device,3899000",
+    "binary-input,1",
+    "binary-input,2",
+    "binary-input,3",
+    "binary-input,4"
+  ],
+  "health_values": {
+    "1": "inactive",
+    "2": "active",
+    "3": "inactive",
+    "4": "inactive"
+  },
+  "rpm": [
+    "((<ObjectType: binary-input>, 2), <PropertyIdentifier: present-value>, None, <BinaryPV: active>)",
+    "((<ObjectType: binary-input>, 2), <PropertyIdentifier: reliability>, None, <Reliability: no-fault-detected>)",
+    "((<ObjectType: binary-input>, 2), <PropertyIdentifier: status-flags>, None, <StatusFlags: >)",
+    "((<ObjectType: binary-input>, 4), <PropertyIdentifier: present-value>, None, <BinaryPV: inactive>)"
+  ],
+  "read_property": true,
+  "read_property_multiple": true,
+  "write_property": false,
+  "cov": false
+}
