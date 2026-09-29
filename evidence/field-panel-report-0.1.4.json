@@ -1,0 +1,42 @@
+{
+  "recorded_utc": "2026-09-29T00:35:34.438524+00:00",
+  "host": "192.168.75.157",
+  "firmware": "0.1.4",
+  "boot_count": 12,
+  "owner_action": "Revision Levels report sent to Printer 2 twice",
+  "first_report": {
+    "baud": 19200,
+    "payload_bytes": 3509,
+    "usb_line_error_packets": 3547,
+    "line_error_indications": 1389,
+    "readable": false,
+    "complete_capture": false
+  },
+  "repeat_report": {
+    "baud": 9600,
+    "format": "8N1",
+    "deltas": {
+      "usb_payload_bytes": 3564,
+      "rx_bytes": 3564,
+      "rx_drops": 0,
+      "usb_errors": 0,
+      "line_errors": 0,
+      "usb_line_error_packets": 0,
+      "usb_invalid_packets": 0
+    },
+    "captured_bytes": 3564,
+    "complete_capture": true,
+    "capture_offset_gaps": [],
+    "ascii_printable_or_whitespace": true,
+    "header_and_complete_end_marker": true,
+    "sha256": "9889ee6ae37e3f0c4b86195cdc4d0393c11c614618be34b2779cd69e22ad9fbf",
+    "panel_address": "01",
+    "cpu_firmware": "05.30.00",
+    "sdu_version": "05.47.00",
+    "project_version": "01.01.02",
+    "database_date": "03/04/26"
+  },
+  "serial_payload_tx_enabled": false,
+  "raw_capture_published": false,
+  "scope": "Panel printer-report reception confirmed; live events, complete inventory and ECP are not validated."
+}

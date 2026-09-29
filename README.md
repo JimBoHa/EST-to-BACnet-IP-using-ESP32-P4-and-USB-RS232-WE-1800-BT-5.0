@@ -27,7 +27,7 @@ Initial installation changes the partition layout. It was performed only after s
 
 ## Ethernet updates
 
-PoE Ethernet operation, an application update to 0.1.3 and automatic rollback were tested on this board with USB-C disconnected. On 2026-09-28, the owner reported moving it to the EST panel's network and connecting panel wiring. The device was identified by its exact TLS certificate at **`192.168.75.157`**. HTTPS and BACnet reads passed; a 60-second passive observation received **zero serial bytes**, so EST communication remains unverified. See [the field observation](docs/FIELD_CONNECTION_TEST.md). DHCP hostname is `est3-p4-e41fe8`; no Wi-Fi is enabled. Locate its lease by MAC, or use a targeted BACnet request on the correct subnet:
+PoE Ethernet operation, signed application updates and automatic rollback were tested on this board with USB-C disconnected. On 2026-09-28, the owner reported moving it to the EST panel's network and connecting panel wiring. The device was identified by its exact TLS certificate at **`192.168.75.157`**, then remotely updated to **0.1.4** and confirmed there. HTTPS and BACnet reads passed. An owner-requested Printer 2 Revision Levels report produced a complete **3,564-byte readable capture at 9600 8N1**, without new errors or drops. Panel report reception is confirmed; real-time EST state decoding remains unimplemented. See [the field observation](docs/FIELD_CONNECTION_TEST.md) and [serial diagnostics](docs/SERIAL_DIAGNOSTICS.md). DHCP hostname is `est3-p4-e41fe8`; no Wi-Fi is enabled. Locate its lease by MAC, or use a targeted BACnet request on the correct subnet:
 
 ```sh
 .venv/bin/python tools/discover.py --broadcast YOUR_SUBNET_BROADCAST
@@ -69,7 +69,7 @@ ctest --test-dir build-tests --output-on-failure
 .venv/bin/python -m pytest tests -q
 ```
 
-Native C tests run ASan/UBSan over state/registry logic, malformed and truncated input. BACpypes3 independently tests the actual C stack/port on localhost. A separate stress test provisions 1,000 logical devices / 5,000 condition BIs plus gateway diagnostics. This is software capacity evidence, not a measured hardware/site capacity claim. `simulator/serial_peer.py` is a separate disconnected RS232 bench peer, never part of production firmware.
+Native C tests run ASan/UBSan over state/registry logic, malformed and truncated input, and FTDI status-prefix removal/binary capture/ring wrap. BACpypes3 independently tests the actual C stack/port on localhost. A separate stress test provisions 1,000 logical devices / 5,000 condition BIs plus gateway diagnostics. This is software capacity evidence, not a measured hardware/site capacity claim. `simulator/serial_peer.py` is a separate disconnected RS232 bench peer, never part of production firmware.
 
 Identity allocation, metadata/state separation, telemetry deduplication and gaps, UI injection, restart recovery, and Metasys dry-run behavior are executable tests. [TEST_MATRIX.csv](docs/TEST_MATRIX.csv) retains NOT_RUN for electrical captures, real ECP, actual Metasys and other unperformed acceptance steps.
 
@@ -77,4 +77,4 @@ Identity allocation, metadata/state separation, telemetry deduplication and gaps
 
 [PICS](docs/PICS.md) states implemented BACnet services and read-only behavior. Metasys reconciliation produces deterministic proposals and preserves unmanaged relationships; it performs **no site writes**. Mapper schemas, license/roles, engine capacity, native graphics, alarm configuration and external-page navigation still need the installed system. New points remain unplaced until coordinates/engineering work are supplied.
 
-Do not infer complete inventory from events. A supported contractor export importer cannot be written until its real format is supplied. Version-matched ECP documentation, authorized captures, RS232 electrical verification, independent TX capture, contractor port/wiring confirmation and a mixed-load soak remain gates before field commissioning. Ethernet update and timeout rollback results are recorded in [the hardware test report](docs/ETHERNET_TEST_REPORT.md).
+Do not infer complete inventory from events. Genuine local SDU backups have now been inspected read-only; selected cabinet fields are readable, but a supported inventory importer and a match to the live installed revision remain unverified. Raw backups, site data and serial captures stay under local/private storage. Version-matched ECP documentation, authorized captures, RS232 electrical verification, independent TX capture, contractor port/wiring confirmation and a mixed-load soak remain gates before field commissioning. Ethernet update and timeout rollback results are recorded in [the hardware test report](docs/ETHERNET_TEST_REPORT.md).

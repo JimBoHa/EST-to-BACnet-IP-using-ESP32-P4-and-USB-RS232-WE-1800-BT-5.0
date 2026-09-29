@@ -26,6 +26,8 @@ symbols=subprocess.run([nm,'--defined-only',str(build/'est3_gateway_rxonly.elf')
 names={line.split()[-1] for line in symbols.splitlines() if line.split()}
 if {'gw_observe','cdc_acm_host_data_tx_blocking'} & names:
     raise SystemExit('Production image contains simulation observer or serial payload TX')
+if not {'__wrap_cdc_acm_host_open','observe_usb_packet'} <= names:
+    raise SystemExit('Receive diagnostics USB observer is not linked')
 hashes={}
 for name,source in files.items():
     target=destination/name
@@ -41,7 +43,8 @@ manifest={'version':version,'built_utc':datetime.datetime.now(datetime.timezone.
           'target':'esp32p4','chip_range':'1.0-1.99','board_chip':'1.3',
           'elf_sha256':binary[176:208].hex(),'application_size_bytes':len(binary),
           'release_files_sha256':hashes,
-          'production_symbol_audit':{'simulation_observer_absent':True,'original_payload_tx_absent':True}}
+          'production_symbol_audit':{'simulation_observer_absent':True,'original_payload_tx_absent':True,
+                                     'usb_receive_observer_linked':True}}
 for path in (ROOT/f'evidence/build-manifest-{version}.json',ROOT/'evidence/build-manifest.json'):
     path.write_text(json.dumps(manifest,indent=2)+'\n')
 print(json.dumps(manifest,indent=2))

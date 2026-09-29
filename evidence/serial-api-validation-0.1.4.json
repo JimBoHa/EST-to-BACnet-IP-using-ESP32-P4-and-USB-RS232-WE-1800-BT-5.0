@@ -1,0 +1,33 @@
+{
+  "tested_utc": "2026-09-29T00:18:26.065481+00:00",
+  "result": "PASS",
+  "cases": [
+    {
+      "input": {
+        "baud": 0
+      },
+      "http_status": 400
+    },
+    {
+      "input": {
+        "baud": 19200.5
+      },
+      "http_status": 400
+    },
+    {
+      "input": {
+        "baud": 9600,
+        "tx": "forbidden"
+      },
+      "http_status": 400
+    },
+    {
+      "input": "invalid bearer token",
+      "http_status": 401
+    }
+  ],
+  "baud_preserved": 19200,
+  "baud_epoch_preserved": 3,
+  "boot_preserved": 12,
+  "serial_payload_tx_enabled": false
+}

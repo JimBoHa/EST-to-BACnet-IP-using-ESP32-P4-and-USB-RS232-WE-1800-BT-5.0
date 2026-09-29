@@ -1,0 +1,51 @@
+{
+  "started_utc": "2026-09-29T00:15:30.680891+00:00",
+  "host": "192.168.75.157",
+  "boot_count": 12,
+  "original_baud": 19200,
+  "format": "8N1",
+  "seconds_per_rate": 30,
+  "serial_payload_tx_enabled": false,
+  "rates": [
+    {
+      "baud": 19200,
+      "samples": 31,
+      "elapsed_seconds": 30.209,
+      "deltas": {
+        "usb_in_packets": 1896,
+        "usb_status_only_packets": 1896,
+        "usb_invalid_packets": 0,
+        "usb_line_error_packets": 0,
+        "usb_payload_bytes": 0,
+        "rx_bytes": 0,
+        "rx_drops": 0,
+        "usb_errors": 0,
+        "line_errors": 0
+      },
+      "last_ftdi_modem_status": 1,
+      "last_ftdi_line_status": 96,
+      "capture_count": 0
+    },
+    {
+      "baud": 9600,
+      "samples": 31,
+      "elapsed_seconds": 30.214,
+      "deltas": {
+        "usb_in_packets": 1896,
+        "usb_status_only_packets": 1896,
+        "usb_invalid_packets": 0,
+        "usb_line_error_packets": 0,
+        "usb_payload_bytes": 0,
+        "rx_bytes": 0,
+        "rx_drops": 0,
+        "usb_errors": 0,
+        "line_errors": 0
+      },
+      "last_ftdi_modem_status": 1,
+      "last_ftdi_line_status": 96,
+      "capture_count": 0
+    }
+  ],
+  "errors": [],
+  "restored_baud": 19200
+}
