@@ -1,0 +1,14 @@
+{
+  "result": "FAIL_ROLLED_BACK",
+  "version_attempted": "0.1.7",
+  "date_utc": "2026-09-29",
+  "before_version": "0.1.6",
+  "before_boot": 16,
+  "recovered_version": "0.1.6",
+  "recovered_boot": 18,
+  "registry_records_retained": 1214,
+  "registry_epoch_retained": 1,
+  "ethernet_recovered": true,
+  "image_confirmed": false,
+  "note": "New application did not reach a confirmable healthy boot. Exact reset cause unavailable without console; early reset triggered rollback. Release is excluded from recovery candidates."
+}

@@ -1,0 +1,1 @@
+PASS: production registry 1214 objects; 6074 BIs allocated; all current values invalid

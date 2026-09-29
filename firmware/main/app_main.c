@@ -14,6 +14,7 @@
 #include "esp_timer.h"
 #include "nvs_flash.h"
 #include "nvs.h"
+#include "mdns.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -24,24 +25,43 @@ char runtime_ip[16]="0.0.0.0";
 uint32_t runtime_boot_count;
 static bool bacnet_started;
 static bool ntp_started;
+static bool mdns_started;
 static const char *TAG="gateway";
 static nvs_handle_t registry_nvs;
+/* Old firmware must still load its old registry after application rollback. */
+static const char *registry_key="catalog_v2";
+const char *volatile runtime_startup_phase="boot";
+/* Publish startup progress without writing diagnostic history to flash. */
+static void startup_phase(const char *name) {
+    runtime_startup_phase=name;ESP_LOGI(TAG,"Startup: %s",name);
+}
+char *registry_export(size_t *size) {
+    char *result=NULL;*size=0;
+    xSemaphoreTake(runtime_lock,portMAX_DELAY);
+    if(runtime_registry_ok&&nvs_get_blob(registry_nvs,registry_key,NULL,size)==ESP_OK&&*size<=GW_MAX_JSON) {
+        result=malloc(*size+1);
+        if(result&&nvs_get_blob(registry_nvs,registry_key,result,size)!=ESP_OK){free(result);result=NULL;}
+        if(result)result[*size]=0;
+    }
+    xSemaphoreGive(runtime_lock);return result;
+}
 esp_err_t registry_apply(const char *data,size_t size,char *error,size_t capacity) {
     gw_registry *next=calloc(1,sizeof(*next));if(!next){snprintf(error,capacity,"No memory");return ESP_ERR_NO_MEM;}
     xSemaphoreTake(runtime_lock,portMAX_DELAY);
     size_t stored_size=0;
-    if(runtime_registry_ok && nvs_get_blob(registry_nvs,"catalog",NULL,&stored_size)==ESP_OK && stored_size==size) {
+    if(runtime_registry_ok && nvs_get_blob(registry_nvs,registry_key,NULL,&stored_size)==ESP_OK && stored_size==size) {
         char *saved=malloc(size);
-        bool same=saved&&nvs_get_blob(registry_nvs,"catalog",saved,&stored_size)==ESP_OK&&!memcmp(saved,data,size);
+        bool same=saved&&nvs_get_blob(registry_nvs,registry_key,saved,&stored_size)==ESP_OK&&!memcmp(saved,data,size);
         free(saved);
         if(same){xSemaphoreGive(runtime_lock);free(next);return ESP_OK;}
     }
     bool valid=runtime_registry_ok&&gw_parse_registry(data,size,runtime_registry,false,next,error,capacity);
     esp_err_t err=ESP_ERR_INVALID_ARG;
     if(valid) {
-        err=nvs_set_blob(registry_nvs,"catalog",data,size);
+        err=nvs_set_blob(registry_nvs,"catalog_v2",data,size);
         if(err==ESP_OK)err=nvs_commit(registry_nvs);
         if(err==ESP_OK) {
+            registry_key="catalog_v2";
             gw_registry *previous=runtime_registry;
             if(bacnet_started&&!bg_registry(next)) {runtime_registry_ok=false;ESP_LOGE(TAG,"Object allocation failed after commit; reboot to recover");esp_restart();}
             runtime_registry=next;next=NULL;free(previous);
@@ -49,18 +69,23 @@ esp_err_t registry_apply(const char *data,size_t size,char *error,size_t capacit
     } else if(!runtime_registry_ok) snprintf(error,capacity,"Registry storage invalid");
     xSemaphoreGive(runtime_lock);free(next);return err;
 }
-static void registry_load(void) {
-    runtime_registry=calloc(1,sizeof(*runtime_registry));ESP_ERROR_CHECK(runtime_registry?ESP_OK:ESP_ERR_NO_MEM);
+static bool registry_load(gw_registry *next) {
+    startup_phase("registry_nvs_init");
     esp_err_t err=nvs_flash_init_partition("registry");
-    if(err!=ESP_OK){ESP_LOGE(TAG,"Registry NVS invalid: %s; identities will not be reallocated",esp_err_to_name(err));return;}
-    err=nvs_open_from_partition("registry","est3_registry",NVS_READWRITE,&registry_nvs);if(err!=ESP_OK)return;
-    size_t size=0;err=nvs_get_blob(registry_nvs,"catalog",NULL,&size);
-    if(err==ESP_ERR_NVS_NOT_FOUND){runtime_registry_ok=true;ESP_LOGW(TAG,"No registry provisioned; no detector states available");return;}
-    if(err!=ESP_OK||size>GW_MAX_JSON||size==0)return;
-    char *buf=malloc(size+1);if(!buf)return;
-    err=nvs_get_blob(registry_nvs,"catalog",buf,&size);buf[size]=0;char error[128];
-    runtime_registry_ok=err==ESP_OK&&gw_parse_registry(buf,size,NULL,false,runtime_registry,error,sizeof(error));
-    free(buf);if(!runtime_registry_ok){memset(runtime_registry,0,sizeof(*runtime_registry));ESP_LOGE(TAG,"Registry invalid; identity allocation blocked");}
+    if(err!=ESP_OK){ESP_LOGE(TAG,"Registry NVS invalid: %s; identities will not be reallocated",esp_err_to_name(err));return false;}
+    startup_phase("registry_nvs_open");
+    err=nvs_open_from_partition("registry","est3_registry",NVS_READWRITE,&registry_nvs);if(err!=ESP_OK)return false;
+    size_t size=0;err=nvs_get_blob(registry_nvs,registry_key,NULL,&size);
+    if(err==ESP_ERR_NVS_NOT_FOUND) {registry_key="catalog";err=nvs_get_blob(registry_nvs,registry_key,NULL,&size);}
+    if(err==ESP_ERR_NVS_NOT_FOUND){ESP_LOGW(TAG,"No registry provisioned; no detector states available");return true;}
+    if(err!=ESP_OK||size>GW_MAX_JSON||size==0)return false;
+    startup_phase("registry_read");
+    char *buf=malloc(size+1);if(!buf)return false;
+    err=nvs_get_blob(registry_nvs,registry_key,buf,&size);buf[size]=0;char error[128];
+    startup_phase("registry_parse");
+    bool valid=err==ESP_OK&&gw_parse_registry(buf,size,NULL,false,next,error,sizeof(error));
+    free(buf);if(!valid)ESP_LOGE(TAG,"Registry invalid; identity allocation blocked");
+    return valid;
 }
 static void bacnet_task(void *arg) {
     (void)arg;
@@ -84,6 +109,12 @@ static void network_event(void *arg,esp_event_base_t base,int32_t id,void *data)
         } else bg_configure_address(runtime_ip,broadcast);
         xSemaphoreGive(runtime_lock);
         runtime_services_ready=bacnet_started&&management_start()==ESP_OK;
+        if(!mdns_started&&mdns_init()==ESP_OK) {
+            mdns_started=true;
+            /* Match the retained certificate SAN; do not replace device trust. */
+            mdns_hostname_set("est3-device");mdns_instance_name_set("EST3 P4 e41fe8");
+            mdns_service_add(NULL,"_https","_tcp",443,NULL,0);
+        }
     }
 }
 static void ethernet_start(void) {
@@ -104,7 +135,24 @@ void app_main(void) {
     esp_chip_info_t chip;esp_chip_info(&chip);
     ESP_LOGI(TAG,"EST3 RX-only %s, revision %u, PSRAM %u, boot %lu",esp_app_get_description()->version,chip.revision,(unsigned)esp_psram_get_size(),(unsigned long)runtime_boot_count);
     ESP_LOGW(TAG,"REAL ECP DISABLED. SERIAL PAYLOAD TX COMPILED OUT. No verified panel state.");
-    registry_load();ESP_ERROR_CHECK(serial_rx_start());ESP_ERROR_CHECK(telemetry_start());ethernet_start();
+    runtime_registry=calloc(1,sizeof(*runtime_registry));ESP_ERROR_CHECK(runtime_registry?ESP_OK:ESP_ERR_NO_MEM);
+    startup_phase("network");ethernet_start();
+    /* Bring management up before loading a large catalog when a lease is
+       available. The ten-second bound lets USB start even without Ethernet. */
+    for(unsigned i=0;i<100&&!runtime_services_ready;i++)vTaskDelay(pdMS_TO_TICKS(100));
+    startup_phase("registry_allocate");
+    gw_registry *next=calloc(1,sizeof(*next));ESP_ERROR_CHECK(next?ESP_OK:ESP_ERR_NO_MEM);
+    bool valid=registry_load(next);
+    startup_phase("bacnet_catalog");
+    xSemaphoreTake(runtime_lock,portMAX_DELAY);
+    if(valid) {
+        if(bacnet_started)ESP_ERROR_CHECK(bg_registry(next)?ESP_OK:ESP_ERR_NO_MEM);
+        gw_registry *previous=runtime_registry;runtime_registry=next;next=NULL;free(previous);
+    }
+    runtime_registry_ok=valid;xSemaphoreGive(runtime_lock);free(next);
+    startup_phase("serial_init");ESP_ERROR_CHECK(serial_rx_start());
+    startup_phase("legacy_diagnostics");ESP_ERROR_CHECK(telemetry_start());
+    startup_phase("ready");
     for(;;) {
         serial_stats s=serial_rx_stats();
         ESP_LOGI(TAG,"health uptime=%llu usb=%d connects=%lu rx=%lu drops=%lu errors=%lu line_errors=%lu heap=%lu min_heap=%lu ip=%s registry=%d",(unsigned long long)(esp_timer_get_time()/1000000),s.connected,(unsigned long)s.connects,(unsigned long)s.bytes,(unsigned long)s.drops,(unsigned long)s.errors,(unsigned long)s.line_errors,(unsigned long)esp_get_free_heap_size(),(unsigned long)esp_get_minimum_free_heap_size(),runtime_ip,runtime_registry_ok);

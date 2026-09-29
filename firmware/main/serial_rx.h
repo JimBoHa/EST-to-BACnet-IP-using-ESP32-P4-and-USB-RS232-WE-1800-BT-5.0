@@ -1,4 +1,5 @@
 #pragma once
+#include "printer.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include "esp_err.h"
@@ -13,3 +14,4 @@ esp_err_t serial_rx_start(void);
 serial_stats serial_rx_stats(void);
 void serial_rx_diagnostics(serial_stats *s, serial_diagnostics *d);
 esp_err_t serial_rx_set_baud(uint32_t baud);
+bool serial_rx_printer_copy(pr_parser *out);

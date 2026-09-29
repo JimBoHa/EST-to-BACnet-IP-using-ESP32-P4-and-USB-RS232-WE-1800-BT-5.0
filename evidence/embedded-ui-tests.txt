@@ -1,0 +1,1 @@
+PASS: embedded UI auth, no saved key, text safety, UUID link, preview/apply, mobile layout and stale connection banner

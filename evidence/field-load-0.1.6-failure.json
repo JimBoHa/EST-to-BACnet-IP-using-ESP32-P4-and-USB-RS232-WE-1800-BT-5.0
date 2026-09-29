@@ -1,0 +1,17 @@
+{
+  "result": "FAIL",
+  "version": "0.1.6",
+  "date_utc": "2026-09-29",
+  "procedure": "Concurrent all-object BACnet enumeration and authenticated next-epoch preview of the installed 1214-record catalog",
+  "bacnet_result": "no-response",
+  "preview_result": "HTTPS read timeout",
+  "boot_before": 14,
+  "boot_after": 16,
+  "recovered_ethernet": true,
+  "registry_epoch_after": 1,
+  "catalog_records_after": 1214,
+  "rx_bytes_after": 0,
+  "rx_drops_after": 0,
+  "uart_payload_tx_enabled": false,
+  "analysis": "Registry update validation compared every new device with every old device and all 25 instance pairs. Long CPU work under the shared registry lock is a watchdog risk. No console/core dump was available to prove reset cause. Replace quadratic validation with sorted indexes and rerun the exact procedure before acceptance."
+}

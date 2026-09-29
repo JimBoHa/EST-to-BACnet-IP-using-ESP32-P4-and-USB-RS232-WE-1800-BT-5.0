@@ -6,6 +6,10 @@
 #include "bacnet/basic/tsm/tsm.h"
 #include <string.h>
 #include <stdio.h>
+#ifdef ESP_PLATFORM
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#endif
 
 static gw_registry *active_registry;
 static uint8_t pdu[MAX_PDU];
@@ -35,6 +39,10 @@ static void update_values(bool usb_connected) {
 }
 bool bg_registry(gw_registry *registry) {
     for(size_t i=0;i<registry->count;i++) for(unsigned k=0;k<5;k++) {
+#ifdef ESP_PLATFORM
+        /* Thousands of object allocations also run in the IP event task at boot. */
+        if(k==0&&i%32==0)vTaskDelay(1);
+#endif
         uint32_t id=registry->devices[i].instances[k];
         if(Binary_Input_Create(id)!=id)return false;
         Binary_Input_Write_Disable(id);
@@ -44,13 +52,13 @@ bool bg_registry(gw_registry *registry) {
 }
 bool bg_start(uint32_t instance,const char *bind_ip,uint16_t port,const char *broadcast) {
     address_init();Device_Init(objects);Device_Set_Object_Instance_Number(instance);
-    const char *name=instance==3899001?"SIMULATION_ONLY EST3 lab":"EST3 RX-only bench gateway";
+    const char *name=instance==3899001?"SIMULATION_ONLY EST3 lab":"EST3 P4 RX-only gateway";
     BACNET_CHARACTER_STRING object_name;characterstring_init_ansi(&object_name,name);Device_Set_Object_Name(&object_name);
     Device_Set_Model_Name("EST3 P4 draft",strlen("EST3 P4 draft"));
     Device_Set_Vendor_Identifier(65535);
     Device_Set_Vendor_Name("UNASSIGNED LAB ONLY",strlen("UNASSIGNED LAB ONLY"));
     for(unsigned k=1;k<=4;k++) {if(Binary_Input_Create(k)!=k)return false;Binary_Input_Write_Disable(k);}
-    Binary_Input_Description_Set(1,"Real ECP enabled (always false in this release)");
+    Binary_Input_Description_Set(1,"Validated current-state decoder available (false in this release)");
     Binary_Input_Description_Set(2,"USB FTDI connected; does not establish panel communication");
     Binary_Input_Description_Set(3,"Durable device registry present");
     Binary_Input_Description_Set(4,"All active required conditions fresh and synchronized");

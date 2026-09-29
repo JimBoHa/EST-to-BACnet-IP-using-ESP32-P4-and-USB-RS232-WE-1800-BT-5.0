@@ -1,0 +1,71 @@
+
+
+     ------------------------------------------------------------
+     REVISION REPORT
+     PANEL:  01                              16:40:44  01/02/2026
+     ------------------------------------------------------------
+
+
+     ALARM COUNT:    0007
+     MARKET:  US Local
+     CPU      : V05.30.00
+     3-SDU    : V05.47.00
+     AUDIO DB : V00.00.00
+     SDU PRJCT: V01.02.03
+     DB S/N   :  00000001
+     DB DATE  :  03/04/26
+     IP ADDR  : 255.255.255.255
+     IP NTWRK : 255.255.255.255
+     IP GTWY  : 255.255.255.255
+
+     CARD: 01
+       ANN TYPE : 3-12/S2
+       CARD TYPE: PPS/M
+       FIRMWARE : V03.63.00
+                   11/30/11
+       BOOTSTRAP: V00.00.00
+                   00/00/96
+       DATABASE : V00.00.00
+                   00/00/00
+
+     CARD: 02
+       ANN TYPE : 3-12/S2
+       CARD TYPE: 3-SDDC
+       FIRMWARE : V05.20.00
+                   10/17/13
+       BOOTSTRAP: V05.20.00
+                   10/17/13
+       DATABASE : V01.02.03
+                   05/13/25
+
+     CARD: 03
+       ANN TYPE : 3-12/S2
+       CARD TYPE: 3-SDDC
+       FIRMWARE : V05.20.00
+                   10/17/13
+       BOOTSTRAP: V05.20.00
+                   10/17/13
+       DATABASE : V01.02.03
+                   03/04/26
+
+     CARD: 04
+       ANN TYPE : 3-12/S2
+       CARD TYPE: 3-MODCOM
+       FIRMWARE : V03.60.00
+                   10/25/05
+       BOOTSTRAP: V03.10.00
+                   09/27/01
+       DATABASE : V01.02.03
+                   08/30/23
+
+     CARD: 05
+       ANN TYPE : 
+       CARD TYPE: 3-SSDC
+       FIRMWARE : V05.40.00
+                   08/18/20
+       BOOTSTRAP: V05.40.00
+                   08/18/20
+       DATABASE : V01.02.03
+                   08/30/23
+
+     **END: COMPLETE**

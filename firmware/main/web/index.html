@@ -1,0 +1,226 @@
+<!doctype html>
+<!-- Diagnostics layout adapted from JimBoHa ESP32-S3 BACnet firmware, 0BSD. -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EST3 · P4 Gateway</title><style>
+    :root {
+      color-scheme: light;
+      --ink: #25282c;
+      --muted: #687078;
+      --line: #d6dadd;
+      --paper: #fff;
+      --page: #eceeef;
+      --header: #33373b;
+      --green: #16834b;
+      --green-soft: #e6f5ed;
+      --red: #b62f3a;
+      --red-soft: #fae9eb;
+      --amber: #a66309;
+      --amber-soft: #fff3db;
+      --blue: #1667a8;
+      --shadow: 0 3px 12px rgba(0, 0, 0, .16);
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font: 14px/1.45 Arial, Helvetica, sans-serif;
+    }
+    header {
+      background: var(--header);
+      color: #fff;
+      text-align: center;
+      padding: 18px 18px 0;
+      box-shadow: var(--shadow);
+    }
+    header h1 { margin: 0; font-size: clamp(19px, 3vw, 28px); letter-spacing: .01em; }
+    header p { margin: 5px 0 14px; color: #cfd3d6; }
+    nav { display: flex; justify-content: center; gap: 2px; overflow-x: auto; }
+    nav button {
+      border: 0;
+      border-radius: 5px 5px 0 0;
+      padding: 11px 22px;
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    nav button:hover, nav button:focus-visible { background: #454a4f; }
+    nav button.active { background: var(--page); color: var(--ink); }
+    main { width: min(1080px, calc(100% - 28px)); margin: 22px auto 42px; }
+    .panel {
+      display: none;
+      background: var(--paper);
+      border-radius: 7px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+    .panel.active { display: block; }
+    .panel h2 { margin: 0 0 4px; font-size: 21px; }
+    .panel-intro { margin: 0 0 20px; color: var(--muted); }
+    .banner {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 11px 14px;
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #f8f9f9;
+    }
+    .banner.error { border-color: #e2a2a7; background: var(--red-soft); color: #7c1d26; }
+    .banner.warning { border-color: #e4c17e; background: var(--amber-soft); color: #694006; }
+    .connection-dot, .lamp {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      flex: 0 0 12px;
+      border-radius: 50%;
+      background: #9ca2a7;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.18);
+    }
+    .connection-dot.on, .lamp.on { background: #21a861; box-shadow: 0 0 0 3px rgba(33,168,97,.14); }
+    .lamp.off { background: #9ca2a7; }
+    .lamp.fault { background: #d33d49; box-shadow: 0 0 0 3px rgba(211,61,73,.13); }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: 10px 16px;
+      margin: 0 0 18px;
+      padding: 14px;
+      background: #f7f8f8;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+    label { display: block; color: #444a50; font-weight: 700; }
+    label small { display: block; color: var(--muted); font-weight: 400; margin-top: 2px; }
+    input, select, textarea {
+      width: 100%;
+      min-height: 38px;
+      margin-top: 5px;
+      border: 1px solid #bfc5c9;
+      border-radius: 4px;
+      padding: 8px 10px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(22,103,168,.25);
+      border-color: var(--blue);
+    }
+    input:disabled { background: #eef0f1; color: #777; }
+    input[type="checkbox"] { width: 17px; min-height: 17px; margin: 0 8px 0 0; vertical-align: -3px; }
+    .key-field { flex: 1 1 390px; }
+    .priority-field { width: 125px; }
+    button.action, .file-button {
+      min-height: 38px;
+      border: 1px solid #777e84;
+      border-radius: 4px;
+      padding: 8px 13px;
+      background: #fff;
+      color: var(--ink);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.action:hover:not(:disabled), button.action:focus-visible:not(:disabled) { background: #eceff0; }
+    button.action:disabled { opacity: .48; cursor: not-allowed; }
+    button.primary { border-color: #145d94; background: var(--blue); color: #fff; }
+    button.primary:hover:not(:disabled), button.primary:focus-visible:not(:disabled) { background: #115486; }
+    button.safe { border-color: #137442; background: var(--green); color: #fff; }
+    button.safe:hover:not(:disabled), button.safe:focus-visible:not(:disabled) { background: #106c3c; }
+    button.danger { border-color: #9a2731; background: var(--red); color: #fff; }
+    button.danger:hover:not(:disabled), button.danger:focus-visible:not(:disabled) { background: #a02832; }
+    .io-table { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    .io-head, .io-row {
+      display: grid;
+      grid-template-columns: minmax(135px, 1.2fr) minmax(120px, 1fr) minmax(145px, 1fr) minmax(238px, 1.5fr);
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+    }
+    .io-head { background: #e4e7e9; color: #555c62; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .045em; }
+    .io-row { min-height: 64px; border-top: 1px solid var(--line); }
+    .io-row:nth-child(odd) { background: #fafafa; }
+    .channel strong { display: block; font-size: 16px; }
+    .channel span { color: var(--muted); overflow-wrap: anywhere; }
+    .state { display: flex; align-items: center; gap: 9px; font-weight: 700; }
+    .state small { color: var(--muted); font-weight: 400; }
+    .row-actions { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+    .row-actions button { min-width: 66px; }
+    .bulk-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+    .note { color: var(--muted); font-size: 13px; }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .card { border: 1px solid var(--line); border-radius: 6px; padding: 14px; background: #fafafa; }
+    .card h3 { margin: 0 0 11px; font-size: 15px; }
+    .metric { display: flex; justify-content: space-between; gap: 14px; padding: 6px 0; border-top: 1px solid #e2e4e5; }
+    .metric:first-of-type { border-top: 0; }
+    .metric span { color: var(--muted); }
+    .metric strong { text-align: right; overflow-wrap: anywhere; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; }
+    .form-grid .wide { grid-column: 1 / -1; }
+    fieldset { border: 1px solid var(--line); border-radius: 6px; margin: 18px 0 0; padding: 14px; }
+    legend { padding: 0 6px; font-weight: 700; }
+    .name-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; }
+    .footer-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+    .upload-box { border: 2px dashed #bfc5c9; border-radius: 7px; padding: 18px; background: #fafafa; }
+    .upload-box input { border: 0; padding-left: 0; }
+    .progress { display: none; margin-top: 12px; height: 8px; border-radius: 9px; overflow: hidden; background: #d9dddf; }
+    .progress.visible { display: block; }
+    .progress span { display: block; width: 100%; height: 100%; background: var(--blue); animation: working 1.2s ease-in-out infinite alternate; }
+    @keyframes working { from { opacity: .35; transform: translateX(-45%); } to { opacity: 1; transform: translateX(0); } }
+    #toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      max-width: min(430px, calc(100% - 36px));
+      padding: 12px 15px;
+      border-radius: 5px;
+      background: #25282c;
+      color: #fff;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: .18s ease;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.error { background: #8e222b; }
+    code { background: #eef0f1; border-radius: 3px; padding: 1px 4px; }
+    a { color: var(--blue); }
+    @media (max-width: 780px) {
+      main { width: min(100% - 18px, 1080px); margin-top: 14px; }
+      .panel { padding: 16px; }
+      .cards, .form-grid, .name-grid { grid-template-columns: 1fr; }
+      .form-grid .wide { grid-column: auto; }
+      .io-head { display: none; }
+      .io-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .row-actions { grid-column: 1 / -1; justify-content: flex-start; }
+    }
+    @media (max-width: 440px) {
+      header { padding-left: 8px; padding-right: 8px; }
+      nav { justify-content: flex-start; }
+      nav button { padding-left: 15px; padding-right: 15px; }
+      .io-row { grid-template-columns: 1fr; }
+      .row-actions { grid-column: auto; }
+    }
+  
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{background:#e4e7e9;font-size:12px;text-transform:uppercase}td{overflow-wrap:anywhere}.unknown{color:var(--amber)}.log{font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap;max-height:480px;overflow:auto}.section-gap{margin-top:22px}.badge{border:1px solid #d6dadd;border-radius:4px;padding:3px 8px;font-size:12px}.summary{font-size:30px;font-weight:700}.toolbar input[type=password]{max-width:460px}details{margin:12px 0}button{font:inherit}p{line-height:1.5}.quality{color:var(--amber);font-weight:bold}#deviceDetail{border-top:2px solid var(--line);padding-top:16px}footer{text-align:center;color:var(--muted);margin:20px}
+</style><script src="/app.js" defer></script></head><body>
+<header><h1>EST3 · P4 Gateway</h1><p>Panel observations · BACnet/IP · Ethernet management</p><nav aria-label="Device sections">
+<button class="tab active" data-panel="status">BACnet &amp; Status</button><button class="tab" data-panel="devices">Device directory</button><button class="tab" data-panel="diagnostics">Receiver diagnostics</button><button class="tab" data-panel="config">Configuration</button><button class="tab" data-panel="firmware">Firmware</button></nav></header>
+<main><div class="toolbar"><label class="key-field">Device admin key<input id="key" type="password" autocomplete="off" placeholder="Existing device management key"><small>Used over HTTPS; held in this page’s memory only.</small></label><button id="connect" class="action primary">Connect</button><button id="lock" class="action">Lock</button><label>Load saved key<input id="keyFile" type="file" accept=".json"></label></div>
+<div id="connection" class="banner" role="status">Enter your saved admin key to read this controller.</div>
+<section id="status" class="panel active"><h2>BACnet &amp; Status</h2><p class="panel-intro">Gateway connectivity and panel data quality are separate.</p><div id="sourceNotice" class="banner warning">Current panel conditions unavailable. Inventory and quiet receiver input do not establish normal state.</div>
+<div class="cards"><div class="card"><h3>Controller</h3><div id="controllerMetrics"></div></div><div class="card"><h3>Receiver</h3><div id="receiverMetrics"></div></div><div class="card"><h3>BACnet/IP</h3><div id="bacnetMetrics"></div></div></div>
+<h3 class="section-gap">Last complete revision report</h3><div id="revision">No complete report received during this boot.</div><p class="note">Report timestamps retain the panel’s clock. Historical alarm count is not a current alarm total.</p></section>
+<section id="devices" class="panel"><h2>Device directory</h2><p class="panel-intro">Backup inventory with stable identities. Condition values require verified live source evidence.</p><form id="search" class="toolbar"><label class="key-field">Find device<input id="query" placeholder="Label, address, type or UUID"></label><button class="action primary">Search</button></form><p id="inventoryInfo"></p><div class="table-wrap"><table><thead><tr><th>Device / address</th><th>Source type</th><th>Quality</th><th>BACnet BIs</th></tr></thead><tbody id="deviceRows"></tbody></table></div><div class="footer-actions"><button id="previous" class="action">Previous</button><button id="next" class="action">Next</button><span id="pageInfo"></span></div><div id="deviceDetail" hidden></div></section>
+<section id="diagnostics" class="panel"><h2>Receiver diagnostics</h2><p class="panel-intro">Recent observations stay on this controller. No permanent history server is used.</p><div class="cards"><div class="card"><h3>Receive counters</h3><div id="rxMetrics"></div></div><div class="card"><h3>Parser</h3><div id="parseMetrics"></div></div><div class="card"><h3>Storage policy</h3><p>128 recent records in RAM, up to 512 bytes per record. Old records are evicted. Reboot clears this view.</p><p>Unknown bytes and incomplete fragments remain visible. No data is sent to the previous host.</p></div></div><div class="footer-actions"><button id="download" class="action">Download current diagnostics</button></div><div id="recent" class="log section-gap"></div></section>
+<section id="config" class="panel"><h2>Configuration</h2><p class="panel-intro">Receiver settings and reviewed device inventory.</p><form id="baudForm"><fieldset><legend>Serial receiver</legend><label>Baud rate<select id="baud"><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option></select></label><p class="note">9600, 8N1, no flow control is the verified site profile. Receiver overrides last until reboot. Other rates suspend validated parsing.</p><button class="action primary">Apply receiver rate</button></fieldset></form>
+<fieldset><legend>Device inventory</legend><p>Prepare a registry with the SDU import tool. Preview before applying; existing BACnet instances and tombstones must remain stable.</p><input id="registryFile" type="file" accept=".json"><div class="footer-actions"><button id="previewRegistry" class="action">Validate &amp; preview</button><button id="applyRegistry" class="action primary" disabled>Apply reviewed registry</button></div><pre id="registryPreview" class="log"></pre><button id="backupRegistry" class="action">Download registry backup</button></fieldset>
+<fieldset><legend>Network and BACnet assignment</legend><div id="networkConfig"></div><p class="note">Ethernet uses DHCP. Current Device/Vendor IDs are explicitly marked as lab assignments pending site engineering.</p></fieldset></section>
+<section id="firmware" class="panel"><h2>Firmware update</h2><p class="panel-intro">Signed application update over Ethernet. Existing identity, registry and recovery layout are preserved.</p><div class="upload-box"><label>Application image<input id="image" type="file" accept=".bin"></label><label>Detached signature package<input id="signature" type="file" accept=".json"></label><p class="note">Create the signature package with tools/sign_release.py on the trusted development machine. Signing keys stay on that machine.</p><button id="upload" class="action primary">Verify &amp; upload</button><p id="otaResult" role="status"></p></div><p class="note">The page checks the running image hash and receiver health before confirmation. Unconfirmed updates automatically roll back after 180 seconds.</p></section>
+</main><footer>ESP32-P4 · Receive-only EST interface · Supplemental monitoring</footer><div id="toast" role="status"></div></body></html>

@@ -1,0 +1,13 @@
+Test project $REPO/build-tests
+    Start 1: core
+1/4 Test #1: core .............................   Passed    0.17 sec
+    Start 2: registry_scaling
+2/4 Test #2: registry_scaling .................   Passed    0.21 sec
+    Start 3: serial_diagnostics
+3/4 Test #3: serial_diagnostics ...............   Passed    0.01 sec
+    Start 4: printer
+4/4 Test #4: printer ..........................   Passed    0.07 sec
+
+100% tests passed out of 4
+
+Total Test time (real) =   0.47 sec

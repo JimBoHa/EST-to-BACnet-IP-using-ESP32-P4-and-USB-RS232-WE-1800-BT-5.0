@@ -1,0 +1,14 @@
+{
+  "result": "FAIL_ROLLED_BACK",
+  "version_attempted": "0.1.8",
+  "date_utc": "2026-09-29",
+  "before_version": "0.1.6",
+  "before_boot": 18,
+  "recovered_version": "0.1.6",
+  "recovered_boot": 20,
+  "registry_records_retained": 1214,
+  "registry_epoch_retained": 1,
+  "ethernet_recovered": true,
+  "image_confirmed": false,
+  "note": "Scheduler yields did not resolve startup failure. New pointer-index sorting is being replaced with iterative bounded-stack merge sort. No ROM/toolchain root-cause claim is made without a trace."
+}

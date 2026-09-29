@@ -1,0 +1,16 @@
+{
+  "result": "FAIL_ROLLED_BACK",
+  "version_attempted": "0.1.11",
+  "date_utc": "2026-09-29",
+  "before_version": "0.1.9",
+  "before_boot": 23,
+  "recovered_version": "0.1.9",
+  "recovered_boot": 25,
+  "registry_records_retained": 1214,
+  "registry_epoch_retained": 1,
+  "ethernet_recovered": true,
+  "image_confirmed": false,
+  "reset_reason_on_recovery": 4,
+  "note": "Larger event-task stack and stack-location diagnostics did not resolve startup. An identical retry returned to boot 27; short probes never reached the candidate HTTPS service.",
+  "root_cause": "Not established; no console crash trace available"
+}

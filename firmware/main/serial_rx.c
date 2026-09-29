@@ -11,6 +11,7 @@
 #include "esp_rom_crc.h"
 #include "esp_timer.h"
 #include <string.h>
+#include <stdlib.h>
 
 _Static_assert(GW_SERIAL_PAYLOAD_TX_ENABLED==0 && GW_ECP_ENABLED==0,"This target must stay RX-only");
 static const char *TAG="usb_rx";
@@ -21,7 +22,16 @@ static portMUX_TYPE lock=portMUX_INITIALIZER_UNLOCKED;
 static serial_stats stats = {.requested_baud = 9600};
 static serial_diagnostics diagnostics;
 static cdc_acm_data_callback_t original_in_callback;
-typedef struct {size_t length;uint8_t data[64];} chunk;
+static SemaphoreHandle_t parser_mutex;
+static pr_parser *printer;
+static uint64_t stream_offset;
+static uint32_t stream_epoch=1;
+static bool packet_corrupt;
+typedef struct {size_t length;uint64_t offset,now;uint32_t epoch;bool corrupt;uint8_t data[64];} chunk;
+bool serial_rx_printer_copy(pr_parser *out) {
+    if(!out||!printer||!parser_mutex)return false;
+    xSemaphoreTake(parser_mutex,portMAX_DELAY);*out=*printer;xSemaphoreGive(parser_mutex);return true;
+}
 serial_stats serial_rx_stats(void) {portENTER_CRITICAL(&lock);serial_stats copy=stats;portEXIT_CRITICAL(&lock);return copy;}
 void serial_rx_diagnostics(serial_stats *s, serial_diagnostics *d) {
     portENTER_CRITICAL(&lock);*s=stats;*d=diagnostics;portEXIT_CRITICAL(&lock);
@@ -41,7 +51,10 @@ esp_err_t serial_rx_set_baud(uint32_t baud) {
 static bool observe_usb_packet(const uint8_t *data,size_t len,void *arg) {
     uint64_t now_ms=(uint64_t)(esp_timer_get_time()/1000);
     portENTER_CRITICAL(&lock);
+    uint32_t errors=diagnostics.error_packets;
     serial_diagnostics_feed(&diagnostics,data,len,now_ms);
+    packet_corrupt=diagnostics.error_packets!=errors||len<2;
+    if(packet_corrupt)stream_epoch++;
     portEXIT_CRITICAL(&lock);
     return original_in_callback(data,len,arg);
 }
@@ -70,7 +83,7 @@ static esp_err_t configure_receiver(cdc_acm_dev_hdl_t device,uint32_t baud) {
     if(err==ESP_OK)err=cdc_acm_host_send_custom_request(device,0x40,0x01,0x0200,0,0,NULL);
     portENTER_CRITICAL(&lock);
     stats.configuration_error=err;
-    if(err==ESP_OK){stats.baud=baud;stats.baud_epoch++;serial_diagnostics_clear_capture(&diagnostics);}
+    if(err==ESP_OK){stats.baud=baud;stats.baud_epoch++;stream_epoch++;serial_diagnostics_clear_capture(&diagnostics);}
     portEXIT_CRITICAL(&lock);
     return err;
 }
@@ -80,7 +93,12 @@ static bool receive(const uint8_t *data,size_t len,void *arg) {
        in_buffer_size=0 enforces a single USB packet. Do not strip again here. */
     portENTER_CRITICAL(&lock);stats.bytes+=len;stats.chunks++;portEXIT_CRITICAL(&lock);
     for(size_t offset=0;offset<len;offset+=64) {
-        chunk c={.length=len-offset>64?64:len-offset};memcpy(c.data,data+offset,c.length);
+        chunk c={.length=len-offset>64?64:len-offset,.now=(uint64_t)(esp_timer_get_time()/1000)};
+        portENTER_CRITICAL(&lock);
+        c.offset=stream_offset;stream_offset+=c.length;c.epoch=stream_epoch;
+        c.corrupt=packet_corrupt||stats.baud!=9600;
+        portEXIT_CRITICAL(&lock);
+        memcpy(c.data,data+offset,c.length);
         if(xQueueSend(queue,&c,0)!=pdTRUE){portENTER_CRITICAL(&lock);stats.drops+=c.length;portEXIT_CRITICAL(&lock);}
     }
     return true;
@@ -88,12 +106,12 @@ static bool receive(const uint8_t *data,size_t len,void *arg) {
 static void event(const cdc_acm_host_dev_event_data_t *ev,void *arg) {
     (void)arg;
     if(ev->type==CDC_ACM_HOST_DEVICE_DISCONNECTED) {
-        portENTER_CRITICAL(&lock);stats.connected=false;portEXIT_CRITICAL(&lock);xSemaphoreGive(lost);
+        portENTER_CRITICAL(&lock);stats.connected=false;stream_epoch++;portEXIT_CRITICAL(&lock);xSemaphoreGive(lost);
     } else if(ev->type==CDC_ACM_HOST_ERROR) {
-        portENTER_CRITICAL(&lock);stats.errors++;portEXIT_CRITICAL(&lock);xSemaphoreGive(lost);
+        portENTER_CRITICAL(&lock);stats.errors++;stream_epoch++;portEXIT_CRITICAL(&lock);xSemaphoreGive(lost);
     } else if(ev->type==CDC_ACM_HOST_SERIAL_STATE) {
         if(ev->data.serial_state.bFraming||ev->data.serial_state.bParity||ev->data.serial_state.bOverRun||ev->data.serial_state.bBreak) {
-            portENTER_CRITICAL(&lock);stats.line_errors++;portEXIT_CRITICAL(&lock);
+            portENTER_CRITICAL(&lock);stats.line_errors++;stream_epoch++;portEXIT_CRITICAL(&lock);
         }
     }
 }
@@ -113,9 +131,20 @@ static void host_task(void *arg) {
 }
 static void consumer(void *arg) {
     (void)arg;chunk c;
-    for(;;)if(xQueueReceive(queue,&c,portMAX_DELAY)==pdTRUE) {
-        portENTER_CRITICAL(&lock);stats.crc32=esp_rom_crc32_le(stats.crc32,c.data,c.length);portEXIT_CRITICAL(&lock);
-        /* No ECP parser is compiled. Payload is not interpreted as point state. */
+    for(;;) {
+        if(xQueueReceive(queue,&c,pdMS_TO_TICKS(100))==pdTRUE) {
+            portENTER_CRITICAL(&lock);stats.crc32=esp_rom_crc32_le(stats.crc32,c.data,c.length);portEXIT_CRITICAL(&lock);
+            xSemaphoreTake(parser_mutex,portMAX_DELAY);
+            pr_feed(printer,c.epoch,c.offset,c.now,c.data,c.length,c.corrupt);
+            xSemaphoreGive(parser_mutex);
+        } else {
+            uint32_t epoch;uint64_t offset;
+            portENTER_CRITICAL(&lock);epoch=stream_epoch;offset=stream_offset;portEXIT_CRITICAL(&lock);
+            xSemaphoreTake(parser_mutex,portMAX_DELAY);
+            if(printer->initialized&&(epoch!=printer->epoch||offset!=printer->next_offset))
+                pr_gap(printer,epoch,offset,(uint64_t)(esp_timer_get_time()/1000),"receiver discontinuity or queue loss; incomplete input discarded");
+            xSemaphoreGive(parser_mutex);
+        }
     }
 }
 static void connector(void *arg) {
@@ -139,9 +168,8 @@ static void connector(void *arg) {
             }
         }
         cdc_acm_host_close(device);
-        xQueueReset(queue);
         portENTER_CRITICAL(&lock);stats.connected=false;portEXIT_CRITICAL(&lock);
-        ESP_LOGW(TAG,"FTDI closed; receive queue discarded; reconnect pending");
+        ESP_LOGW(TAG,"FTDI closed; queued receive bytes retained; reconnect pending");
     }
 }
 /* Link guard. No field-channel payload writes exist in this target. */
@@ -149,7 +177,9 @@ esp_err_t __wrap_cdc_acm_host_data_tx_blocking(cdc_acm_dev_hdl_t h,const uint8_t
     (void)h;(void)d;(void)n;(void)timeout;return ESP_ERR_NOT_SUPPORTED;
 }
 esp_err_t serial_rx_start(void) {
-    queue=xQueueCreate(128,sizeof(chunk));lost=xSemaphoreCreateBinary();if(!queue||!lost)return ESP_ERR_NO_MEM;
+    queue=xQueueCreate(128,sizeof(chunk));lost=xSemaphoreCreateBinary();parser_mutex=xSemaphoreCreateMutex();
+    printer=calloc(1,sizeof(*printer));if(!queue||!lost||!parser_mutex||!printer)return ESP_ERR_NO_MEM;
+    pr_init(printer);
     const usb_host_config_t host={.intr_flags=ESP_INTR_FLAG_LEVEL1};
     esp_err_t err=usb_host_install(&host);if(err!=ESP_OK)return err;
     if(xTaskCreate(host_task,"usb_host",4096,NULL,10,NULL)!=pdPASS)return ESP_ERR_NO_MEM;

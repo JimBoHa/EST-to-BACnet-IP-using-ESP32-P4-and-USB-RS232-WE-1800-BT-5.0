@@ -1,3 +1,5 @@
+> **2026-09-29 scope update:** Read `STATUS.md`, `docs/WORK_LOG.md` and `docs/STANDALONE_OPERATIONS.md` first. The owner requires only the P4 and Metasys, an embedded P4 configuration/diagnostics page, and bounded recent RAM observations. Separate permanent host/history deployment is superseded. Metasys commissioning is deferred to the owner until automatic panel readings are reliable. Older versions/results below are historical.
+
 # Bench operations and recovery
 
 1. Keep EST absent during all current software, update, invalid-request and transport testing.
