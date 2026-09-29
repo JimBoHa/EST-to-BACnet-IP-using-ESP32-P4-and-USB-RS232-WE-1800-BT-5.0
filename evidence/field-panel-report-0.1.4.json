@@ -34,9 +34,22 @@
     "cpu_firmware": "05.30.00",
     "sdu_version": "05.47.00",
     "project_version": "01.01.02",
-    "database_date": "03/04/26"
+    "database_date": "03/04/26",
+    "report_count": 2,
+    "bytes_per_report": 1782
   },
   "serial_payload_tx_enabled": false,
   "raw_capture_published": false,
-  "scope": "Panel printer-report reception confirmed; live events, complete inventory and ECP are not validated."
+  "scope": "Panel printer-report reception confirmed; live events, complete inventory and ECP are not validated.",
+  "continued_9600_capture": {
+    "payload_bytes": 5346,
+    "captured_bytes": 5346,
+    "capture_offset_gaps": [],
+    "report_headers": 3,
+    "complete_end_markers": 3,
+    "sha256": "99b1d83d18ee8aeb56784e79c2755599c70b019c39d85a1c045553b328f20f72",
+    "line_error_packet_delta": 0,
+    "usb_errors_delta": 0,
+    "rx_drops_delta": 0
+  }
 }

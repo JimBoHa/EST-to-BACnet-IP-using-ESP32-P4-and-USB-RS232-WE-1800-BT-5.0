@@ -17,7 +17,8 @@ static const char *TAG="usb_rx";
 static QueueHandle_t queue;
 static SemaphoreHandle_t lost;
 static portMUX_TYPE lock=portMUX_INITIALIZER_UNLOCKED;
-static serial_stats stats = {.requested_baud = 19200};
+/* Validated against the installed panel's Printer 2 revision report. */
+static serial_stats stats = {.requested_baud = 9600};
 static serial_diagnostics diagnostics;
 static cdc_acm_data_callback_t original_in_callback;
 typedef struct {size_t length;uint8_t data[64];} chunk;
