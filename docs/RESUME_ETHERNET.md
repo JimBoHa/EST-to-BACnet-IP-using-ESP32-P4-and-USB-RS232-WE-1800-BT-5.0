@@ -1,5 +1,7 @@
 # Resume remote Ethernet work
 
+For a different machine, use [the macOS handoff](../handoff/NEXT_SESSION_PROMPT.md) and its private transfer bundle. A later handoff-preparation TCP check timed out before authentication; verify the new machine's route/lease rather than treating the last tested address as a guaranteed current connection. No firmware or panel settings changed during that attempt.
+
 Read STATUS.md, FIELD_CONNECTION_TEST.md, SERIAL_DIAGNOSTICS.md and ETHERNET_TEST_REPORT.md first. Board runs **0.1.5** at **192.168.75.157**, MAC `e8:f6:0a:e4:1f:e8`, with `ota_1` valid and boot count 13 on 2026-09-28 local time. USB-C is disconnected and unavailable. FTDI USB-A remains connected; **owner reports panel wires connected**. Three complete real panel Printer 2 revision reports were received on 0.1.4 at **9600 8N1**. Version 0.1.5 boots at 9600 and that default was verified after its Ethernet update. API baud overrides are still volatile. Do not treat this as the earlier disconnected bench setup.
 
 The final owner-requested report test after the 0.1.5 reboot captured two further complete reports (3,564 bytes), with no missing offsets or USB/UART errors/drops. The image remained confirmed at 180 seconds uptime, and independent BACnet reads passed. Firmware/report evidence is versioned under `evidence/`; raw report captures stay in `private/`. Printer-report reception now works; real-time printer event decoding remains unimplemented.
