@@ -1,10 +1,20 @@
 # Standalone P4 deployed; automatic EST state remains unverified
 
-Updated 2026-09-29. **0.1.14 is installed and confirmed**, with an embedded HTTPS
+Updated 2026-09-30. **0.1.14 is installed and confirmed**, with an embedded HTTPS
 configuration/diagnostics page and 1,214 qualified backup objects exposed through
 BACnet/IP. **Unattended alarm/restore decoding and startup current-state recovery
-are not complete.** No new panel UART payload was observed during this continuation.
+are not complete.** Fresh readback now establishes **automatic printer-event
+reception**: one local battery-trouble activation/restore pair and an operator
+command record, 317 bytes with no reported receive errors/drops. All bytes were
+preserved and checked against record offsets. The event address joins one backup
+power-supply pseudo point. Firmware remains unchanged and conditions remain invalid.
 Inventory, an inactive BI, or an idle receiver must not be interpreted as normal.
+
+The existing receive connection needs no additional wire for this observed event
+path. Exact installed port filters/mode still lack a configuration readback.
+See [port review](docs/PORT_CONFIGURATION_REVIEW.md) and the
+[1 October site checklist](docs/SITE_VISIT_CHECKLIST.md). The owner has panel-only
+access; 3-SDU/ECP commissioning cannot be promised from that visit alone.
 
 The owner's current scope supersedes the earlier permanent-host design: only
 ESP32-P4 and Metasys are permanent components. Metasys commissioning is deferred
@@ -117,12 +127,21 @@ for EST3X/SFS1-CPU; it does not supply the installed CPU 5.30 printer-event gram
 The owner confirms no existing event log. See [as-built review](docs/AS_BUILT_REVIEW.md)
 and [source coverage](docs/SOURCE_COVERAGE.md).
 
-The remaining prerequisite is verified automatic output/routing and event/restore
-semantics, plus a supported way to establish conditions already active at boot.
+The 30 September readback found the first genuine local-trouble ACT/RST pair and
+an inbound operator-command record on confirmed boot 31 after 37.34 hours uptime.
+Raw bytes are private; [sanitized evidence](evidence/field-automatic-printer-2026-09-30.json)
+records exact hashes and limits. This supersedes earlier statements that no
+automatic events had yet arrived. It is not a complete 24-hour mixed-load test.
+
+Remaining prerequisites are full routing and event/restore coverage, a validated
+event decoder, and a supported way to establish conditions already active at boot.
 The physically RX-only connection cannot request a snapshot. Keep naturally
 arriving unknown bytes available for review; do not substitute another manual
 Print request, synthesize live events, change wiring or guess ECP commands.
-Metasys tests, production BACnet assignments, physical electrical acceptance,
+The temporary GET-only report collector detects overlapping windows, omitted
+records and boot changes. It preserves private evidence for the next visit and
+does not implement a host service or change firmware. Metasys tests, production
+BACnet assignments, physical electrical acceptance,
 full source recovery and a permitted 24-hour mixed-load soak remain outstanding.
 
 ## Access, recovery and continuation

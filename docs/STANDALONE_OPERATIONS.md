@@ -112,8 +112,12 @@ SQLite snapshot connections before hashing to avoid disappearing WAL/SHM entries
 
 ## Automatic monitoring acceptance
 
-See `SOURCE_COVERAGE.md`. No new panel event was observed during the initial workstation
-readback. Printer reports prove bytes and metadata, not unattended current-state
+See `SOURCE_COVERAGE.md`. The 30 September readback preserved one automatically
+received local-trouble ACT/RST pair and an inbound operator-command record on the
+existing receive connection. See [port review](PORT_CONFIGURATION_REVIEW.md) and
+[site checklist](SITE_VISIT_CHECKLIST.md). These establish a scoped event path;
+the decoder remains revision-only and every condition remains invalid.
+Printer reports prove bytes and metadata, not unattended current-state
 recovery. Continue observing natural traffic; do not generate live faults or
 change panel routing to manufacture fixtures. Event assertion/restore mappings
 need exact, authorized source evidence before enabling the observation reducer.

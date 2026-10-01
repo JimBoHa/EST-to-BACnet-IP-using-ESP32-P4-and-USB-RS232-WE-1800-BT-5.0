@@ -1,0 +1,22 @@
+{
+  "result": "PASS_SCOPED_RETAINED_RECORD_CAPTURE",
+  "started_utc": "2026-10-01T02:07:02.480357+00:00",
+  "finished_utc": "2026-10-01T02:07:17.970013+00:00",
+  "summary": {
+    "samples": 22,
+    "records": 14,
+    "missing_record_ids": 0,
+    "observed_reboots": 0,
+    "starting_boot": 31,
+    "ending_boot": 31,
+    "partial_bytes": 0,
+    "current_state_validated": false
+  },
+  "payload_bytes_before": 317,
+  "payload_bytes_after": 317,
+  "receiver_counters_unchanged": true,
+  "capture_requests": "GET only",
+  "raw_output_private": true,
+  "full_rate_report_test": "NOT_RUN; verify during visit",
+  "firmware_changed": false
+}

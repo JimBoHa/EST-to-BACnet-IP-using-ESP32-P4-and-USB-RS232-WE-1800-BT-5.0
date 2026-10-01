@@ -1,6 +1,7 @@
 # Continue from deployed standalone 0.1.14
 
 Read repository `STATUS.md`, `docs/WORK_LOG.md`, `docs/SOURCE_COVERAGE.md`,
+`docs/PORT_CONFIGURATION_REVIEW.md`, `docs/SITE_VISIT_CHECKLIST.md`,
 `docs/AS_BUILT_REVIEW.md`, `docs/STANDALONE_OPERATIONS.md`, `docs/PICS.md` and
 `docs/TEST_MATRIX.csv`. This prompt supersedes the original 0.1.5 handoff prompt.
 Do not restart completed import/UI work or restore old source over this checkout.
@@ -71,8 +72,17 @@ diagnostic stage delays. Do not claim extended boot/load qualification.
 
 ## Remaining source boundary
 
-No new spontaneous UART payload was observed during the continuation. Five earlier
-revision reports establish readable transport and this report syntax only:
+**30 September update:** fresh authenticated reads recovered a complete 317-byte
+tail containing a local-trouble ACT/RST pair and an inbound operator command.
+Zero UART/USB errors, receive drops or record evictions; all retained line offsets
+match the raw tail. Boot 31 remained confirmed after 37.34 hours uptime. The single
+gap marker is the initial offset-zero marker, not observed midstream loss. Original
+bytes, receipt times and source join are in `private/port-review-20260930/`.
+The address joins one qualified power-supply pseudo point, not a physical sensor
+or module. Do not apply this historical restore as fresh normal state. The
+production decoder remains revision-only; all condition BIs remain invalid.
+
+Five earlier revision reports establish readable transport and revision syntax:
 panel 01, CPU 05.30.00, SDU 05.47.00, project 01.01.02, database date 03/04/26.
 Historical alarm count is not current alarm state. Panel clock/timezone is
 unverified. On-device report parsing is fixture-tested but has not yet received
@@ -88,8 +98,8 @@ is EST3X/SFS1-CPU and does not establish this CPU's event wire grammar. Do not
 substitute its TB5 diagram for the actual TX2/COM2 wiring. Optional BMS-bridge
 references are not proof such a bridge exists at the site.
 
-Automatic alarm/trouble/supervisory/disabled and restore mappings require actual,
-version-matched source evidence and verified installed routing. Startup also
+Automatic alarm/supervisory/disabled and broader trouble/restore mappings require
+additional source evidence and verified routing. Startup also
 needs an authoritative state source: the RX-only connection cannot request a
 snapshot, and quiet event output cannot recover conditions already active at
 boot. Keep observations unknown until this is resolved. `gw_observe` is absent
@@ -110,6 +120,25 @@ and symbol-audit changes, never merely relabeling simulated data.
    full source recovery, Metasys and a permitted 24-hour mixed-load soak.
 5. Update status, coverage, tests and work log with exact evidence. New app changes
    get a new version; never overwrite a different binary under an existing version.
+
+## Owner's next visit
+
+The owner expects to visit late 1 October and wants no further evidence-only trips.
+They confirmed **panel access only**, with no programming computer/3-SDU or EST
+technician. Do not send them looking for an unverified front-panel port-settings
+menu. Automatic event reception already works with yellow RX to TX2 and black to
+COM2; leave orange TX disconnected. Do not promise complete ECP/state recovery
+from rewiring alone. The site checklist consolidates photos, Status/History
+collection and validation before leaving. Manual reports here are one-time
+source fixtures, never evidence of automatic snapshots or fresh live events.
+
+`tools/capture_printer.py` is a bounded GET-only private collector for that session,
+not a permanent host service. Start it and verify READY before any report; retain
+the finish record, loss markers and before/after counters. It deduplicates record
+IDs across overlapping RAM windows and detects reboots. Records omit CR/LF and
+gap text is synthetic diagnostics, so do not call its JSONL a byte-exact wire dump.
+The existing short raw tail separately preserved the complete 317-byte event
+capture. A full-rate history capture has not been exercised yet.
 
 Pinned ESP-IDF v5.5.5 is at `$HOME/esp-idf-v5.5.5`; this workstation uses
 `IDF_TOOLS_PATH=$HOME/est3-toolchains/idf5.5.5`. See README for build/test commands.

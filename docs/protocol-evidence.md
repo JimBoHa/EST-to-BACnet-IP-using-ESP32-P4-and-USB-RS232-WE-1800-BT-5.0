@@ -1,6 +1,11 @@
 # Real EST ECP is disabled
 
-No manufacturer wire specification or authorized EST captures have been supplied. No operational command encoder, serial tunnel, or BACnet-to-panel command route exists in this release. Production source calls no serial payload transmit function; the linked image is audited for its absence. The USB driver opens with an OUT buffer size of zero. USB enumeration and FTDI setup vendor-control transfers still occur and require independent electrical/output measurement.
+No complete manufacturer ECP wire specification or verified ECP captures have been supplied. No operational command encoder, serial tunnel, or BACnet-to-panel command route exists in this release. Production source calls no serial payload transmit function; the linked image is audited for its absence. The USB driver opens with an OUT buffer size of zero. USB enumeration and FTDI setup vendor-control transfers still occur and require independent electrical/output measurement.
+
+**30 September update:** automatic local-trouble ACT/RST and an inbound operator
+command were retained on the current 9600 receive path. See
+[port review](PORT_CONFIGURATION_REVIEW.md) for exact evidence and limits.
+Earlier bench/initial-attachment rows below retain their historical scope.
 
 | Capability | Evidence | Status |
 |---|---|---|
@@ -13,6 +18,7 @@ No manufacturer wire specification or authorized EST captures have been supplied
 | Attached adapter during network reads | 131 authenticated HTTPS reads and 564 BACnet reads in 60 seconds; adapter remained connected with no new boot/errors | IDLE_NETWORK_LOAD_PASS; serial throughput NOT_RUN |
 | Owner-reported EST attachment, 2026-09-28 | Same certificate at 192.168.75.157; 13 passive status samples over 60 seconds, USB connected, zero RX bytes and no new boots/reconnects/USB or line errors | NETWORK_ACCESS_PASS; EST data connection UNVERIFIED |
 | Owner-requested Printer 2 revision report | 19200 produced UART errors; 9600 8N1 produced five complete reports totaling 8,910 readable bytes across 0.1.4/0.1.5, including after reboot, with no capture gaps or new errors/drops | REAL_PANEL_REPORT_RX_PASS; live event decoding NOT_IMPLEMENTED |
+| Automatic printer events, 2026-09-30 | Complete 317-byte tail and matching retained offsets; one local-trouble ACT/RST pair and an inbound operator command; no reported USB/UART errors/drops; one backup pseudo-point join | AUTOMATIC_RX_PASS_SCOPED; full condition coverage/current-state recovery NOT_VERIFIED |
 | ECP framing / checksum / addressing / sequence / session | No version-matched specification | UNKNOWN; DISABLED |
 | ECP reads / transport acknowledgements | Public FieldServer manual is not a wire specification | UNKNOWN; DISABLED |
 | Current-state recovery / independent conditions | Application simulation only | SIMULATION_ONLY |

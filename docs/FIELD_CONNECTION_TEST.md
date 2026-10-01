@@ -1,5 +1,10 @@
 # Field connection observation — 2026-09-28
 
+**30 September follow-up:** automatic local-trouble ACT/RST and an operator-command
+record were recovered from the same receive path with no reported errors/drops.
+See [current port review](PORT_CONFIGURATION_REVIEW.md). The sections below are
+historical tests; their then-missing event evidence is no longer the latest finding.
+
 The owner reported moving the controller to `192.168.75.x` and connecting its adapter to the EST panel following the earlier wiring guidance. The exact physical wiring, installed panel card and panel port configuration were not independently verified. The initial observation below changed no firmware/settings. Subsequent sections record the 0.1.4 diagnostics update, receiver baud checks and an owner-requested front-panel report. No serial payload or operational command was transmitted by the gateway.
 
 ## Device identification and access
