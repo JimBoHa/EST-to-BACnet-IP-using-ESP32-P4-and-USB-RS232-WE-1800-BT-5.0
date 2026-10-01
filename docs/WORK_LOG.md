@@ -90,3 +90,34 @@ printer documentation were requested while implementation continued.
   metadata verification; automatic panel conditions remain a source-evidence gap.
 - The actual final image, debug ELF/map, private registry, source catalog and
   credentials remain local. Public source/evidence exclude raw site files and keys.
+
+## 2026-09-30 - panel/port confirmation and visit preparation
+
+- Owner authorized investigation before a planned late-1-October visit and
+  confirmed panel-only access, with no 3-SDU computer or technician.
+- Fresh pinned-TLS GET requests recovered 317 complete UART bytes: one local
+  battery-trouble ACT/RST pair and an inbound operator-command record. Firmware
+  remains confirmed 0.1.14, boot 31, after 37.34 hours uptime. No error/drop/eviction
+  counters increased; every retained line matched its raw byte offset. The first
+  offset-zero gap is parser initialization. No command or report was requested.
+- The event address joins exactly one qualified backup power-supply pseudo point.
+  It does not join a SENSOR/MODULE physical row. Raw records/times/labels remain
+  private; a sanitized hash/coverage result is committed. No live condition was
+  set from these historical observations, and no firmware was changed.
+- Rechecked selected cabinet/routing fields on scratch copies. Port Type/Baud
+  enum labels and individual filter bits remain unresolved. Group/state/partition
+  scalar references join Default_Display_Group/All_Cabinets/All_Partitions.
+  ECP table still has zero active header records. No live-program match inferred.
+- Manufacturer documentation places port selection/filtering in 3-SDU. No
+  supported front-display path to read/edit all those settings was established.
+  ECP polling remains a separate protocol/configuration dependency. The owner
+  does not need another conductor to receive the demonstrated automatic events.
+- Added a bounded GET-only printer-record collector and focused overlap/eviction/
+  reboot/private-output tests. Initial actual capture returned all 14 retained
+  records including the initial diagnostic marker, with no missing record IDs or
+  reboot. mDNS is resolved once to avoid repeated resolution delays during reports.
+  Full-rate report capture is still a site verification item.
+- Prepared a single site checklist with physical evidence, read-only Status/History
+  collection, capture checks before leaving and an off-site 3-SDU/documentation
+  request. No communication was sent to a service company. No settings, wiring,
+  credentials or panel operational state were changed.

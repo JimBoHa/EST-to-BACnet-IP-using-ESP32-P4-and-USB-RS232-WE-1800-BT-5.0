@@ -21,7 +21,7 @@ Status applies to the specific claim, not to the whole product.
 | Extra SDU objects | Retained as catalog metadata; 7 scope-0 and 198 scope-255 objects explicitly unresolved | These special cabinet codes are not asserted to be physical panel addresses |
 | Labels/type codes | Scalar source labels and raw model/type codes preserved; immutable UUIDs and BI instance reservations | Human message blobs and detailed type/condition meanings are not decoded |
 | Relationships | 42 LRM, 349 LOGICDEV and 25 SIGNATUREGROUPS rows preserved in private source catalog | Not asserted to be live output states or graphic coordinates |
-| Automatic alarm/trouble/restore output | Manufacturer operation manual describes printers receiving events/restorations | Installed routing, exact record syntax, condition semantics and live examples remain unverified |
+| Automatic event output | Actual 30 September capture: one local-trouble ACT/RST pair and one inbound operator command; 317 bytes without reported errors/drops; pseudo-point address joins the backup | Establishes this observed event path only; alarm/supervisory/disabled formats and complete routing remain unverified |
 | Current alarm/trouble/supervisory/disabled | Reserved per-object BIs show fault quality; DataValid inactive; page says unverified | No initial snapshot or validated automatic event decoder. Inventory never sets normal |
 | Current-state recovery | Boot/loss cannot establish state; no known state is created | Physically RX-only interface cannot request a snapshot. Autonomous recovery is not demonstrated |
 | Unknown input | Authenticated recent RAM records retain raw bytes, offsets, receive uptime, epoch and parse status | 128 × up to 512-byte records; eviction count visible; clears on reboot |
@@ -34,9 +34,13 @@ Status applies to the specific claim, not to the whole product.
 Edwards' [270382-EN R012 operation manual](https://alarmspec.com/wp-content/uploads/2025/12/270382-EN-R012-EST3-System-Operation-Manual.pdf),
 printed pages 62–64, describes event/restoration printing. That establishes a
 candidate automatic source, not the installed port's routing or wire grammar.
-The manual's firmware scope differs from the installed 5.30 CPU. Current field
-captures establish only revision-report syntax. Port filter enum 1919 has not
-been independently decoded. No panel settings or wiring were changed.
+The manual's firmware scope differs from the installed 5.30 CPU. The 30 September
+capture adds genuine local-trouble activation/restore syntax and an operator
+command record to the five earlier revision reports. The complete 317-byte tail
+and structured offsets agree; the address matches one backup power-supply pseudo
+point. No detector/module event, complete routing or current-state coverage is
+inferred. Port filter enum 1919 has not been independently decoded. No panel
+settings or wiring were changed. See [port review](PORT_CONFIGURATION_REVIEW.md).
 
 Automatic changes are different from an authoritative current-state snapshot.
 At boot, an RX-only event stream can miss previously active conditions. Silence

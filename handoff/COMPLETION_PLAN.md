@@ -21,11 +21,19 @@ is reliable. Do not reintroduce those old dependencies.
 
 ## Next dependency: automatic source and recovery
 
-The owner has no existing event log. The added documents contain no verified
-installed CPU 5.30 automatic-event grammar, port-routing proof or unsolicited
-startup snapshot. No new UART payload was observed during this continuation. Inspect
-new naturally arriving bounded observations if they become available. Source
-semantics must be established before enabling alarm/restore decoding.
+On 30 September the P4 yielded a complete 317-byte capture containing one real
+local-trouble ACT/RST pair and an inbound operator-command record, with no reported
+errors/drops. The event address joins one backup power-supply pseudo point. This
+establishes scoped automatic printer reception, not every event class or complete
+current state. Production decoding remains revision-only. See
+`docs/PORT_CONFIGURATION_REVIEW.md` and `docs/SITE_VISIT_CHECKLIST.md`.
+
+The owner has panel-only access for the planned 1 October visit, without 3-SDU or
+a technician. Complete physical photos and scoped Status/History capture in one
+session, verifying artifacts before leaving. The temporary capture helper makes
+GET requests only. No manual report is a substitute for autonomous monitoring.
+Complete ECP commissioning cannot be guaranteed without programming access and
+the exact supported protocol.
 
 Required proof:
 

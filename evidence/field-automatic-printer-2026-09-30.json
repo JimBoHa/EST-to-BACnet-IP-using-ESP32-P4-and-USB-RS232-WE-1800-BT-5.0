@@ -1,0 +1,37 @@
+{
+  "observed_at_utc": "2026-10-01T01:56:25.080359+00:00",
+  "result": "PASS_SCOPED_AUTOMATIC_PRINTER_RECEPTION",
+  "firmware": "0.1.14",
+  "elf_sha256": "c3bc8da2dd812651e709475f4a3748c68acaf9d4ab43280dc94249f86915c0f2",
+  "boot_count": 31,
+  "uptime_ms": 134427956,
+  "receiver": {
+    "baud": 9600,
+    "format": "8N1",
+    "flow_control": "none",
+    "payload_tx": false
+  },
+  "payload_bytes": 317,
+  "payload_sha256": "fc8a70e17101a8b224c041d80da50080c713c3bfb9694a02ed4f86a716f75c2b",
+  "capture_start_offset": 0,
+  "complete_retained_raw_tail": true,
+  "records_match_raw_offsets": true,
+  "record_count_including_initial_marker": 14,
+  "received_event_classes": {
+    "local_trouble_activation": 1,
+    "local_trouble_restore": 1,
+    "operator_command_record": 1
+  },
+  "activation_restore_address_match": true,
+  "qualified_backup_address_matches": 1,
+  "matched_source_kind": "power-supply logical/pseudo point; not a SENSOR or MODULE row",
+  "usb_errors": 0,
+  "uart_error_packets": 0,
+  "application_drops": 0,
+  "record_evictions": 0,
+  "parser_gap_markers": 1,
+  "gap_interpretation": "initial first-input marker at byte offset 0; no midstream discontinuity observed",
+  "gateway_actions": "GET-only status/serial/printer reads; no firmware/baud/registry/panel change",
+  "evidence_limit": "One local-trouble ACT/RST pair and one inbound operator-command record. Complete port filter coverage, ECP mode, initial state, alarm/supervisory/disabled grammar and live BACnet condition decoding remain unverified.",
+  "private_evidence": "private/port-review-20260930/"
+}
