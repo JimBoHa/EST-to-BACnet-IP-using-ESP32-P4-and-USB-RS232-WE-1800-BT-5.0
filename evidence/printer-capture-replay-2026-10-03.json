@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "utc": "2026-10-03T14:21:51.224240+00:00",
+  "capture_sha256": "090b92818fb2a7873c88eee7cc3df887b10ba79a75c13762958a54e58bd9ff3f",
+  "source_version": "0.1.14",
+  "source_boot": 31,
+  "source_uart_bytes": 869,
+  "source_retained_lines": 38,
+  "complete_trouble_records": 8,
+  "activation_records": 4,
+  "restore_records": 4,
+  "distinct_qualified_addresses": 2,
+  "physical_module_addresses": 1,
+  "power_supply_pseudo_addresses": 1,
+  "registry_objects": 1214,
+  "bacnet_objects": 6075,
+  "independent_bacpypes_reads": true,
+  "all_trouble_actions_matched": true,
+  "all_condition_reliability_fault": true,
+  "all_data_valid_inactive": true,
+  "scope": "Offline replay of private retained line bytes, reconstructed with CRLF framing, against the actual private catalog using production C parser/observer/stack. No historical bytes injected into the P4. Not live event or current-state acceptance."
+}

@@ -1,5 +1,7 @@
 # Panel / port review - 30 September 2026
 
+**2026-10-03 update:** Owner offered orange TX → RX2 preparation; final wiring confirmation is pending. 0.1.15 now decodes captured LOCAL/COMMON trouble observations with invalid current-state quality. [Current evidence and remaining polling requirements](PRINTER_TROUBLE_OBSERVATIONS.md) supersede older TX and no-decoder statements below.
+
 **Automatic printer output is now observed on the existing Port 2 receive path.**
 No rewiring, serial transmission or panel programming was required to receive it.
 Exact installed port-menu settings are still not available as a remote readback.

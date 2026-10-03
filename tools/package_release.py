@@ -30,6 +30,8 @@ if not {'__wrap_cdc_acm_host_open','observe_usb_packet'} <= names:
     raise SystemExit('Receive diagnostics USB observer is not linked')
 if 'pr_feed' not in names:
     raise SystemExit('On-device printer observation parser is not linked')
+if not {'pr_event_line','gw_record_printer_trouble'} <= names:
+    raise SystemExit('Restricted printer trouble observation path is not linked')
 hashes={}
 for name,source in files.items():
     target=destination/name
@@ -46,9 +48,11 @@ manifest={'version':version,'built_utc':datetime.datetime.now(datetime.timezone.
           'elf_sha256':binary[176:208].hex(),'application_size_bytes':len(binary),
           'release_files_sha256':hashes,
           'production_symbol_audit':{'simulation_observer_absent':True,'original_payload_tx_absent':True,
-                                     'usb_receive_observer_linked':True,'printer_parser_linked':True},
+                                     'usb_receive_observer_linked':True,'printer_parser_linked':True,
+                                     'restricted_trouble_observer_linked':True},
           'external_history_host_required':False,'current_state_decoder_validated':False,
-          'recent_observation_storage':'128 bounded RAM records; no long-term journal'}
+          'recent_observation_storage':'128 raw lines and 32 trouble observations in RAM; no long-term journal',
+          'trouble_observations':'LOCAL/COMMON TRBL ACT/RST; last action only; Reliability remains communication-failure'}
 for path in (ROOT/f'evidence/build-manifest-{version}.json',ROOT/'evidence/build-manifest.json'):
     path.write_text(json.dumps(manifest,indent=2)+'\n')
 print(json.dumps(manifest,indent=2))

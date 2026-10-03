@@ -65,12 +65,18 @@ def verify(host,registry):
     for actual,expected in zip(directory,saved['devices']):
         for key in ['uuid','address','label','type','binding_epoch','retired']:assert actual[key]==expected[key]
         assert not actual['data_valid']
-        assert all(c['last_value'] is None and c['quality']=='not_source_verified' for c in actual['conditions'])
+        for c in actual['conditions']:
+            if c['quality']=='observation_only':
+                assert c['condition']=='trouble' and isinstance(c['last_value'],bool)
+                assert c['source'] in ('LOCAL TRBL','COMMON TRBL') and c['source_time']
+                assert c['age_ms']>=0
+            else:
+                assert c['last_value'] is None and c['quality']=='not_source_verified'
     selected=saved['devices'][len(saved['devices'])//2]
     match=client.request('GET','/api/v1/devices?q='+selected['uuid'])
     assert match['matched']==1 and match['devices'][0]['uuid']==selected['uuid']
     parser=client.request('GET','/api/v1/printer?limit=128')
-    assert parser['profile']=='est3_printer_revision_v1' and not parser['current_state_available']
+    assert parser['profile']=='est3_printer_observations_v2' and not parser['current_state_available']
     after=client.request('GET','/api/v1/status')
     assert before['boot_count']==after['boot_count'] and before['registry_epoch']==after['registry_epoch']
     for key in ['rx_drops','usb_errors','telemetry_queued','telemetry_dropped']:assert before[key]==after[key]

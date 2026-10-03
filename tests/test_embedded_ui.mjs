@@ -4,7 +4,7 @@ import {pathToFileURL} from 'node:url';
 import {mkdir} from 'node:fs/promises';
 const modulePath=process.env.EST3_PLAYWRIGHT_MODULE;
 const {chromium}=await import(modulePath?pathToFileURL(modulePath).href:'playwright');
-const browser=await chromium.launch({headless:true});
+const browser=await chromium.launch({headless:true,executablePath:process.env.EST3_CHROMIUM_EXECUTABLE||undefined});
 const page=await browser.newPage({viewport:{width:1360,height:1050}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const token='SYNTHETIC-TEST-KEY-'+ 'x'.repeat(40);
@@ -13,6 +13,8 @@ const device={uuid:'00000000-0000-4000-8000-000000000001',label:'Example smoke d
 const status={version:'0.1.6',ip:'192.0.2.10',boot_count:14,uptime_ms:5400000,heap_free:30000000,internal_heap_free:350000,awaiting_confirmation:false,bacnet_device_instance:3899000,bacnet_vendor_id:65535,device_count:1214,registry_epoch:1,bacnet_assignment:'lab placeholders'};
 const serial={usb_connected:true,baud:9600,format:'8N1',rx_bytes:1782,rx_drops:0,usb_in_packets:45000,usb_status_only_packets:43218,usb_line_error_packets:0,usb_errors:0,last_payload_ms:5000000};
 const printer={complete_reports:1,incomplete_reports:0,unrecognized:1,gaps:1,retained:80,evicted:0,partial_bytes:0,last_complete_report:{complete:true,panel:1,cpu:'V05.30.00',sdu:'V05.47.00',project:'V01.02.03',database_date:'01/02/26',source_time:'10:00:00 01/02/2026',historical_alarm_count:7,cards:[{address:2,type:'3-SDDC',firmware:'V05.20.00'}]},records:[{id:80,received_monotonic_ms:5000000,parse_status:'unrecognized',offset:1782,raw_hex:Buffer.from('<img src=x onerror=alert(1)>').toString('hex')}]};
+Object.assign(device.conditions[1],{last_value:false,quality:'observation_only',source:'COMMON TRBL',source_time:'12:25:56 02/01/2026',age_ms:10000});
+Object.assign(printer,{complete_trouble_observations:2,mapped_trouble_observations:2,trouble_observations:[{record_id:3,source_time:'12:25:56 02/01/2026',address:'P01 C02 D0001',type:'COMMON TRBL',transition:'RST',mapping:'observation_only',text:'TEST <img src=x onerror=alert(1)>'}]});
 await page.route('**/api/**',async route=>{
   const req=route.request(),url=new URL(req.url());
   if(req.headers().authorization!=='Bearer '+token)return route.fulfill({status:401,body:'Authentication required'});
@@ -44,9 +46,14 @@ try {
   await page.locator('#deviceRows button').click();
   assert.ok(page.url().endsWith('#device='+device.uuid));
   assert.ok((await page.locator('#deviceDetail').textContent()).includes('No observation'));
+  assert.ok((await page.locator('#deviceDetail').textContent()).includes('RST observed'));
+  assert.ok((await page.locator('#deviceDetail').textContent()).includes('observation_only'));
   await page.getByRole('button',{name:'Receiver diagnostics',exact:true}).click();
   assert.equal(await page.locator('#recent img').count(),0);
   assert.ok((await page.locator('#recent').textContent()).includes('<img'));
+  assert.equal(await page.locator('#events img').count(),0);
+  assert.ok((await page.locator('#events').textContent()).includes('COMMON TRBL RST'));
+  assert.ok((await page.locator('#events').textContent()).includes('<img'));
   await page.getByRole('button',{name:'Configuration',exact:true}).click();
   assert.ok(await page.locator('#applyRegistry').isDisabled());
   await page.locator('#registryFile').setInputFiles({name:'synthetic.json',mimeType:'application/json',buffer:Buffer.from('{"schema_version":1}')});

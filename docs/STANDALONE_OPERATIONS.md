@@ -75,10 +75,10 @@ Never run provisioning, serial flash or erase against this deployment.
 
 ```sh
 .venv/bin/python tools/package_release.py
-.venv/bin/python tools/sign_release.py release/0.1.14/est3_gateway_rxonly.bin \
-  --output private/ota-0.1.14-signature.json
+.venv/bin/python tools/sign_release.py release/0.1.15/est3_gateway_rxonly.bin \
+  --output private/ota-0.1.15-signature.json
 .venv/bin/python tools/gateway_client.py --host GATEWAY_IP \
-  upload release/0.1.14/est3_gateway_rxonly.bin
+  upload release/0.1.15/est3_gateway_rxonly.bin
 ```
 
 The signature key never enters the browser. Never replace a release archive
@@ -91,8 +91,8 @@ partition. Legacy `catalog` is preserved. Therefore 0.1.5 rollback retains its
 old compatible registry (empty at this handoff), and 0.1.6 or later can recover the new
 one later. Old firmware will not expose new catalog objects. Do not claim full
 monitoring during that rollback; its purpose is recoverable Ethernet management.
-Use confirmed 0.1.14, listed in STATUS.md. The retained other slot is confirmed
-0.1.13, which has diagnostic startup pauses. Never deploy 0.1.7, 0.1.8, 0.1.10,
+Use confirmed 0.1.15, listed in STATUS.md. The retained other slot is confirmed
+0.1.14 on `ota_1`, without diagnostic startup pauses. Never deploy 0.1.7, 0.1.8, 0.1.10,
 0.1.11 or 0.1.12: those candidates failed startup. 0.1.6 has a known full-catalog
 preview/load defect. Archived 0.1.9 passed full catalog/BACnet checks but uses the
 older startup/reboot path. Archived 0.1.5 uses 9600 at boot with its old empty
@@ -116,7 +116,8 @@ See `SOURCE_COVERAGE.md`. The 30 September readback preserved one automatically
 received local-trouble ACT/RST pair and an inbound operator-command record on the
 existing receive connection. See [port review](PORT_CONFIGURATION_REVIEW.md) and
 [site checklist](SITE_VISIT_CHECKLIST.md). These establish a scoped event path;
-the decoder remains revision-only and every condition remains invalid.
+0.1.15 adds limited trouble observations; every current-condition quality remains invalid.
+See [trouble observation semantics](PRINTER_TROUBLE_OBSERVATIONS.md).
 Printer reports prove bytes and metadata, not unattended current-state
 recovery. Continue observing natural traffic; do not generate live faults or
 change panel routing to manufacture fixtures. Event assertion/restore mappings

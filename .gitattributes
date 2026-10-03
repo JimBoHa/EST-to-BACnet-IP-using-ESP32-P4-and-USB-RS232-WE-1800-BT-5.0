@@ -4,5 +4,7 @@ evidence/** -text -whitespace
 
 # This byte fixture intentionally includes printer CR/LF and trailing spaces.
 fixtures/printer-revision-sanitized.txt -text whitespace=-blank-at-eol
+# The closing blank line is part of the trouble frame, including at EOF.
+fixtures/printer-trouble-sanitized.txt -text -whitespace
 # Embedded assets are compared byte-for-byte with the verified device image.
 firmware/main/web/* -text

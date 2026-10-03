@@ -9,15 +9,18 @@ handles any long-term trending.
 Read [STATUS.md](STATUS.md) for installed firmware and measured results, and
 [standalone operations](docs/STANDALONE_OPERATIONS.md) for access, import and recovery.
 The [coverage matrix](docs/SOURCE_COVERAGE.md) distinguishes available data from
-unverified capabilities. **Automatic live EST condition decoding and startup
-current-state recovery are still unavailable.** Imported labels do not establish
+unverified capabilities. **Complete current-condition decoding and startup recovery remain unavailable.**
+0.1.15 decodes captured LOCAL/COMMON trouble observations; their last printed
+actions retain fault quality. See [semantics and limits](docs/PRINTER_TROUBLE_OBSERVATIONS.md). Imported labels do not establish
 normal detector states.
 
 ## Implemented path
 
-- FTDI USB reception at verified 9600 8N1, physically RX-only; no payload TX.
+- FTDI USB reception at verified 9600 8N1; serial payload TX disabled.
 - On-device revision-report metadata parsing and 128 recent raw-line records,
-  with offsets, stream epochs, fragments and visible eviction/loss.
+  with offsets, stream epochs, fragments and visible eviction/loss. Up to 32
+  structured trouble observations map to existing qualified addresses; unknown
+  addresses remain diagnostic records.
 - Private read-only SDU import: 1,214 backup objects, including 674 physical
   sensor/module records; stable UUIDs and BACnet instances. Other source scopes
   remain explicitly qualified. No guessed location/message-blob decoding.

@@ -1,5 +1,7 @@
 # Site visit: 1 October 2026
 
+**Historical checklist — superseded 2026-10-03:** Owner now authorizes preparing orange TX → RX2; completed wiring remains unconfirmed. Firmware TX stays disabled. [Current source/polling requirements](PRINTER_TROUBLE_OBSERVATIONS.md) apply; another manual Print is not an autonomous recovery solution.
+
 ## Decision before travelling
 
 **Keep the working receive connection. No additional wire is needed for automatic

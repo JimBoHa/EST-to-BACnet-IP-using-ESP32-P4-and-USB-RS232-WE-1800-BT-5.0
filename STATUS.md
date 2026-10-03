@@ -1,90 +1,87 @@
-# Standalone P4 deployed; automatic EST state remains unverified
+# Standalone P4: trouble observations deployed; full current-state polling unresolved
 
-Updated 2026-09-30. **0.1.14 is installed and confirmed**, with an embedded HTTPS
-configuration/diagnostics page and 1,214 qualified backup objects exposed through
-BACnet/IP. **Unattended alarm/restore decoding and startup current-state recovery
-are not complete.** Fresh readback now establishes **automatic printer-event
-reception**: one local battery-trouble activation/restore pair and an operator
-command record, 317 bytes with no reported receive errors/drops. All bytes were
-preserved and checked against record offsets. The event address joins one backup
-power-supply pseudo point. Firmware remains unchanged and conditions remain invalid.
-Inventory, an inactive BI, or an idle receiver must not be interpreted as normal.
+Updated 2026-10-03. **0.1.15 is installed and confirmed**, with automatic
+LOCAL/COMMON TRBL ACT/RST observation decoding, embedded diagnostics and
+1,214 qualified backup objects exposed through BACnet/IP. Last printed trouble
+actions now map to existing BIs. **All current-condition quality remains
+unverified.** A restore observation never marks a device reliably normal.
 
-The existing receive connection needs no additional wire for this observed event
-path. Exact installed port filters/mode still lack a configuration readback.
-See [port review](docs/PORT_CONFIGURATION_REVIEW.md) and the
-[1 October site checklist](docs/SITE_VISIT_CHECKLIST.md). The owner has panel-only
-access; 3-SDU/ECP commissioning cannot be promised from that visit alone.
+The latest pre-update capture contains eight trouble records from two matched
+addresses: one power-supply pseudo point and one physical module. All eight
+passed offline independent BACnet replay against the actual catalog. This is
+separate from fresh event acceptance on the deployed decoder; no historical
+records were injected into the P4. See [observation semantics and evidence](docs/PRINTER_TROUBLE_OBSERVATIONS.md).
 
-The owner's current scope supersedes the earlier permanent-host design: only
-ESP32-P4 and Metasys are permanent components. Metasys commissioning is deferred
-to the owner after reliable automatic EST data is available. No Mac/FastAPI service
-is required. Periodic host delivery and diagnostic flash writes are disabled;
-recent observations are bounded RAM data. Legacy NVS bytes remain for recovery.
+Only ESP32-P4 and Metasys are permanent components. Recent raw lines, structured
+observations and per-device last observations are bounded RAM data. No permanent
+Mac, external history service or routine event flash writes are required.
+Metasys commissioning remains deferred to the owner.
 
 ## Installed and retained state
 
 | Item | Verified state |
 |---|---|
-| Application | `est3_gateway_rxonly` **0.1.14**, `ota_1`, confirmed boot **31** |
-| Reset/startup | Normal software reset (`reset_reason=3`); `startup_phase=ready` |
-| Running ELF SHA-256 | `c3bc8da2dd812651e709475f4a3748c68acaf9d4ab43280dc94249f86915c0f2` |
-| App-file SHA-256 | `d806e1c6840fa5797bf0c5058c946f00e701582ac2b76a49b69a3db7d50b3bb3` — 986,192 bytes |
+| Application | `est3_gateway_rxonly` **0.1.15**, `ota_0`, confirmed boot **32** |
+| Reset/startup | Software reset (`reset_reason=3`); `startup_phase=ready` |
+| Running ELF SHA-256 | `7fb8820729402d0d73ccb28cc45cc3fabeb8da66ea6d9be285040d88a0510c68` |
+| App-file SHA-256 | `67569d6ed82be3ea7f5295df93731e65f2644dd9a19815fd72e2bac5cfb90a47` — 991,472 bytes |
 | Hardware | P4 revision 1.3; 32 MB flash/PSRAM; native EMAC/IP101; PoE; USB-C recovery unavailable |
-| Receiver | FTDI 0403:6001 attached; 9600 8N1, no flow control; physical RX-only wiring unchanged |
-| Source registry | Epoch 1; 1,214 objects; 674 SENSOR/MODULE rows; all live conditions unverified |
-| BACnet | Device 3899000, Vendor 65535: lab placeholders; Device + 6,074 BIs = **6,075 objects** |
-| Management | `https://est3-device.local/`; current DHCP lease `192.168.75.157`; MAC `e8:f6:0a:e4:1f:e8` |
-| Retained OTA slot | Confirmed 0.1.13 on `ota_0`; same functionality with diagnostic startup pauses |
-| Update boundary | Application only; partition table, deployed bootloader, credentials and eFuses preserved |
+| Receiver | FTDI 0403:6001; 9600 8N1, no flow; payload TX compiled out |
+| Wiring | Last confirmed: yellow to TX2, black to COM2, orange disconnected. Owner offered orange to RX2; finished wiring confirmation pending. |
+| Source registry | Epoch 1; 1,214 objects; 674 SENSOR/MODULE rows; current conditions unverified |
+| BACnet | Device 3899000, Vendor 65535 (lab placeholders); **6,075 objects** |
+| Management | `https://est3-device.local/`; current DHCP lease `192.168.75.157` |
+| Retained OTA slot | Confirmed **0.1.14** on `ota_1` |
+| Update boundary | Application only; deployed bootloader, partitions, credentials and eFuses preserved |
 
-[Build manifest](evidence/build-manifest-0.1.14.json) and
-[confirmed update](evidence/field-update-0.1.14.json) distinguish ELF-descriptor
-hash from binary-file hash. Archived images contain the retained device TLS key
-and token and remain private. Do not run provisioning on this controller.
+[Build manifest](evidence/build-manifest-0.1.15.json) and
+[confirmed update](evidence/field-update-0.1.15.json) record distinct ELF and image
+hashes. Images contain retained credentials and remain private. Never reprovision.
 
-## Implemented and checked
+## Implementation and verification
 
-- **On-device parsing:** strict revision-report metadata parser, offsets, stream
-  epochs, loss/corruption handling, fragments and unknown raw lines. Latest 128
-  records, up to 512 bytes each, stay in RAM and clear at reboot. Historical
-  report `ALARM COUNT` never becomes a live alarm. No validated event reducer is
-  linked; payload TX and simulation injection remain absent from the image.
-- **Qualified inventory:** real selected-field Paradox/SDU import validates
-  counts, unique identities and physical/LRM/type joins. All 1,214 OBJECT rows
-  retained, including 361 SENSOR and 313 MODULE rows. Special scopes 0 and 255
-  remain unresolved. Persistent UUIDs, BI reservations, epochs and tombstones
-  survive updates. Renames preserve identity; replacement/rebinding needs review.
-- **Embedded page:** status/BACnet, searchable directory and UUID links, recent
-  diagnostics/export, volatile receiver baud, registry preview/apply/backup,
-  and signed OTA. Existing admin key stays in page memory. Public assets contain
-  no site data; all management/data APIs require authentication.
-- **Source quality:** four condition BIs per object report communication-failure
-  and fault; fifth DataValid BI remains inactive. No labels or quiet input create
-  a known normal condition. [PICS](docs/PICS.md) records actual services/limits.
-- **Software verification:** 48 Python tests and four native ASan/UBSan tests pass,
-  including exhaustive sanitized genuine-report splits, malformed/bounded
-  reception, 2,048-record registry constraints, importer identity changes, OTA
-  readiness/retention/hash gates, certificate pinning and handoff snapshots.
-- **Actual field verification:** final 0.1.14 passed all 6,075 Object_List indices and
-  26,715 selected property values across all 1,214 catalog records. Its actual
-  HTTPS page/API test checked all directory records, TLS name/trust/time/leaf,
-  nine unauthorized routes, and two nonmutating registry previews during the
-  195.38-second BACnet run. Boot 31 remained confirmed beyond 180 seconds; no
-  new receive errors or reboot occurred. UART payload during the tests was zero.
-- **Browser verification:** synthetic desktop/mobile UI, key-memory handling,
-  script-like text, UUID links and preview gating pass. Synthetic screenshots
-  are labeled as fixtures; they are separate from actual P4 HTTPS tests.
+- Strict revision metadata plus two captured trouble grammars. Incomplete,
+  corrupt and unmatched records remain diagnostic evidence. Unknown addresses
+  do not create catalog entries. Older/duplicate observations do not refresh a
+  device; known report contexts inhibit observation mapping.
+- Existing stable UUIDs, instances, binding epochs and tombstones retained.
+  No support bit or synchronization is inferred from an event. Trouble values
+  report communication-failure/fault; DataValid remains inactive.
+- On-device page shows 32 recent structured trouble observations, 128 raw lines,
+  decoder counters and last-observation source/time/age. No remote injection
+  endpoint. Serial TX and generic simulation observer remain absent from ELF.
+- Five ASan/UBSan native tests and 59 Python tests passed, including exhaustive
+  frame splits/gaps, malformed input, report inhibition, replay, bounded memory,
+  stable inventory and independent BACnet action/quality checks. Browser auth,
+  text safety, observation rendering and mobile/stale behavior passed.
+- All eight private captured ACT/RST records passed independent localhost
+  BACnet reads against the actual 1,214-object registry. This validates captured
+  syntax and address joins, not all-condition or current-state coverage.
+- Signed 0.1.15 OTA confirmed with exact ELF hash, all 1,214 objects and registry
+  epoch/source retained. Field BACnet read all 6,075 indexed objects and 26,715
+  properties in 182.04 seconds; HTTPS checked all 1,214 directory rows, nine
+  unauthorized routes and two nonmutating previews. Boot 32 remained confirmed
+  beyond 180 seconds with no new receive errors. No new panel bytes arrived.
 
-Evidence: [Python](evidence/continuation-python-tests.txt),
-[native](evidence/continuation-c-tests.txt),
-[source inventory audit](evidence/continuation-inventory-native.txt),
-[browser](evidence/embedded-ui-tests.txt),
-[0.1.14 full BACnet](evidence/field-bacnet-all-0.1.14.json),
-[0.1.14 HTTPS](evidence/field-web-0.1.14.json),
-[later stability/backup read](evidence/field-stability-0.1.14.json).
-The detailed [acceptance matrix](docs/TEST_MATRIX.csv) preserves unperformed
-physical, current-state, Metasys and 24-hour tests as unperformed.
+Evidence: [native/Python/browser](evidence/printer-observation-tests-0.1.15.json),
+[private capture replay](evidence/printer-capture-replay-2026-10-03.json),
+[full field BACnet](evidence/field-bacnet-all-0.1.15.json),
+[field HTTPS](evidence/field-web-0.1.15.json).
+
+## Wiring and polling boundary
+
+Orange adapter TX to panel RX2 prepares a return path; yellow RX stays on TX2
+and black on COM2. The owner authorized this preparation and offered to make
+it. Actual completion has not yet been confirmed. This supersedes older blanket
+instructions to leave orange disconnected, but does not enable firmware TX.
+
+The unchanged source is producing printer-format records. There is no verified
+printer-port command for configuration, a device list or current state. The
+available ECP manual requires Gateway mode configured with 3-SDU, and lacks
+complete wire messages needed for an independent implementation. User reports
+panel access only. Polling therefore needs a compatible ECP specification or
+licensed implementation and an SDU commissioning path; a third wire alone
+cannot complete it. See [remaining source requirements](docs/PRINTER_TROUBLE_OBSERVATIONS.md#remaining-source-requirements).
 
 ## Deployment failures and recovery
 
@@ -133,16 +130,13 @@ Raw bytes are private; [sanitized evidence](evidence/field-automatic-printer-202
 records exact hashes and limits. This supersedes earlier statements that no
 automatic events had yet arrived. It is not a complete 24-hour mixed-load test.
 
-Remaining prerequisites are full routing and event/restore coverage, a validated
-event decoder, and a supported way to establish conditions already active at boot.
-The physically RX-only connection cannot request a snapshot. Keep naturally
-arriving unknown bytes available for review; do not substitute another manual
-Print request, synthesize live events, change wiring or guess ECP commands.
-The temporary GET-only report collector detects overlapping windows, omitted
-records and boot changes. It preserves private evidence for the next visit and
-does not implement a host service or change firmware. Metasys tests, production
-BACnet assignments, physical electrical acceptance,
-full source recovery and a permitted 24-hour mixed-load soak remain outstanding.
+Remaining prerequisites are all-condition/routing coverage, current-state recovery,
+a supported polling protocol, and serial inventory discovery if available.
+The 0.1.15 decoder covers the eight captured trouble observations only. Fresh
+post-update events, production BACnet assignments, physical electrical acceptance,
+Metasys commissioning and a permitted 24-hour mixed-load soak remain outstanding.
+The older 1 October checklist is historical; its keep-orange-disconnected advice
+is superseded by the owner's current wiring authorization above.
 
 ## Access, recovery and continuation
 

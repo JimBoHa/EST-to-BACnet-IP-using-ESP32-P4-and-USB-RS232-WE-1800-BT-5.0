@@ -1,5 +1,38 @@
 # Continuation work log
 
+## 2026-10-03 — captured trouble observations deployed
+
+- Owner reiterated all fire-device BACnet access, ideally serial inventory, and
+  offered orange TX. Supplied orange → RX2 / yellow → TX2 / black → COM2 preparation.
+  Last confirmed orange disconnected; final confirmation pending. This changes
+  authorization, not protocol availability or firmware payload TX.
+- Private boot-31 readback contained 869 UART bytes, 38 retained lines and eight
+  LOCAL/COMMON trouble records: three physical-module pairs plus the earlier
+  power-supply pseudo-point pair. No drops/USB/UART errors. Structured records
+  preserved before OTA; 512-byte tail is not called a full 869-byte raw capture.
+- Added strict trouble parser and qualified-address observation reducer. Existing
+  trouble BIs carry last printed actions with invalid current quality. No event
+  infers support, synchronization or complete normal. Unknown addresses stay in
+  diagnostics; no serial discovery claim. Added 32-event RAM display and source/
+  time/age metadata. No history host, flash journal or remote injection added.
+- Five sanitizer and 59 Python tests pass, including frame splits/gaps and
+  independent BACnet reads. Eight private records passed offline replay against
+  actual catalog with C production parser/reducer/stack. No P4 injection. Browser
+  checks passed using installed shell 1243; default Playwright shell 1234 missing.
+- Signed application-only 0.1.15 OTA succeeded: confirmed boot 32 / ota_0,
+  registry retained, software reset. Fallback 0.1.14 on ota_1. Build manifest
+  records exact hashes and restricted-observer/TX-exclusion symbol audit.
+- Field checks passed 6,075 Object_List indices and 26,715 properties in 182.04
+  seconds; HTTPS checked 1,214 rows, assets, nine unauthorized routes and two
+  nonmutating previews. Confirmed beyond rollback window, no reboot/errors,
+  zero fresh UART bytes. Fresh deployed-event acceptance remains unperformed.
+- Polling remains unresolved: no verified printer configuration/list/status
+  query. ECP manual requires SDU Gateway mode but lacks full wire frames. Owner
+  has no SDU computer/technician. No guessed outbound command was attempted.
+- Updated coverage, operations, PICS, test matrix and handoff. Fixed an existing
+  unquoted comma in A03 while adding scoped A13–A16 results; broad live/recovery/
+  Metasys/24-hour gates remain unpassed.
+
 ## 2026-09-29 — new workstation
 
 - Restored commit `7a4a9e3c2f3c9de72cd2ba0eaf8f35ab8d92125a` and pinned BACnet submodule to the restored checkout; branch `continuation/printer-pipeline`.

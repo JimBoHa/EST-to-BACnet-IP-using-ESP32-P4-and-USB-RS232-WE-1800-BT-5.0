@@ -148,7 +148,10 @@ bool gw_parse_registry(const char *json,size_t size,const gw_registry *old,bool 
         if(memcmp(d->instances,p->instances,sizeof(d->instances))) {why="binding instances cannot change";goto fail;}
         bool changed=strcmp(d->address,p->address)||strcmp(d->type,p->type)||d->supported!=p->supported||d->retired!=p->retired;
         if(d->binding_epoch<p->binding_epoch || (changed&&d->binding_epoch<=p->binding_epoch)) {why="binding epoch did not advance";goto fail;}
-        if(!changed&&d->binding_epoch==p->binding_epoch)memcpy(d->conditions,p->conditions,sizeof(d->conditions));
+        if(!changed&&d->binding_epoch==p->binding_epoch) {
+            memcpy(d->conditions,p->conditions,sizeof(d->conditions));
+            d->printer_trouble=p->printer_trouble;
+        }
     }
     order_devices(ordered,out->count,true);
     const gw_device *previous=NULL;
