@@ -1,5 +1,7 @@
 # Source coverage and the standalone controller
 
+**2026-10-03 / 0.1.15:** Eight captured LOCAL/COMMON trouble ACT/RST records now have a tested observation-to-BACnet path, including a physical module address. Current-state quality stays invalid. [Updated semantics, tests and unresolved polling](PRINTER_TROUBLE_OBSERVATIONS.md) supersede the no-decoder/no-module statements below.
+
 The owner's 2026-09-29 instructions supersede the earlier permanent-host design.
 The ESP32-P4 serves its own HTTPS directory/configuration/diagnostics and read-only
 BACnet/IP. Metasys owns long-term trending and the owner will commission Metasys
@@ -8,7 +10,7 @@ software, not a production dependency. Old host delivery is disabled.
 
 The added as-built material was reviewed in [AS_BUILT_REVIEW.md](AS_BUILT_REVIEW.md).
 Its SDU files duplicate the imported source; the EST3X manual does not establish
-the installed EST3 CPU 5.30 event format. The owner has no existing event log.
+the installed EST3 CPU 5.30 event format. The owner supplied no pre-existing event log; subsequent private P4 captures provide limited trouble records.
 
 The machine-readable companion is [SOURCE_COVERAGE.csv](SOURCE_COVERAGE.csv).
 Status applies to the specific claim, not to the whole product.
@@ -21,10 +23,10 @@ Status applies to the specific claim, not to the whole product.
 | Extra SDU objects | Retained as catalog metadata; 7 scope-0 and 198 scope-255 objects explicitly unresolved | These special cabinet codes are not asserted to be physical panel addresses |
 | Labels/type codes | Scalar source labels and raw model/type codes preserved; immutable UUIDs and BI instance reservations | Human message blobs and detailed type/condition meanings are not decoded |
 | Relationships | 42 LRM, 349 LOGICDEV and 25 SIGNATUREGROUPS rows preserved in private source catalog | Not asserted to be live output states or graphic coordinates |
-| Automatic event output | Actual 30 September capture: one local-trouble ACT/RST pair and one inbound operator command; 317 bytes without reported errors/drops; pseudo-point address joins the backup | Establishes this observed event path only; alarm/supervisory/disabled formats and complete routing remain unverified |
-| Current alarm/trouble/supervisory/disabled | Reserved per-object BIs show fault quality; DataValid inactive; page says unverified | No initial snapshot or validated automatic event decoder. Inventory never sets normal |
-| Current-state recovery | Boot/loss cannot establish state; no known state is created | Physically RX-only interface cannot request a snapshot. Autonomous recovery is not demonstrated |
-| Unknown input | Authenticated recent RAM records retain raw bytes, offsets, receive uptime, epoch and parse status | 128 × up to 512-byte records; eviction count visible; clears on reboot |
+| Automatic event output | 869 UART bytes / 38 retained lines before OTA: eight LOCAL/COMMON trouble records across one pseudo point and one physical module; zero reported errors/drops | These captured formats only; alarm/supervisory/disabled and routing coverage remain unverified |
+| Current alarm/trouble/supervisory/disabled | Trouble BI retains latest accepted ACT/RST action; all conditions show fault quality; DataValid inactive | Event action is not complete device state. No initial snapshot or all-condition decoder |
+| Current-state recovery | Boot/loss cannot establish state; no valid current state is created | Firmware TX disabled; orange-wire preparation offered, completion pending. No verified printer snapshot or ECP client |
+| Unknown input | Raw lines retain offsets, receive uptime, epoch and status; structured trouble observations retain text/address/mapping result | 128 × up to 512-byte raw records plus 32 observations; cleared on reboot |
 | Analog/dirty/sensitivity/security/monitor values | Some backup fields exist but are configuration/archival candidates | No verified live measurements; no fabricated analog BACnet values |
 | Program changes | Source catalog import diff and stable identities implemented | No verified automatic rename/inventory export signal; owner must supply a new authorized export |
 | Gateway health | USB/payload/error/drop counts, heap, uptime, boot, registry, source quality, HTTPS and BACnet | USB status packets and silence never refresh detector quality |
@@ -34,13 +36,13 @@ Status applies to the specific claim, not to the whole product.
 Edwards' [270382-EN R012 operation manual](https://alarmspec.com/wp-content/uploads/2025/12/270382-EN-R012-EST3-System-Operation-Manual.pdf),
 printed pages 62–64, describes event/restoration printing. That establishes a
 candidate automatic source, not the installed port's routing or wire grammar.
-The manual's firmware scope differs from the installed 5.30 CPU. The 30 September
-capture adds genuine local-trouble activation/restore syntax and an operator
-command record to the five earlier revision reports. The complete 317-byte tail
-and structured offsets agree; the address matches one backup power-supply pseudo
-point. No detector/module event, complete routing or current-state coverage is
-inferred. Port filter enum 1919 has not been independently decoded. No panel
-settings or wiring were changed. See [port review](PORT_CONFIGURATION_REVIEW.md).
+The manual's firmware scope differs from the installed 5.30 CPU. The 30 September capture established local-trouble syntax. Readback on 3 October
+adds three COMMON trouble/restore pairs from a physical module. These eight
+records now pass the shared C parser and independent BACnet reads against the
+actual qualified registry in an offline replay. This does not establish live
+post-update acceptance or aggregate current state. No port settings were changed.
+Port filter enum 1919 remains undecoded. Owner offered orange TX → RX2 preparation;
+actual completion is unconfirmed. See [current details](PRINTER_TROUBLE_OBSERVATIONS.md).
 
 Automatic changes are different from an authoritative current-state snapshot.
 At boot, an RX-only event stream can miss previously active conditions. Silence

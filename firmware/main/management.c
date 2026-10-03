@@ -54,8 +54,9 @@ static esp_err_t status(httpd_req_t *r) {
     cJSON_AddStringToObject(j,"partition",p?p->label:"unknown");
     cJSON_AddStringToObject(j,"ip",runtime_ip);
     cJSON_AddStringToObject(j,"protocol","DISABLED_NO_VERIFIED_ECP_PROFILE");
-    cJSON_AddStringToObject(j,"printer_profile","est3_printer_revision_v1");
+    cJSON_AddStringToObject(j,"printer_profile",PR_PROFILE);
     cJSON_AddBoolToObject(j,"event_decoder_validated",false);
+    cJSON_AddBoolToObject(j,"trouble_observation_decoder",true);
     cJSON_AddBoolToObject(j,"external_host_delivery_enabled",false);
     cJSON_AddNumberToObject(j,"bacnet_device_instance",3899000);
     cJSON_AddNumberToObject(j,"bacnet_vendor_id",65535);

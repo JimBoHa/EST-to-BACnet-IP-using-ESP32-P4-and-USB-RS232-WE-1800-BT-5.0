@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "utc": "2026-10-03T14:26:03.100791+00:00",
+  "version": "0.1.15",
+  "boot_count": 32,
+  "uptime_ms": 318971,
+  "tls_chain_time_hostname_and_exact_leaf_verified": true,
+  "assets_match_source": {
+    "index.html": "be698f524384bef8547e25b6473b7f775576c7b50f7db3233bbd53e207d06a00",
+    "app.js": "7a5617a778f2fd7f489dcb4b7ac1ccf44c77a80e8d9b7b4359ddd10df874a7ea"
+  },
+  "unauthenticated_routes_denied": 9,
+  "preview_did_not_mutate_registry": true,
+  "preview_seconds": [
+    2.059258959023282,
+    2.05903312494047
+  ],
+  "directory_records_checked": 1214,
+  "uuid_search_passed": true,
+  "all_directory_conditions_unverified": true,
+  "confirmed_beyond_rollback_window": true,
+  "no_reboot_or_new_receive_errors": true,
+  "legacy_outbox_counters_unchanged": true,
+  "source_payload_bytes": 0,
+  "scope": "Direct named TLS to known lease; does not prove mDNS resolution or live EST event decoding"
+}

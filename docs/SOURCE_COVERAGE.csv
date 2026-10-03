@@ -5,12 +5,12 @@ physical_inventory,VERIFIED,SENSOR MODULE OBJECT LRM joins,674 archive physical 
 all_archive_objects,VERIFIED,OBJECT table,1214 active table rows,backup only,metadata only,persistent registry,6070 reserved BIs plus four health BIs
 special_scope_objects,NOT_YET_VERIFIED,raw cabinet codes 0 and 255,205 archive objects,backup only,unknown,unknown,explicit unresolved source types
 human_message_blob,NOT_YET_VERIFIED,OBJECT Message binary field,raw archive retained,backup only,not applicable,archive available,not interpreted as location
-automatic_event_output,VERIFIED_SCOPED,317-byte actual 2026-09-30 capture,one local-trouble ACT/RST pair and operator-command record,panel time unverified; receive uptime retained,one matching pseudo-point pair,unavailable,recent raw observations; firmware decoder not implemented
+automatic_event_output,VERIFIED_SCOPED,869 UART bytes and 38 retained lines before 0.1.15 OTA,eight LOCAL/COMMON trouble ACT/RST records; two addresses,panel time unverified; receive uptime retained,four matched pairs observed; no aggregate normal-state inference,unavailable,raw lines and structured trouble observations; current-state quality invalid
 alarm,NOT_YET_VERIFIED,no validated installed event fixture,unknown,unknown,unverified,unavailable,BI fault and DataValid inactive
-trouble,NOT_YET_VERIFIED,one real local-trouble pseudo-point ACT/RST pair,not all trouble types or devices,historical observation only,matching address pair observed; production decoder absent,unavailable,BI fault and DataValid inactive
+trouble,OBSERVATIONS_ONLY,eight captured LOCAL/COMMON TRBL ACT/RST records,one pseudo point and one physical module; not all trouble classes or devices,receive age and panel time retained; current state unknown,latest printed action only; no complete normal inference,unavailable,last action in trouble BI with fault and DataValid inactive
 supervisory,NOT_YET_VERIFIED,no validated installed event fixture,unknown,unknown,unverified,unavailable,BI fault and DataValid inactive
 disabled,NOT_YET_VERIFIED,no validated installed event fixture,unknown,unknown,unverified,unavailable,BI fault and DataValid inactive
-automatic_snapshot,SOURCE_UNAVAILABLE,current RX-only profile has no verified unsolicited snapshot,unknown,unknown,unknown,unavailable,source coverage notice
+automatic_snapshot,SOURCE_UNAVAILABLE,printer source has no verified snapshot; firmware payload TX disabled,unknown,unknown,unknown,unavailable,source coverage notice
 analog_diagnostics,NOT_YET_VERIFIED,archival fields are not live measurements,unknown,unknown,unknown,unavailable,no asserted live value
 program_change_signal,SOURCE_UNAVAILABLE,no verified printer change/export mechanism,unknown,backup import age,not applicable,new reviewed export needed,qualified import diff
 gateway_health,VERIFIED,local USB network memory counters,gateway only,local uptime,not panel conditions,local startup,HTTPS and health BIs

@@ -1,4 +1,4 @@
-/* Evidence profile: EST3 5.30 revision printer report. No event/state guesses. */
+/* Evidence profile: EST3 5.30 revision metadata and limited trouble observations. */
 #include "printer.h"
 #include <ctype.h>
 #include <stdio.h>
@@ -39,21 +39,21 @@ static bool date_text(const char *s) {
 static pr_kind classify(pr_parser *p) {
     char text[PR_LINE_MAX+1];
     memcpy(text,p->partial,p->partial_length);text[p->partial_length]=0;
-    for(size_t i=0;i<p->partial_length;i++)if((p->partial[i]<32&&p->partial[i]!='\t')||p->partial[i]>126){p->report.tainted=true;return PR_UNKNOWN;}
+    for(size_t i=0;i<p->partial_length;i++)if((p->partial[i]<32&&p->partial[i]!='\t')||p->partial[i]>126){p->report.tainted=true;pr_event_reset(p);return PR_UNKNOWN;}
     char *s=text;while(*s==' '||*s=='\t')s++;
     size_t n=strlen(s);while(n&&(s[n-1]==' '||s[n-1]=='\t'))s[--n]=0;
     if(!strcmp(s,"REVISION REPORT")) {
+        pr_event_reset(p);p->event_report=true;
         if(p->report.active)p->reports_incomplete++;
         memset(&p->report,0,sizeof(p->report));p->report.active=true;
         p->report.received_ms=p->received_ms;p->report.epoch=p->epoch;p->date_target=0;
         return PR_BOUNDARY;
     }
-    if(!n||strspn(s,"-")==n)return PR_BOUNDARY;
-    if(!p->report.active)return PR_UNKNOWN;
+    if(!p->report.active)return pr_event_line(p,s);
     if(!strcmp(s,"**END: COMPLETE**")) {
         pr_report *r=&p->report;
         r->complete=r->panel_seen&&r->cpu[0]&&r->sdu[0]&&r->project[0]&&r->database_date[0]&&!r->tainted;
-        r->active=false;
+        r->active=false;p->event_report=false;
         if(r->complete){p->last_complete=*r;p->reports_complete++;}else p->reports_incomplete++;
         return PR_BOUNDARY;
     }
@@ -110,6 +110,7 @@ static pr_kind classify(pr_parser *p) {
 }
 void pr_init(pr_parser *p){memset(p,0,sizeof(*p));p->next_id=1;}
 void pr_gap(pr_parser *p,uint32_t epoch,uint64_t offset,uint64_t now,const char *reason) {
+    pr_event_reset(p);
     if(p->partial_length)retain(p,PR_FRAGMENT,p->partial,p->partial_length);
     if(p->report.active){p->report.active=false;p->report.tainted=true;p->reports_incomplete++;}
     p->partial_length=0;p->skip_lf=false;p->fragmenting=false;p->date_target=0;
@@ -126,10 +127,12 @@ void pr_feed(pr_parser *p,uint32_t epoch,uint64_t offset,uint64_t now,const uint
         if(b=='\n'&&p->skip_lf){p->skip_lf=false;p->line_offset=p->next_offset;continue;}
         p->skip_lf=false;
         if(b=='\r'||b=='\n') {
+            if(p->fragmenting)pr_event_reset(p);
             retain(p,p->fragmenting?PR_FRAGMENT:classify(p),p->partial,p->partial_length);
             p->partial_length=0;p->fragmenting=corrupt;p->skip_lf=b=='\r';p->line_offset=p->next_offset;
         } else {
             if(p->partial_length==PR_LINE_MAX) {
+                pr_event_reset(p);
                 retain(p,PR_FRAGMENT,p->partial,p->partial_length);p->partial_length=0;
                 p->fragmenting=true;p->report.tainted=true;p->line_offset=p->next_offset-1;
             }
@@ -142,6 +145,6 @@ const pr_line *pr_recent(const pr_parser *p,size_t index) {
     return &p->recent[(p->head+PR_RECENT_COUNT-p->count+index)%PR_RECENT_COUNT];
 }
 const char *pr_kind_name(pr_kind kind) {
-    static const char *const names[]={"unrecognized","revision_metadata","report_boundary","incomplete_or_corrupt","stream_gap"};
-    return kind<=PR_GAP?names[kind]:"invalid";
+    static const char *const names[]={"unrecognized","revision_metadata","report_boundary","incomplete_or_corrupt","stream_gap","trouble_observation"};
+    return (unsigned)kind<=PR_EVENT?names[kind]:"invalid";
 }

@@ -47,7 +47,7 @@ async def verify(host,local_ip,registry,all_objects=False):
             values=await app.read_property_multiple(Address(host),parameters);reads+=16
             assert len(values)==16
             for k in range(4):
-                assert str(values[k*4][3])=='inactive'
+                assert str(values[k*4][3]) in (('inactive','active') if k==1 else ('inactive',))
                 assert str(values[k*4+1][3])=='communication-failure'
                 assert values[k*4+2][3]['fault']
                 assert str(values[k*4+3][3])==d['label']

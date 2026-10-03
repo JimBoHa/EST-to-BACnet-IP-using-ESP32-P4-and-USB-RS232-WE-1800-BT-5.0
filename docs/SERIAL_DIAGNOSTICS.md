@@ -1,5 +1,7 @@
 # Receive-only serial diagnostics
 
+**0.1.15 update:** `/api/v1/printer` profile is `est3_printer_observations_v2`, with 32 structured trouble observations plus 128 raw lines. [Trouble observation semantics](PRINTER_TROUBLE_OBSERVATIONS.md) describe mapping and quality. Serial payload TX remains disabled.
+
 Firmware 0.1.4 adds authenticated diagnostics for the FT232 at USB VID/PID `0403:6001`, interface 0. The gateway still has no serial payload transmitter or ECP parser. The pinned FTDI/CDC dependency sources remain unchanged.
 
 ## What is measured

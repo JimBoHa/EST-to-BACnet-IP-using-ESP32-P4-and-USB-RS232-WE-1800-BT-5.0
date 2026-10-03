@@ -17,12 +17,13 @@ function render(s,r,p) {
   metrics('receiverMetrics',[['USB adapter',r.usb_connected?'Connected':'Disconnected'],['Profile',r.baud+' '+r.format],['UART bytes',r.rx_bytes],['Receive drops',r.rx_drops],['Payload TX','Disabled'],['Current conditions','Unverified']]);
   metrics('bacnetMetrics',[['Device instance',s.bacnet_device_instance],['Vendor ID',s.bacnet_vendor_id],['Transport','IPv4 UDP 47808'],['Services','Discovery / RP / RPM'],['Catalog objects',s.device_count],['Registry epoch',s.registry_epoch],['Data valid','No verified current state']]);
   metrics('rxMetrics',[['USB packets',r.usb_in_packets],['Status-only packets',r.usb_status_only_packets],['UART errors',r.usb_line_error_packets],['USB errors',r.usb_errors],['Receive drops',r.rx_drops],['Last payload uptime',(r.last_payload_ms/1000).toFixed(1)+' s']]);
-  metrics('parseMetrics',[['Complete reports',p.complete_reports],['Incomplete reports',p.incomplete_reports],['Unknown records',p.unrecognized],['Stream boundaries/gaps',p.gaps],['Retained records',p.retained],['Evicted records',p.evicted],['Partial bytes',p.partial_bytes]]);
+  metrics('parseMetrics',[['Trouble observations',p.complete_trouble_observations??0],['Mapped observations',p.mapped_trouble_observations??0],['Unmatched addresses',p.unmatched_trouble_observations??0],['Duplicate / older',p.ignored_trouble_observations??0],['Report inhibit',p.event_report_inhibit?'Yes':'No'],['Complete reports',p.complete_reports],['Incomplete reports',p.incomplete_reports],['Unknown records',p.unrecognized],['Stream boundaries/gaps',p.gaps],['Retained records',p.retained],['Evicted records',p.evicted],['Partial bytes',p.partial_bytes]]);
   $('networkConfig').textContent='Address: '+s.ip+' · DHCP · Device '+s.bacnet_device_instance+' · Vendor '+s.bacnet_vendor_id+' · '+s.bacnet_assignment;
   const rev=p.last_complete_report;
   if(rev.complete) {
     $('revision').replaceChildren(text('p','Panel '+rev.panel+' · CPU '+rev.cpu+' · SDU '+rev.sdu+' · Project '+rev.project+' · Database '+rev.database_date),text('p','Panel timestamp: '+rev.source_time+' (timezone unverified) · Historical alarm count: '+rev.historical_alarm_count),text('p',rev.cards.map(c=>'Card '+c.address+': '+c.type+' '+c.firmware).join(' · ')));
   } else $('revision').textContent='No complete report received during this boot.';
+  $('events').textContent=(p.trouble_observations||[]).map(e=>'#'+e.record_id+' · '+e.source_time+' · '+e.address+' · '+e.type+' '+e.transition+' · '+e.mapping+'\n'+e.text).join('\n\n')||'No complete trouble observation received during this boot.';
   const decoder=new TextDecoder('utf-8');
   $('recent').textContent=p.records.map(line=>{
     const raw=Uint8Array.from(line.raw_hex.match(/../g)||[],h=>parseInt(h,16));
@@ -49,7 +50,7 @@ async function directory() {
 }
 function showDevice(d) {
   $('deviceDetail').hidden=false;
-  $('deviceDetail').replaceChildren(text('h3',d.label),text('p',d.uuid+' · Binding epoch '+d.binding_epoch),...d.conditions.map(c=>text('p',c.condition+': '+(c.last_value===null?'No observation':c.last_value?'Last active':'Last inactive')+' · '+c.quality+' · BI '+c.instance)));
+  $('deviceDetail').replaceChildren(text('h3',d.label),text('p',d.uuid+' · Binding epoch '+d.binding_epoch),...d.conditions.map(c=>text('p',c.condition+': '+(c.last_value===null?'No observation':c.quality==='observation_only'?(c.last_value?'ACT observed':'RST observed'):(c.last_value?'Last active':'Last inactive'))+' · '+c.quality+' · BI '+c.instance+(c.source?' · '+c.source+' · Panel '+c.source_time+' · Received '+(c.age_ms/1000).toFixed(0)+' s ago':'' ))));
 }
 function download(name,value) {
   const link=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)+'\n'],{type:'application/json'}));link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);

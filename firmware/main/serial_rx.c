@@ -1,5 +1,7 @@
 #include "serial_rx.h"
 #include "gateway.h"
+#include "runtime.h"
+#include "printer_observer.h"
 #include "usb/usb_host.h"
 #include "usb/cdc_acm_host.h"
 #include "usb/vcp_ftdi.h"
@@ -28,6 +30,14 @@ static uint64_t stream_offset;
 static uint32_t stream_epoch=1;
 static bool packet_corrupt;
 typedef struct {size_t length;uint64_t offset,now;uint32_t epoch;bool corrupt;uint8_t data[64];} chunk;
+static pr_event_result record_trouble(void *context,const pr_event *event) {
+    (void)context;
+    /* Lock order is parser -> registry. HTTP never takes parser while holding
+       registry; no network, NVS or USB operations occur in this callback. */
+    xSemaphoreTake(runtime_lock,portMAX_DELAY);
+    pr_event_result result=gw_record_printer_trouble(runtime_registry,event);
+    xSemaphoreGive(runtime_lock);return result;
+}
 bool serial_rx_printer_copy(pr_parser *out) {
     if(!out||!printer||!parser_mutex)return false;
     xSemaphoreTake(parser_mutex,portMAX_DELAY);*out=*printer;xSemaphoreGive(parser_mutex);return true;
@@ -180,6 +190,7 @@ esp_err_t serial_rx_start(void) {
     queue=xQueueCreate(128,sizeof(chunk));lost=xSemaphoreCreateBinary();parser_mutex=xSemaphoreCreateMutex();
     printer=calloc(1,sizeof(*printer));if(!queue||!lost||!parser_mutex||!printer)return ESP_ERR_NO_MEM;
     pr_init(printer);
+    printer->event_sink=record_trouble;
     const usb_host_config_t host={.intr_flags=ESP_INTR_FLAG_LEVEL1};
     esp_err_t err=usb_host_install(&host);if(err!=ESP_OK)return err;
     if(xTaskCreate(host_task,"usb_host",4096,NULL,10,NULL)!=pdPASS)return ESP_ERR_NO_MEM;

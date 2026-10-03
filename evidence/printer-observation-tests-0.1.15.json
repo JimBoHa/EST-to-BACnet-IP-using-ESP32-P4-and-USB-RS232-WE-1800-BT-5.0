@@ -1,0 +1,41 @@
+{
+  "result": "PASS",
+  "date": "2026-10-03",
+  "version": "0.1.15",
+  "native": {
+    "tests": 5,
+    "sanitizers": [
+      "AddressSanitizer",
+      "UndefinedBehaviorSanitizer"
+    ],
+    "seconds": 0.8,
+    "new_coverage": [
+      "all splits in eight-record sanitized capture",
+      "gaps through every byte of a trouble frame",
+      "ACT/RST and independent addresses",
+      "duplicate/old record rejection without age refresh",
+      "known report inhibition",
+      "malformed dates/actions/widths and operator text",
+      "incomplete/corrupt/timed-out frames",
+      "bounded retention",
+      "unknown/retired/simulation/supported-binding rejection",
+      "all current quality remains invalid"
+    ]
+  },
+  "python": {
+    "passed": 59,
+    "seconds": 4.35,
+    "warnings": 1,
+    "warning": "Existing Starlette deprecation for httpx test client",
+    "new_test": "tests/test_printer_bacnet.py: production C parser/observer/stack with independent BACpypes3 reads"
+  },
+  "browser": {
+    "result": "PASS",
+    "scope": "Synthetic fixtures only; auth/key memory, text safety, trouble observation rendering, UUID, registry preview gating, mobile and stale banner",
+    "cached_headless_shell_revision": "1243",
+    "environment_note": "Default browser revision 1234 missing; explicit already-installed 1243 executable used; no browser downloaded"
+  },
+  "production_symbol_audit": "PASS: restricted trouble observer linked; generic simulation observer and original serial payload TX absent",
+  "build": "Pinned ESP-IDF 5.5.5 succeeded without compiler warnings",
+  "scope_limit": "No live event injection, complete source state, Metasys or 24-hour mixed-load acceptance"
+}

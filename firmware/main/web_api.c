@@ -75,7 +75,7 @@ static esp_err_t printer_get(httpd_req_t *r) {
     pr_parser *p=malloc(sizeof(*p));if(!p)return ESP_ERR_NO_MEM;
     if(!serial_rx_printer_copy(p)){free(p);return ESP_FAIL;}
     cJSON *j=cJSON_CreateObject();
-    cJSON_AddStringToObject(j,"profile","est3_printer_revision_v1");
+    cJSON_AddStringToObject(j,"profile",PR_PROFILE);
     cJSON_AddBoolToObject(j,"current_state_available",false);
     cJSON_AddStringToObject(j,"retention","latest 128 records in RAM; cleared on reboot; no long-term recorder");
     cJSON_AddNumberToObject(j,"boot_count",runtime_boot_count);
@@ -83,6 +83,23 @@ static esp_err_t printer_get(httpd_req_t *r) {
     cJSON_AddNumberToObject(j,"gaps",(double)p->gaps);cJSON_AddNumberToObject(j,"unrecognized",(double)p->unknown);
     cJSON_AddNumberToObject(j,"complete_reports",(double)p->reports_complete);
     cJSON_AddNumberToObject(j,"incomplete_reports",(double)p->reports_incomplete);
+    cJSON_AddNumberToObject(j,"complete_trouble_observations",(double)p->events_complete);
+    cJSON_AddNumberToObject(j,"incomplete_trouble_observations",(double)p->events_incomplete);
+    cJSON_AddNumberToObject(j,"mapped_trouble_observations",(double)p->events_mapped);
+    cJSON_AddNumberToObject(j,"unmatched_trouble_observations",(double)p->events_unmatched);
+    cJSON_AddNumberToObject(j,"ignored_trouble_observations",(double)p->events_ignored);
+    cJSON_AddBoolToObject(j,"event_report_inhibit",p->event_report);
+    cJSON_AddStringToObject(j,"event_coverage","LOCAL/COMMON TRBL ACT/RST records only; no snapshot, all-condition coverage, or live/history-origin proof");
+    cJSON *events=cJSON_AddArrayToObject(j,"trouble_observations");
+    for(size_t i=0;i<p->event_count;i++) {
+        const pr_event *e=pr_recent_event(p,i);cJSON *v=cJSON_CreateObject();cJSON_AddItemToArray(events,v);
+        char address[32];snprintf(address,sizeof(address),"P%02u C%02u D%04u",e->panel,e->card,e->device);
+        cJSON_AddNumberToObject(v,"record_id",(double)e->id);cJSON_AddNumberToObject(v,"offset",(double)e->offset);
+        cJSON_AddNumberToObject(v,"epoch",e->epoch);cJSON_AddNumberToObject(v,"received_monotonic_ms",(double)e->received_ms);
+        cJSON_AddStringToObject(v,"address",address);cJSON_AddStringToObject(v,"type",pr_event_type_name(e->type));
+        cJSON_AddStringToObject(v,"transition",e->active?"ACT":"RST");cJSON_AddStringToObject(v,"source_time",e->source_time);
+        cJSON_AddStringToObject(v,"text",e->text);cJSON_AddStringToObject(v,"mapping",pr_event_result_name(e->result));
+    }
     cJSON_AddNumberToObject(j,"partial_bytes",p->partial_length);cJSON_AddNumberToObject(j,"stream_offset",(double)p->next_offset);
     cJSON_AddItemToObject(j,"last_complete_report",report(&p->last_complete));
     cJSON_AddItemToObject(j,"current_report",report(&p->report));
@@ -126,8 +143,20 @@ static esp_err_t devices_get(httpd_req_t *r) {
             cJSON *s=cJSON_CreateObject();cJSON_AddItemToArray(states,s);cJSON_AddStringToObject(s,"condition",kinds[k]);
             cJSON_AddNumberToObject(s,"instance",d->instances[k]);
             if(d->conditions[k].known)cJSON_AddBoolToObject(s,"last_value",d->conditions[k].value);else cJSON_AddNullToObject(s,"last_value");
-            const char *quality=d->retired?"retired":!(d->supported&(1u<<k))?"not_source_verified":!d->conditions[k].known?"unknown":gw_condition_valid(d,k,now)?"valid":"stale";
+            bool observation=k==1&&d->printer_trouble.type&&d->conditions[k].known;
+            const char *quality=d->retired?"retired":observation?"observation_only":!(d->supported&(1u<<k))?"not_source_verified":!d->conditions[k].known?"unknown":gw_condition_valid(d,k,now)?"valid":"stale";
             cJSON_AddStringToObject(s,"quality",quality);
+            if(observation) {
+                const gw_printer_observation *p=&d->printer_trouble;
+                cJSON_AddStringToObject(s,"source",pr_event_type_name(p->type));
+                cJSON_AddStringToObject(s,"source_time",p->source_time);
+                cJSON_AddNumberToObject(s,"received_monotonic_ms",(double)d->conditions[k].observed_ms);
+                cJSON_AddNumberToObject(s,"record_id",(double)d->conditions[k].sequence);
+                cJSON_AddNumberToObject(s,"stream_epoch",p->stream_epoch);
+                cJSON_AddNumberToObject(s,"offset",(double)p->offset);
+                if(now>=d->conditions[k].observed_ms)cJSON_AddNumberToObject(s,"age_ms",(double)(now-d->conditions[k].observed_ms));
+                else cJSON_AddNullToObject(s,"age_ms");
+            }
         }
         cJSON_AddNumberToObject(v,"data_valid_instance",d->instances[4]);
     }

@@ -1,5 +1,7 @@
 # BACnet support statement — development profile, not BTL certified
 
+**0.1.15 update:** Existing trouble BIs expose the latest accepted LOCAL/COMMON TRBL ACT/RST action. All condition Reliability remains communication-failure with fault; DataValid stays inactive. An inactive trouble BI is not evidence of a normal device. Object identities/count and services are unchanged. See [semantics](PRINTER_TROUBLE_OBSERVATIONS.md).
+
 Stack: bacnet-stack 1.5.2, commit d2468d56de3d156659a9051c95119e3a6e11c421. BACnet/IPv4, UDP 47808, local subnet. No BBMD/foreign-device registration, routing, segmentation, intrinsic life-safety event reporting, or BACnet/SC.
 
 - Services: Who-Is with unicast I-Am reply, ReadProperty, ReadPropertyMultiple. ServicesSupported is generated from the installed read handlers.

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "epoch": 1,
+  "source_mode": "est3_sdu_v1",
+  "provenance": {
+    "archive_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "installed_match": "backup_only_not_live_verified"
+  },
+  "devices": [
+    {
+      "uuid": "00000000-0000-4000-8000-000000000001",
+      "address": "P02 C01 D0611",
+      "label": "TEST Battery Trouble",
+      "type": "LRM object / TEST",
+      "binding_epoch": 1,
+      "instances": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "supported": 0,
+      "retired": false
+    },
+    {
+      "uuid": "00000000-0000-4000-8000-000000000002",
+      "address": "P02 C04 D0012",
+      "label": "TEST Floor Module",
+      "type": "Module / TEST",
+      "binding_epoch": 1,
+      "instances": [
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "supported": 0,
+      "retired": false
+    }
+  ]
+}

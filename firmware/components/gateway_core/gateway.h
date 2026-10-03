@@ -14,11 +14,18 @@ typedef struct {
     uint64_t observed_ms, sequence;
 } gw_condition;
 typedef struct {
+    uint64_t source_order, offset;
+    uint32_t stream_epoch;
+    uint8_t type;
+    char source_time[20];
+} gw_printer_observation;
+typedef struct {
     char uuid[37], address[256], type[64], label[192];
     uint32_t binding_epoch, instances[5];
     uint8_t supported;
     bool retired;
     gw_condition conditions[4];
+    gw_printer_observation printer_trouble;
 } gw_device;
 typedef struct {
     uint32_t epoch;
