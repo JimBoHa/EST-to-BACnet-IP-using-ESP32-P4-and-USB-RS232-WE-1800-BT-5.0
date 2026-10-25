@@ -397,5 +397,6 @@
   "usb_connected_all_samples": true,
   "same_boot_all_samples": true,
   "serial_payload_tx_disabled_all_samples": true,
-  "interpretation": "No received bytes observed; EST data connection remains unverified"
+  "interpretation": "No received bytes observed; EST data connection remains unverified",
+  "_publication_privacy_notice": "Network locations were anonymized. This publication copy is not an original byte-for-byte field capture."
 }

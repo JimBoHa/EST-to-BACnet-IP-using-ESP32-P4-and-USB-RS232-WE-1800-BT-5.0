@@ -1,5 +1,8 @@
 # Field connection observation — 2026-09-28
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 The owner reported moving the controller to `192.0.2.x` and connecting its adapter to the EST panel following the earlier wiring guidance. The exact physical wiring, installed panel card and panel port configuration were not independently verified. The initial observation below changed no firmware/settings. Subsequent sections record the 0.1.4 diagnostics update, receiver baud checks and an owner-requested front-panel report. No serial payload or operational command was transmitted by the gateway.
 
 ## Device identification and access

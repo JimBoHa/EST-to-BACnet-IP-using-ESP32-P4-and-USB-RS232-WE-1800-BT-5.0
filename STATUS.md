@@ -1,5 +1,8 @@
 # Tested first draft — Ethernet update and rollback verified
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 Updated 2026-09-28. Original Desktop ZIP and supplied NEXT_SESSION_PROMPT.md reviewed; ZIP CRC and SHA-256 manifest verified. Source, firmware, host, simulation, schemas, migrations and executable tests are in this repository.
 
 **Handoff preparation note:** a later read-only connection attempt on 2026-09-29 UTC timed out before authentication. No device/panel changes were made; current reachability must be checked from the next machine. The successful firmware/report results below remain the last verified field state, not a claim of a fresh connection. A complete macOS continuation prompt, completion plan and private-bundle restore tools are under [handoff/](handoff/START_HERE.md).

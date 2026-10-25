@@ -51,5 +51,6 @@
     "line_error_packet_delta": 0,
     "usb_errors_delta": 0,
     "rx_drops_delta": 0
-  }
+  },
+  "_publication_privacy_notice": "Network locations were anonymized. This publication copy is not an original byte-for-byte field capture."
 }

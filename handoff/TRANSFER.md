@@ -1,5 +1,8 @@
 # Move this project to another Mac
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 ## Transfer and restore
 
 Use the **private ZIP**, not just GitHub. GitHub intentionally has no device credentials, SDU archives, raw panel reports, databases or firmware images. The bundle grants management/update access to the controller and contains site information. It is not password-encrypted; transfer it through a private trusted channel and keep it out of public repositories/shared download folders. File permissions are restricted on the source Mac, but ZIP extraction may not preserve them.
