@@ -1,5 +1,8 @@
 # Continue the EST3 monitoring system to verified site completion
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 This is a continuation of an implemented, hardware-tested project. Work from the supplied private handoff bundle and existing repository. Do not restart the design, provision new credentials, or stop at another plan. The owner wants a fully functional supplemental monitoring system exposing **everything that can be reliably obtained from this installed EST panel**, through a searchable device/event service and individual native Metasys points and graphics.
 
 First read `START_HERE.md`, this file, `COMPLETION_PLAN.md`, and `TRANSFER.md` in the bundle. Verify the bundle with `restore.py`, restore it to a new local workspace, then read the restored repository's `STATUS.md`, `docs/FIELD_CONNECTION_TEST.md`, `docs/SERIAL_DIAGNOSTICS.md`, `docs/PICS.md`, and `docs/TEST_MATRIX.csv`. `BUNDLE_MANIFEST.json` records the source commit, toolchain pins, file hashes, and latest connectivity observation. The `original-spec/` directory preserves the detailed original requirements, drawings, manuals and reference reviews. Its old session prompt is historical; newer verified facts below take precedence.

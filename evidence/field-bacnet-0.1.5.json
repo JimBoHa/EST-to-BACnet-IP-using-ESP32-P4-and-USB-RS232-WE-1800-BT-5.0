@@ -27,5 +27,6 @@
   "read_property": true,
   "read_property_multiple": true,
   "write_property": false,
-  "cov": false
+  "cov": false,
+  "_publication_privacy_notice": "Network locations were anonymized. This publication copy is not an original byte-for-byte field capture."
 }

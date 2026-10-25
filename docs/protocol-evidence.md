@@ -1,5 +1,8 @@
 # Real EST ECP is disabled
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 No manufacturer wire specification or authorized EST captures have been supplied. No operational command encoder, serial tunnel, or BACnet-to-panel command route exists in this release. Production source calls no serial payload transmit function; the linked image is audited for its absence. The USB driver opens with an OUT buffer size of zero. USB enumeration and FTDI setup vendor-control transfers still occur and require independent electrical/output measurement.
 
 | Capability | Evidence | Status |

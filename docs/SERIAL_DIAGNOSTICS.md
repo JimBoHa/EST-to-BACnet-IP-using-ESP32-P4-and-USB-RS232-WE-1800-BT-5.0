@@ -1,5 +1,8 @@
 # Receive-only serial diagnostics
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 Firmware 0.1.4 adds authenticated diagnostics for the FT232 at USB VID/PID `0403:6001`, interface 0. The gateway still has no serial payload transmitter or ECP parser. The pinned FTDI/CDC dependency sources remain unchanged.
 
 ## What is measured

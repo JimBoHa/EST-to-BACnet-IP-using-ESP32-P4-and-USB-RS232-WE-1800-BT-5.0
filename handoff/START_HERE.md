@@ -1,5 +1,8 @@
 # EST3 private continuation bundle
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 Prepared for a new Codex session on **macOS**. This bundle contains the implemented project and the local materials needed to continue without access to the previous Mac.
 
 1. Transfer and extract the complete private ZIP on the new Mac.
