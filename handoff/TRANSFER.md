@@ -1,5 +1,8 @@
 # Move this project to another Mac
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 ## Transfer and restore
 
 Use the **private ZIP**, not just GitHub. GitHub intentionally has no device credentials, SDU archives, raw panel reports, databases or firmware images. The bundle grants management/update access to the controller and contains site information. It is not password-encrypted; transfer it through a private trusted channel and keep it out of public repositories/shared download folders. File permissions are restricted on the source Mac, but ZIP extraction may not preserve them.
@@ -76,11 +79,11 @@ The actual baseline was 25 pytest cases and two C ASan/UBSan cases on macOS. New
 
 ## First device check: read-only
 
-The new Mac needs a route to the site. Use its actual routed interface address, not the old Mac's `192.168.2.34`. Last device IP is `192.168.75.157`; verify current lease/identity if it changed. BACnet broadcasts may not cross routers; the independent check supports unicast.
+The new Mac needs a route to the site. Use its actual routed interface address, not the old Mac's `192.168.2.34`. Last device IP is `192.0.2.157`; verify current lease/identity if it changed. BACnet broadcasts may not cross routers; the independent check supports unicast.
 
 ```sh
-.venv/bin/python tools/gateway_client.py --host 192.168.75.157 status
-.venv/bin/python tools/bench_bacnet.py --host 192.168.75.157 \
+.venv/bin/python tools/gateway_client.py --host 192.0.2.157 status
+.venv/bin/python tools/bench_bacnet.py --host 192.0.2.157 \
   --local-ip YOUR_ACTUAL_ROUTED_MAC_IP --output private/new-machine-bacnet.json
 ```
 
@@ -94,7 +97,7 @@ The restore/setup commands never upload. For an intentional next application rel
 
 ```sh
 .venv/bin/python tools/package_release.py
-.venv/bin/python tools/gateway_client.py --host 192.168.75.157 \
+.venv/bin/python tools/gateway_client.py --host 192.0.2.157 \
   upload firmware/build/est3_gateway_rxonly.bin
 ```
 

@@ -1,8 +1,11 @@
 # Resume remote Ethernet work
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 For a different machine, use [the macOS handoff](../handoff/NEXT_SESSION_PROMPT.md) and its private transfer bundle. A later handoff-preparation TCP check timed out before authentication; verify the new machine's route/lease rather than treating the last tested address as a guaranteed current connection. No firmware or panel settings changed during that attempt.
 
-Read STATUS.md, FIELD_CONNECTION_TEST.md, SERIAL_DIAGNOSTICS.md and ETHERNET_TEST_REPORT.md first. Board runs **0.1.5** at **192.168.75.157**, MAC `e8:f6:0a:e4:1f:e8`, with `ota_1` valid and boot count 13 on 2026-09-28 local time. USB-C is disconnected and unavailable. FTDI USB-A remains connected; **owner reports panel wires connected**. Three complete real panel Printer 2 revision reports were received on 0.1.4 at **9600 8N1**. Version 0.1.5 boots at 9600 and that default was verified after its Ethernet update. API baud overrides are still volatile. Do not treat this as the earlier disconnected bench setup.
+Read STATUS.md, FIELD_CONNECTION_TEST.md, SERIAL_DIAGNOSTICS.md and ETHERNET_TEST_REPORT.md first. Board runs **0.1.5** at **192.0.2.157**, MAC `e8:f6:0a:e4:1f:e8`, with `ota_1` valid and boot count 13 on 2026-09-28 local time. USB-C is disconnected and unavailable. FTDI USB-A remains connected; **owner reports panel wires connected**. Three complete real panel Printer 2 revision reports were received on 0.1.4 at **9600 8N1**. Version 0.1.5 boots at 9600 and that default was verified after its Ethernet update. API baud overrides are still volatile. Do not treat this as the earlier disconnected bench setup.
 
 The final owner-requested report test after the 0.1.5 reboot captured two further complete reports (3,564 bytes), with no missing offsets or USB/UART errors/drops. The image remained confirmed at 180 seconds uptime, and independent BACnet reads passed. Firmware/report evidence is versioned under `evidence/`; raw report captures stay in `private/`. Printer-report reception now works; real-time printer event decoding remains unimplemented.
 
@@ -13,12 +16,12 @@ Three genuine local SDU backups were found and read without modifying originals.
 Actual tests passed: signed upload/reboot/full-hash confirmation (including 0.1.4 on the field route), automatic timeout rollback on the disconnected bench, invalid-signature/truncated/wrong-project rejection, interrupted upload, independent BACnet RP/RPM, and persisted diagnostic replay with an explicit overflow gap. The 0.1.2 hash-reporting defect was corrected in 0.1.3. Do not reinstall 0.1.2 as a working release. Version 0.1.4 adds authenticated serial diagnostics and a pinned FTDI modem-control workaround; native tests and invalid API request checks passed.
 
 ```sh
-.venv/bin/python tools/gateway_client.py --host 192.168.75.157 status
+.venv/bin/python tools/gateway_client.py --host 192.0.2.157 status
 ```
 
 The updater signs locally, verifies the device certificate, checks all 64 ELF hash characters after reboot and explicitly confirms the new slot. Keep signing credentials and binaries private. Do not change bootloader/partition layout remotely. `--no-confirm` deliberately tests rollback and should be used only for a defined disconnected bench test.
 
-The current address is a DHCP lease. Discovery uses Device 3899000. `tools/discover.py --broadcast 192.168.75.255` is intended for a client on that subnet; directed broadcasts may not cross routers. The Mac was instead on `192.168.2.34`, with a working route to `192.168.75.0/24`. A bounded TCP 443 search followed by certificate verification identified this board. Do not send its management token to another device or disable TLS verification. Recheck access after future moves.
+The current address is a DHCP lease. Discovery uses Device 3899000. `tools/discover.py --broadcast 192.0.2.255` is intended for a client on that subnet; directed broadcasts may not cross routers. The Mac was instead on `192.168.2.34`, with a working route to `192.0.2.0/24`. A bounded TCP 443 search followed by certificate verification identified this board. Do not send its management token to another device or disable TLS verification. Recheck access after future moves.
 
 The temporary diagnostics host was previously launched at `https://10.0.7.6:8443`, using `private/hardware-bench.sqlite`, bound specifically to that old Mac LAN address. It used `EST3_BIND=10.0.7.6`, `EST3_GATEWAY_ID=P4-e8f60ae41fe8`, and `tools/run_host.py`. Process 70385 was the initial launch; check the current process before stopping it. The host endpoint was not migrated or revalidated during the field observation, and queued diagnostics increased. It is not installed as a persistent service. Live log `evidence/hardware-host.log` is excluded from Git; a fixed session snapshot is retained. Do not mix this database with SIMULATION_ONLY data.
 

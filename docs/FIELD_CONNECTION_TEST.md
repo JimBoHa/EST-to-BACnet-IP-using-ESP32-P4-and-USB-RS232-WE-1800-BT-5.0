@@ -1,10 +1,13 @@
 # Field connection observation — 2026-09-28
 
-The owner reported moving the controller to `192.168.75.x` and connecting its adapter to the EST panel following the earlier wiring guidance. The exact physical wiring, installed panel card and panel port configuration were not independently verified. The initial observation below changed no firmware/settings. Subsequent sections record the 0.1.4 diagnostics update, receiver baud checks and an owner-requested front-panel report. No serial payload or operational command was transmitted by the gateway.
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
+The owner reported moving the controller to `192.0.2.x` and connecting its adapter to the EST panel following the earlier wiring guidance. The exact physical wiring, installed panel card and panel port configuration were not independently verified. The initial observation below changed no firmware/settings. Subsequent sections record the 0.1.4 diagnostics update, receiver baud checks and an owner-requested front-panel report. No serial payload or operational command was transmitted by the gateway.
 
 ## Device identification and access
 
-The Mac used `192.168.2.34/24`, routed through `192.168.2.1`. A bounded TCP 443 search on `192.168.75.0/24` identified the controller at **192.168.75.157** by exact comparison with its saved device certificate, with normal TLS trust/time checks enabled. Credentials were sent only after that identity check.
+The Mac used `192.168.2.34/24`, routed through `192.168.2.1`. A bounded TCP 443 search on `192.0.2.0/24` identified the controller at **192.0.2.157** by exact comparison with its saved device certificate, with normal TLS trust/time checks enabled. Credentials were sent only after that identity check.
 
 The authenticated response confirmed:
 

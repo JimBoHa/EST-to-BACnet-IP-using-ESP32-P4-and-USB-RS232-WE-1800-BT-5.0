@@ -1,5 +1,8 @@
 # Real EST ECP is disabled
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 No manufacturer wire specification or authorized EST captures have been supplied. No operational command encoder, serial tunnel, or BACnet-to-panel command route exists in this release. Production source calls no serial payload transmit function; the linked image is audited for its absence. The USB driver opens with an OUT buffer size of zero. USB enumeration and FTDI setup vendor-control transfers still occur and require independent electrical/output measurement.
 
 | Capability | Evidence | Status |
@@ -11,7 +14,7 @@ No manufacturer wire specification or authorized EST captures have been supplied
 | Candidate serial configuration | 0.1.4 applies 19200/9600 8N1 without flow control and correct FTDI modem-control requests to deassert DTR/RTS; receive settings are volatile | USB_API_ACCEPTED; physical signal measurement NOT_RUN |
 | Physical USB-A reconnect | Disconnect then reconnect observed; connection count 1 to 2, boot count remained 9, zero new USB errors; Ethernet and subsequent BACnet reads available | IDLE_HOTPLUG_PASS; serial-traffic hotplug NOT_RUN |
 | Attached adapter during network reads | 131 authenticated HTTPS reads and 564 BACnet reads in 60 seconds; adapter remained connected with no new boot/errors | IDLE_NETWORK_LOAD_PASS; serial throughput NOT_RUN |
-| Owner-reported EST attachment, 2026-09-28 | Same certificate at 192.168.75.157; 13 passive status samples over 60 seconds, USB connected, zero RX bytes and no new boots/reconnects/USB or line errors | NETWORK_ACCESS_PASS; EST data connection UNVERIFIED |
+| Owner-reported EST attachment, 2026-09-28 | Same certificate at 192.0.2.157; 13 passive status samples over 60 seconds, USB connected, zero RX bytes and no new boots/reconnects/USB or line errors | NETWORK_ACCESS_PASS; EST data connection UNVERIFIED |
 | Owner-requested Printer 2 revision report | 19200 produced UART errors; 9600 8N1 produced five complete reports totaling 8,910 readable bytes across 0.1.4/0.1.5, including after reboot, with no capture gaps or new errors/drops | REAL_PANEL_REPORT_RX_PASS; live event decoding NOT_IMPLEMENTED |
 | ECP framing / checksum / addressing / sequence / session | No version-matched specification | UNKNOWN; DISABLED |
 | ECP reads / transport acknowledgements | Public FieldServer manual is not a wire specification | UNKNOWN; DISABLED |

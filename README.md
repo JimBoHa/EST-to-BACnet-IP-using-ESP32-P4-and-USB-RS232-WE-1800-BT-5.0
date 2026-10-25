@@ -1,5 +1,8 @@
 # EST3 / ESP32-P4 monitoring gateway — first draft
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 Read [STATUS.md](STATUS.md) for actual results and remaining gates. This implements the supplied `est3-metasys-handoff.zip`; that original archive and planning files remain unchanged. The reference package contains no previous implemented firmware.
 
 For continuation on another Mac, read the [new session prompt](handoff/NEXT_SESSION_PROMPT.md), [completion plan](handoff/COMPLETION_PLAN.md) and [transfer instructions](handoff/TRANSFER.md). The private transfer bundle is separate from GitHub because it contains the existing device keys, site inputs and recovery images. Its local restore script performs no device/network changes.
@@ -29,7 +32,7 @@ Initial installation changes the partition layout. It was performed only after s
 
 ## Ethernet updates
 
-PoE Ethernet operation, signed application updates and automatic rollback were tested on this board with USB-C disconnected. On 2026-09-28, the owner reported moving it to the EST panel's network and connecting panel wiring. The device was identified by its exact TLS certificate at **`192.168.75.157`**, then remotely updated and confirmed there. Current firmware **0.1.5** boots at the validated **9600 8N1** rate. HTTPS and BACnet reads passed. Owner-requested Printer 2 Revision Levels reports produced **5,346 clean bytes across three complete reports** on 0.1.4, without capture gaps or new errors/drops. Panel report reception is confirmed; real-time EST state decoding remains unimplemented. See [the field observation](docs/FIELD_CONNECTION_TEST.md) and [serial diagnostics](docs/SERIAL_DIAGNOSTICS.md). DHCP hostname is `est3-p4-e41fe8`; no Wi-Fi is enabled. Locate its lease by MAC, or use a targeted BACnet request on the correct subnet:
+PoE Ethernet operation, signed application updates and automatic rollback were tested on this board with USB-C disconnected. On 2026-09-28, the owner reported moving it to the EST panel's network and connecting panel wiring. The device was identified by its exact TLS certificate at **`192.0.2.157`**, then remotely updated and confirmed there. Current firmware **0.1.5** boots at the validated **9600 8N1** rate. HTTPS and BACnet reads passed. Owner-requested Printer 2 Revision Levels reports produced **5,346 clean bytes across three complete reports** on 0.1.4, without capture gaps or new errors/drops. Panel report reception is confirmed; real-time EST state decoding remains unimplemented. See [the field observation](docs/FIELD_CONNECTION_TEST.md) and [serial diagnostics](docs/SERIAL_DIAGNOSTICS.md). DHCP hostname is `est3-p4-e41fe8`; no Wi-Fi is enabled. Locate its lease by MAC, or use a targeted BACnet request on the correct subnet:
 
 ```sh
 .venv/bin/python tools/discover.py --broadcast YOUR_SUBNET_BROADCAST

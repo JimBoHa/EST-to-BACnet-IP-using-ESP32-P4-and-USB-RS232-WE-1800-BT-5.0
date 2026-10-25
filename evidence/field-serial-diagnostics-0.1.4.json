@@ -1,6 +1,6 @@
 {
   "started_utc": "2026-09-29T00:15:30.680891+00:00",
-  "host": "192.168.75.157",
+  "host": "192.0.2.157",
   "boot_count": 12,
   "original_baud": 19200,
   "format": "8N1",
@@ -47,5 +47,6 @@
     }
   ],
   "errors": [],
-  "restored_baud": 19200
+  "restored_baud": 19200,
+  "_publication_privacy_notice": "Network locations were anonymized. This publication copy is not an original byte-for-byte field capture."
 }

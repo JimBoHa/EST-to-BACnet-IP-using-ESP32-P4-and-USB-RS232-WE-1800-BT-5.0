@@ -1,5 +1,8 @@
 # Continue the EST3 monitoring system to verified site completion
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 This is a continuation of an implemented, hardware-tested project. Work from the supplied private handoff bundle and existing repository. Do not restart the design, provision new credentials, or stop at another plan. The owner wants a fully functional supplemental monitoring system exposing **everything that can be reliably obtained from this installed EST panel**, through a searchable device/event service and individual native Metasys points and graphics.
 
 First read `START_HERE.md`, this file, `COMPLETION_PLAN.md`, and `TRANSFER.md` in the bundle. Verify the bundle with `restore.py`, restore it to a new local workspace, then read the restored repository's `STATUS.md`, `docs/FIELD_CONNECTION_TEST.md`, `docs/SERIAL_DIAGNOSTICS.md`, `docs/PICS.md`, and `docs/TEST_MATRIX.csv`. `BUNDLE_MANIFEST.json` records the source commit, toolchain pins, file hashes, and latest connectivity observation. The `original-spec/` directory preserves the detailed original requirements, drawings, manuals and reference reviews. Its old session prompt is historical; newer verified facts below take precedence.
@@ -17,7 +20,7 @@ No USB-C recovery is available at the deployed controller. Preserve Ethernet man
 - Repository: `https://github.com/JimBoHa/EST-to-BACnet-IP-using-ESP32-P4-and-USB-RS232-WE-1800-BT-5.0`. The repository was already renamed from its former Pico2 name. Code/evidence through `6aab69c06fad794c3c9f9b0706963a6ccc28eb92` were pushed; the bundle includes a later handoff commit, identified in its manifest.
 - Controller: Waveshare **ESP32-P4-WIFI6-POE-ETH**, P4 silicon revision **1.3**, 32 MB flash, 32 MB PSRAM. Native EMAC + IP101 PHY, MDC GPIO31, MDIO GPIO52, PHY reset GPIO51, PHY address 1, external RMII clock. Use the pre-v3 P4 configuration already committed.
 - Power: PoE; USB-C disconnected and unavailable. No Wi-Fi. USB-A hosts the FTDI cable. Do not return to the obsolete ESP32-S3, Pico2, SC16IS752 or W5500 architecture.
-- MAC: `e8:f6:0a:e4:1f:e8`; DHCP hostname `est3-p4-e41fe8`; last verified IP **192.168.75.157**. This is a DHCP lease, not a guaranteed permanent address. The previous Mac reached it from `192.168.2.34` through a router. The new machine needs an authorized route/VPN or placement on the site's network.
+- MAC: `e8:f6:0a:e4:1f:e8`; DHCP hostname `est3-p4-e41fe8`; last verified IP **192.0.2.157**. This is a DHCP lease, not a guaranteed permanent address. The previous Mac reached it from `192.168.2.34` through a router. The new machine needs an authorized route/VPN or placement on the site's network.
 - Converter: USB VID/PID **0403:6001**, bcdDevice 0600, product `USB-RS232-WE-1800-BT-5.0`, serial **ABBAWJDO**. Physical manufacturer identity/isolation and full electrical measurements are not independently certified.
 - Owner reports yellow adapter RX landed on panel **TX2**, black signal common on **COM2**, orange adapter TX disconnected. Other unused leads must be individually insulated; red is auxiliary +5 V, not panel power. Photos are included. Do not change this working connection or infer different wiring from photo perspective.
 - Installed application: **0.1.5**, project `est3_gateway_rxonly`, **ota_1**, last validated boot count **13**, explicitly confirmed. Receiver boots at **9600 baud, 8N1, no flow control**. API overrides are volatile. Serial payload transmission and ECP parsing remain disabled.
@@ -66,8 +69,8 @@ Pinned ESP-IDF is **v5.5.5**, commit `b774170ff46c393eeb5e495ea37936038d3f4f4f`;
 Use the project Python environment for:
 
 ```text
-python tools/gateway_client.py --host 192.168.75.157 status
-python tools/bench_bacnet.py --host 192.168.75.157 --local-ip YOUR_ROUTED_IP --output private/new-bacnet-check.json
+python tools/gateway_client.py --host 192.0.2.157 status
+python tools/bench_bacnet.py --host 192.0.2.157 --local-ip YOUR_ROUTED_IP --output private/new-bacnet-check.json
 ```
 
 The existing uploader signs locally, checks the full running ELF hash against the application descriptor, and confirms a healthy boot after 10 seconds. A new image not confirmed within 180 seconds rolls back. Timeout rollback and invalid/interrupted update tests already passed on the disconnected bench; do not casually repeat disruption tests on the attached live panel. Firmware 0.1.2 had a truncated-hash defect and must not be selected as a working recovery release. 0.1.4 and 0.1.5 field-route updates passed without USB.

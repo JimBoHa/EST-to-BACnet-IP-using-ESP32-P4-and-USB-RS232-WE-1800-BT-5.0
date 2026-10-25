@@ -1,6 +1,6 @@
 {
   "observed_at": "2026-09-29T00:02:08.130679+00:00",
-  "host": "192.168.75.157",
+  "host": "192.0.2.157",
   "owner_confirmation": {
     "yellow": "Panel TX2, per owner confirmation of prior instructions",
     "black": "Panel COM2, per owner confirmation of prior instructions",
@@ -30,7 +30,7 @@
     "version": "0.1.3",
     "elf_sha256": "c601654d378a81ca734ddff2e1897c7c7bf5b6a982d19d2cf80a353173bdaac3",
     "partition": "ota_1",
-    "ip": "192.168.75.157",
+    "ip": "192.0.2.157",
     "protocol": "DISABLED_NO_VERIFIED_ECP_PROFILE",
     "serial_payload_tx_enabled": false,
     "simulation": false,
@@ -52,5 +52,6 @@
     "registry_ok": true,
     "registry_epoch": 0,
     "device_count": 0
-  }
+  },
+  "_publication_privacy_notice": "Network locations were anonymized. This publication copy is not an original byte-for-byte field capture."
 }

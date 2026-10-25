@@ -1,5 +1,8 @@
 # Receive-only serial diagnostics
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 Firmware 0.1.4 adds authenticated diagnostics for the FT232 at USB VID/PID `0403:6001`, interface 0. The gateway still has no serial payload transmitter or ECP parser. The pinned FTDI/CDC dependency sources remain unchanged.
 
 ## What is measured
@@ -27,7 +30,7 @@ The pinned Espressif FTDI 2.1.1 source uses request `0x02` and masks `0x10`/`0x2
 
 ```sh
 .venv/bin/python tools/diagnose_serial.py \
-  --host 192.168.75.157 --rates 19200 9600 --seconds 30 \
+  --host 192.0.2.157 --rates 19200 9600 --seconds 30 \
   --raw-output private/serial-diagnostics-new.json \
   --summary-output evidence/serial-diagnostics-new.json
 ```

@@ -1,6 +1,6 @@
 {
   "recorded_utc": "2026-09-29T00:35:34.438524+00:00",
-  "host": "192.168.75.157",
+  "host": "192.0.2.157",
   "firmware": "0.1.4",
   "boot_count": 12,
   "owner_action": "Revision Levels report sent to Printer 2 twice",
@@ -51,5 +51,6 @@
     "line_error_packet_delta": 0,
     "usb_errors_delta": 0,
     "rx_drops_delta": 0
-  }
+  },
+  "_publication_privacy_notice": "Network locations were anonymized. This publication copy is not an original byte-for-byte field capture."
 }

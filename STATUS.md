@@ -1,10 +1,13 @@
 # Tested first draft — Ethernet update and rollback verified
 
+> Privacy note: network addresses in this publication copy are anonymized examples. Original site records are kept outside this repository.
+
+
 Updated 2026-09-28. Original Desktop ZIP and supplied NEXT_SESSION_PROMPT.md reviewed; ZIP CRC and SHA-256 manifest verified. Source, firmware, host, simulation, schemas, migrations and executable tests are in this repository.
 
 **Handoff preparation note:** a later read-only connection attempt on 2026-09-29 UTC timed out before authentication. No device/panel changes were made; current reachability must be checked from the next machine. The successful firmware/report results below remain the last verified field state, not a claim of a fresh connection. A complete macOS continuation prompt, completion plan and private-bundle restore tools are under [handoff/](handoff/START_HERE.md).
 
-**Current field observation:** the device at **192.168.75.157** runs **0.1.5**, remotely installed and confirmed on `ota_1`, boot count **13**, with a verified **9600 8N1 boot default**. With 0.1.4, the owner's first Printer 2 Revision Levels output produced framing errors at 19200; repeating at 9600 delivered readable reports without capture gaps or new UART/USB errors/drops. The initial 3,564-byte capture contained two complete 1,782-byte reports; continued listening captured a third, totaling **5,346 clean bytes**. Panel printer-report reception is confirmed; real-time EST state decoding remains unimplemented. Owner confirms yellow to TX2, black to COM2 and orange disconnected. See [field results](docs/FIELD_CONNECTION_TEST.md) and [receiver diagnostics](docs/SERIAL_DIAGNOSTICS.md).
+**Current field observation:** the device at **192.0.2.157** runs **0.1.5**, remotely installed and confirmed on `ota_1`, boot count **13**, with a verified **9600 8N1 boot default**. With 0.1.4, the owner's first Printer 2 Revision Levels output produced framing errors at 19200; repeating at 9600 delivered readable reports without capture gaps or new UART/USB errors/drops. The initial 3,564-byte capture contained two complete 1,782-byte reports; continued listening captured a third, totaling **5,346 clean bytes**. Panel printer-report reception is confirmed; real-time EST state decoding remains unimplemented. Owner confirms yellow to TX2, black to COM2 and orange disconnected. See [field results](docs/FIELD_CONNECTION_TEST.md) and [receiver diagnostics](docs/SERIAL_DIAGNOSTICS.md).
 
 **After the 0.1.5 reboot**, the owner's final report test produced **two further complete reports / 3,564 bytes**, with no capture gaps, USB/UART errors or drops. Independent BACnet reads passed, and an authenticated read at 180 seconds uptime showed the same confirmed boot. Five complete reports were captured across the two firmware versions at 9600; no raw site report text is published.
 
@@ -38,7 +41,7 @@ The capacity and native BACnet results are software evidence. Short idle observa
 
 ## Current access and next checks
 
-Board is now at `192.168.75.157`, reachable from the Mac at `192.168.2.34`. USB-C remains unavailable; the owner reports panel attachment and FTDI remains connected. Read status with `tools/gateway_client.py`. The address is a DHCP lease; rediscover by Device 3899000 / MAC `e8:f6:0a:e4:1f:e8` if it changes, then verify the saved TLS certificate before authenticating. Recent work installed receiver diagnostics and changed only adapter receiver settings; no serial payload or operational command was sent to the panel. Disconnected-bench disruption tests are not appropriate to this reported attachment state.
+Board is now at `192.0.2.157`, reachable from the Mac at `192.168.2.34`. USB-C remains unavailable; the owner reports panel attachment and FTDI remains connected. Read status with `tools/gateway_client.py`. The address is a DHCP lease; rediscover by Device 3899000 / MAC `e8:f6:0a:e4:1f:e8` if it changes, then verify the saved TLS certificate before authenticating. Recent work installed receiver diagnostics and changed only adapter receiver settings; no serial payload or operational command was sent to the panel. Disconnected-bench disruption tests are not appropriate to this reported attachment state.
 
 Remote application updates and rollback were verified on the previous bench LAN; 0.1.4 and 0.1.5 updates and confirmations also passed across the field-network route. Bootloader/partition-table changes and physical hardware faults are outside that recovery path. An extended mixed-load soak remains outstanding. Preserve the private keys and known-good release images. See [actual Ethernet results](docs/ETHERNET_TEST_REPORT.md).
 
